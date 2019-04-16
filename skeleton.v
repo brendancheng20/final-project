@@ -107,6 +107,5 @@ module skeleton(clock, reset, reg1Button, reg2Button, reg3Button, reg4Button);
 //	 output[31:0] ALUA, ALUB, outA, xout;
 //	 output bypass, isLessThan, branchtaken;
 //	 output[31:0] data_reg1;
-//	 input reg1Button, reg2Button, reg3Button, reg4Button;
 
 endmodule
