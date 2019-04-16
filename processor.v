@@ -7,7 +7,7 @@
  * clock: this is the clock for your processor at 50 MHz
  * reset: we should be able to assert a reset to start your pc from 0 (sync or
  * async is fine)
- //*
+ *
  * Imem: input data from imem
  * Dmem: input data from dmem
  * Regfile: input data from regfile
@@ -70,8 +70,9 @@ module processor(
     data_writeReg,                  // O: Data to write to for regfile
     data_readRegA,                  // I: Data from port A of regfile
     data_readRegB,                  // I: Data from port B of regfile
-	 mw_out, fd, dx, xm, mw, A, B, ishazard, thispc, branchPCOut, outputOFALU, jalreg, ALUINA, ALUINB, outA, xout, firstABypass,
-	 ALU_LT, branchistaken // REMOVE
+	 thispc
+//	 mw_out, fd, dx, xm, mw, A, B, ishazard, thispc, branchPCOut, outputOFALU, jalreg, ALUINA, ALUINB, outA, xout, firstABypass,
+//	 ALU_LT, branchistaken // REMOVE
 );
     // Control signals
     input clock, reset;
@@ -338,35 +339,38 @@ module processor(
 	 
 	 /* TESTING WIRES */
 	 
-	 output[31:0] fd, dx, xm, mw, mw_out, A, B;
-	 output ishazard;
 	 output[11:0] thispc;
-	 assign fd = f_insn;
-	 assign dx = d_insn;
-	 assign xm = x_insn;
-	 assign mw = m_insn;
-	 assign mw_out = data_writeReg;
-	 assign A = d_A;
-	 assign B = d_B;
-	 assign ishazard = takeBranch_resolve;
 	 assign thispc = curr_pc;
-	 output[11:0] branchPCOut;
-	 assign branchPCOut = branch_pc_resolve;
-	 output[31:0] outputOFALU;
-	 assign outputOFALU = x_out;
-	 output[31:0] jalreg;
-	 assign jalreg = jal_regVal;
-	 output[31:0] ALUINA, ALUINB, outA;
-	 assign ALUINA = ALU_A;
-	 assign ALUINB = ALU_BXM;
-	 assign outA = ALU_out;
-	 output[31:0] xout;
-	 assign xout = x_out;
-	 output firstABypass;
-	 assign firstABypass = bypassXM;
-	 output ALU_LT;
-	 assign ALU_LT = isLessThan;
-	 output branchistaken;
-	 assign branchistaken = takeBranch_resolve;
+	 
+//	 output[31:0] fd, dx, xm, mw, mw_out, A, B;
+//	 output ishazard;
+//	 output[11:0] thispc;
+//	 assign fd = f_insn;
+//	 assign dx = d_insn;
+//	 assign xm = x_insn;
+//	 assign mw = m_insn;
+//	 assign mw_out = data_writeReg;
+//	 assign A = d_A;
+//	 assign B = d_B;
+//	 assign ishazard = takeBranch_resolve;
+//	 assign thispc = curr_pc;
+//	 output[11:0] branchPCOut;
+//	 assign branchPCOut = branch_pc_resolve;
+//	 output[31:0] outputOFALU;
+//	 assign outputOFALU = x_out;
+//	 output[31:0] jalreg;
+//	 assign jalreg = jal_regVal;
+//	 output[31:0] ALUINA, ALUINB, outA;
+//	 assign ALUINA = ALU_A;
+//	 assign ALUINB = ALU_BXM;
+//	 assign outA = ALU_out;
+//	 output[31:0] xout;
+//	 assign xout = x_out;
+//	 output firstABypass;
+//	 assign firstABypass = bypassXM;
+//	 output ALU_LT;
+//	 assign ALU_LT = isLessThan;
+//	 output branchistaken;
+//	 assign branchistaken = takeBranch_resolve;
 	 
 endmodule
