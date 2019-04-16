@@ -10,14 +10,14 @@ module execute(A, B, insn, pc, ALU_out, ovf, lt, neq, branch_pc, jump_pc);
 	wire addi; // control signal for I-type insn vs any other type
 	wire[4:0] opcode_in; // opcode inputted to ALU
 	wire[31:0] operandB; // operand inputted to B port of ALU
-	wire[31:0] immed, immedShift; // sign extended immediate, from I field of insn
+	wire[31:0] immed; // sign extended immediate, from I field of insn
 	wire[31:0] pc_plus_i; // 32-bit representation of PC to jump to if branch taken
 	
 	sign_extend sx(insn[16:0], immed);
 	
 	assign operandB = addi ? immed : B;
 	assign jump_pc = insn[11:0]; // lower 12 bits of jump instruction
-	assign immedShift = immed << 2; // shift immed left 2 for branch insn
+//	assign immedShift = immed << 2; // shift immed left 2 for branch insn
 	
 	adder32bit pc_adder(.in1(pc), .in2(immed), .cout(), .sum(pc_plus_i)); // add I field to pc for branch
 	

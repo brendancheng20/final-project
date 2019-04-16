@@ -10,12 +10,12 @@
  */
 
 //module skeleton(clock, reset);
-//module skeleton(clock, reset, Aoverride, override, dataA, fd_insn, insn);
-module skeleton(clock, reset, data_reg3,
-					 fd, dx, xm, mw, fdout, A, B, data_reg4, assertHazard, currpc, branchout, readA, readB, ALUOUT, jalreg,
-					 ALUA, ALUB, outA, xout,bypass, isLessThan, branchtaken, reg1Button, data_reg1,
-					 reg2Button, reg3Button, reg4Button);
-    input clock, reset;
+module skeleton(clock, reset, reg1Button, reg2Button, reg3Button, reg4Button);
+//module skeleton(clock, reset, data_reg3,
+//					 fd, dx, xm, mw, fdout, A, B, data_reg4, assertHazard, currpc, branchout, readA, readB, ALUOUT, jalreg,
+//					 ALUA, ALUB, outA, xout,bypass, isLessThan, branchtaken, reg1Button, data_reg1,
+//					 reg2Button, reg3Button, reg4Button);
+    input clock, reset, reg1Button, reg2Button, reg3Button, reg4Button;
 
     /** IMEM **/
     // Figure out how to generate a Quartus syncram component and commit the generated verilog file.
@@ -60,8 +60,8 @@ module skeleton(clock, reset, data_reg3,
         data_writeReg,
         data_readRegA,
         data_readRegB,
-		  reg1Button, reg2Button, reg3Button, reg4Button,
-		  data_reg3, data_reg4, data_reg1
+		  reg1Button, reg2Button, reg3Button, reg4Button
+//		  data_reg3, data_reg4, data_reg1
     );
 
     /** PROCESSOR **/
@@ -87,26 +87,26 @@ module skeleton(clock, reset, data_reg3,
         ctrl_readRegB,                  // O: Register to read from port B of regfile
         data_writeReg,                  // O: Data to write to for regfile
         data_readRegA,                  // I: Data from port A of regfile
-        data_readRegB,                   // I: Data from port B of regfile
-		  fdout, fd, dx, xm, mw, A, B, assertHazard, currpc, branchout, ALUOUT,jalreg, ALUA, ALUB, outA, xout, bypass,
-		  isLessThan, branchtaken
+        data_readRegB                   // I: Data from port B of regfile
+//		  fdout, fd, dx, xm, mw, A, B, assertHazard, currpc, branchout, ALUOUT,jalreg, ALUA, ALUB, outA, xout, bypass,
+//		  isLessThan, branchtaken
 	 );
 	 
 	 /* TESTING WIRES TO BE DELETED */
-	 output[31:0] data_reg3, data_reg4;
-	 output[11:0] currpc;
-	 output[31:0] fd, dx, xm, mw;
-	 output[31:0] fdout, A, B;
-	 output assertHazard;
-	 output[11:0] branchout;
-	 output[4:0] readA, readB;
-	 assign readA = ctrl_readRegA;
-	 assign readB = ctrl_readRegB;
-	 output[31:0] ALUOUT;
-	 output[31:0] jalreg;
-	 output[31:0] ALUA, ALUB, outA, xout;
-	 output bypass, isLessThan, branchtaken;
-	 output[31:0] data_reg1;
-	 input reg1Button, reg2Button, reg3Button, reg4Button;
+//	 output[31:0] data_reg3, data_reg4;
+//	 output[11:0] currpc;
+//	 output[31:0] fd, dx, xm, mw;
+//	 output[31:0] fdout, A, B;
+//	 output assertHazard;
+//	 output[11:0] branchout;
+//	 output[4:0] readA, readB;
+//	 assign readA = ctrl_readRegA;
+//	 assign readB = ctrl_readRegB;
+//	 output[31:0] ALUOUT;
+//	 output[31:0] jalreg;
+//	 output[31:0] ALUA, ALUB, outA, xout;
+//	 output bypass, isLessThan, branchtaken;
+//	 output[31:0] data_reg1;
+//	 input reg1Button, reg2Button, reg3Button, reg4Button;
 
 endmodule
