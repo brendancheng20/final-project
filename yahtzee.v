@@ -1,5 +1,6 @@
 module yahtzee(clock, reset, reg1Button, reg2Button, reg3Button, reg4Button);
-//module yahtzee(clock, reset, reg1Button, reg2Button, reg3Button, reg4Button, currpc);
+//module yahtzee(clock, reset, reg1Button, reg2Button, reg3Button, reg4Button, currpc, data_reg1, A, B,
+//					fd, dx, xm, mw, data_reg2);
 /*		yahtzee module is top-level module in project. Contains the processor (in the form of a skeleton module, based
  *		on the processor project checkpoint) and other behavioral Verilog modules used for other project purposes, such
  *		as I/O.

@@ -11,6 +11,8 @@
 
 //module skeleton(clock, reset);
 module skeleton(clock, reset, reg1Button, reg2Button, reg3Button, reg4Button);
+//module skeleton(clock, reset, reg1Button, reg2Button, reg3Button, reg4Button, currpc, data_reg1, A, B,
+//					fd, dx, xm, mw, data_reg2);
 //module skeleton(clock, reset, data_reg3,
 //					 fd, dx, xm, mw, fdout, A, B, data_reg4, assertHazard, currpc, branchout, readA, readB, ALUOUT, jalreg,
 //					 ALUA, ALUB, outA, xout,bypass, isLessThan, branchtaken, reg1Button, data_reg1,
@@ -88,8 +90,8 @@ module skeleton(clock, reset, reg1Button, reg2Button, reg3Button, reg4Button);
         data_writeReg,                  // O: Data to write to for regfile
         data_readRegA,                  // I: Data from port A of regfile
         data_readRegB                   // I: Data from port B of regfile
-//		  fdout, fd, dx, xm, mw, A, B, assertHazard, currpc, branchout, ALUOUT,jalreg, ALUA, ALUB, outA, xout, bypass,
-//		  isLessThan, branchtaken
+//        data_readRegB,                   // I: Data from port B of regfile
+//		  currpc, A, B, fd, dx, xm, mw
 	 );
 	 
 	 /* TESTING WIRES TO BE DELETED */
@@ -106,6 +108,6 @@ module skeleton(clock, reset, reg1Button, reg2Button, reg3Button, reg4Button);
 //	 output[31:0] jalreg;
 //	 output[31:0] ALUA, ALUB, outA, xout;
 //	 output bypass, isLessThan, branchtaken;
-//	 output[31:0] data_reg1;
+//	 output[31:0] data_reg1, A, B, fd, dx, xm, mw, data_reg2;
 
 endmodule

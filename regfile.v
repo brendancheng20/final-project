@@ -8,6 +8,10 @@ module regfile (
 //	 data_reg3, data_reg4, data_reg1
 );
 
+// TODO Implement design such that button push writes to corresponding register @posedge. Also
+// Update software so that upon jumping to new screen, resets register value to 0. That way
+// Register will be nonzero for long enough that a branch will read the value but then it wont keep
+// setting to 1 if button is pushed for longer
 /*
  * 4/16/19: Updated so $r1, $r2, $r3, $r4 are asynchronous buttons for gameplay
  */
@@ -24,7 +28,9 @@ module regfile (
 //	output[31:0] data_reg3, data_reg4, data_reg1; // output of register 3, just for the sake of seeing how data gets stored
 //	assign data_reg3 = out3;
 //	assign data_reg4 = out4;
+//	output[31:0] data_reg1, data_reg2;
 //	assign data_reg1 = out1;
+//	assign data_reg2 = out2;
 	
 	/* END TESTING CODE */
 	
@@ -52,7 +58,7 @@ module regfile (
 	
 	/* Declare registers */
 	
-	register reg0(clock, 1'b0, 1'b1, 32'h00000000, out0); // TODO hardwire to ground
+	register reg0(clock, 1'b0, 1'b1, 32'h00000000, out0);
 	assign out1 = reg1Button ? 32'b1 : 32'b0;
 	assign out2 = reg2Button ? 32'b1 : 32'b0;
 	assign out3 = reg3Button ? 32'b1 : 32'b0;
