@@ -8,6 +8,9 @@ module regfile (
 //	 data_reg3, data_reg4, data_reg1
 );
 
+// TODO Implement counters for button registers so that data doesn't get asserted 10000000 times at one
+// button push
+
 /*
  * 4/16/19: Updated so $r1, $r2, $r3, $r4 are asynchronous buttons for gameplay
  */
@@ -52,7 +55,7 @@ module regfile (
 	
 	/* Declare registers */
 	
-	register reg0(clock, 1'b0, 1'b1, 32'h00000000, out0); // TODO hardwire to ground
+	register reg0(clock, 1'b0, 1'b1, 32'h00000000, out0);
 	assign out1 = reg1Button ? 32'b1 : 32'b0;
 	assign out2 = reg2Button ? 32'b1 : 32'b0;
 	assign out3 = reg3Button ? 32'b1 : 32'b0;
