@@ -70,7 +70,7 @@ module processor(
     data_writeReg,                  // O: Data to write to for regfile
     data_readRegA,                  // I: Data from port A of regfile
     data_readRegB,                  // I: Data from port B of regfile
-	 thispc
+	 thispc, A, B, fd, dx, xm, mw
 //	 mw_out, fd, dx, xm, mw, A, B, ishazard, thispc, branchPCOut, outputOFALU, jalreg, ALUINA, ALUINB, outA, xout, firstABypass,
 //	 ALU_LT, branchistaken // REMOVE
 );
@@ -341,17 +341,16 @@ module processor(
 	 
 	 output[11:0] thispc;
 	 assign thispc = curr_pc;
-	 
-//	 output[31:0] fd, dx, xm, mw, mw_out, A, B;
+	 output[31:0] fd, dx, xm, mw, A, B;
 //	 output ishazard;
 //	 output[11:0] thispc;
-//	 assign fd = f_insn;
-//	 assign dx = d_insn;
-//	 assign xm = x_insn;
-//	 assign mw = m_insn;
+	 assign fd = f_insn;
+	 assign dx = d_insn;
+	 assign xm = x_insn;
+	 assign mw = m_insn;
 //	 assign mw_out = data_writeReg;
-//	 assign A = d_A;
-//	 assign B = d_B;
+	 assign A = d_A;
+	 assign B = d_B;
 //	 assign ishazard = takeBranch_resolve;
 //	 assign thispc = curr_pc;
 //	 output[11:0] branchPCOut;

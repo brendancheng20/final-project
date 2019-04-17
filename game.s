@@ -21,6 +21,7 @@ nop
 start: nop # start of program
 # TODO Figure out how to interface buttons with registers
 bne $1 $0 prepgamesetting # if $1 gets toggled, jump to function for prepping game settings screen
+nop
 bne $2 $0 prepleader # if $2 gets toggled by selecting leaderboard, jump to function for prepping the screen
 
 j start # return to start of start loop if no branches were taken
@@ -62,12 +63,15 @@ j multiplayer
 
 ####################### SCREEN PREPARATION FUNCTIONS ############################
 
+##### All screen preparation functions stall until button is depressed
+
 #
 # function that clears registers and loads start screen upon jumping from
 # one screen back to start before actually jumping to start loop
 #
 prepstart: nop
-
+bne $1 $0 prepstart
+# prep code
 j start # return to start screen after clearing registers
 
 #
@@ -75,7 +79,8 @@ j start # return to start screen after clearing registers
 # leaderboard before actually jumping to leaderboard loop
 #
 prepleader: nop
-
+bne $2 $0 prepleader
+# prep code
 j leaderboard # jump to leaderboard after clearing registers
 
 #
@@ -83,5 +88,6 @@ j leaderboard # jump to leaderboard after clearing registers
 # from start but before game
 #
 prepgamesetting: nop
-
+bne $1 $0 prepgamesetting
+# prep code
 j gamesetting # jump to game setting screen

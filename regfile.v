@@ -4,7 +4,8 @@ module regfile (
     ctrl_reset, ctrl_writeReg,
     ctrl_readRegA, ctrl_readRegB, data_writeReg,
     data_readRegA, data_readRegB,
-	 reg1Button, reg2Button, reg3Button, reg4Button
+	 reg1Button, reg2Button, reg3Button, reg4Button,
+	 data_reg1, data_reg2
 //	 data_reg3, data_reg4, data_reg1
 );
 
@@ -28,7 +29,9 @@ module regfile (
 //	output[31:0] data_reg3, data_reg4, data_reg1; // output of register 3, just for the sake of seeing how data gets stored
 //	assign data_reg3 = out3;
 //	assign data_reg4 = out4;
-//	assign data_reg1 = out1;
+	output[31:0] data_reg1, data_reg2;
+	assign data_reg1 = out1;
+	assign data_reg2 = out2;
 	
 	/* END TESTING CODE */
 	
