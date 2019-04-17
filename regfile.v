@@ -8,9 +8,10 @@ module regfile (
 //	 data_reg3, data_reg4, data_reg1
 );
 
-// TODO Implement counters for button registers so that data doesn't get asserted 10000000 times at one
-// button push
-
+// TODO Implement design such that button push writes to corresponding register @posedge. Also
+// Update software so that upon jumping to new screen, resets register value to 0. That way
+// Register will be nonzero for long enough that a branch will read the value but then it wont keep
+// setting to 1 if button is pushed for longer
 /*
  * 4/16/19: Updated so $r1, $r2, $r3, $r4 are asynchronous buttons for gameplay
  */

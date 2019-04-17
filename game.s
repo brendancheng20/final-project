@@ -1,10 +1,13 @@
+# Use $1, $2, $3, $4 as signal registers - asynchronous button toggles that control
+# flow of program. Button inputs directly to regfile in processor, branch
+# instructions handle the rest
 #
+# At each new screen, need to load screen from memory
 #
-#
-#
-#
-#
-#
+# TODO Implement design such that button push writes to corresponding register @posedge. Also
+# Update software so that upon jumping to new screen, resets register value to 0. That way
+# Register will be nonzero for long enough that a branch will read the value but then it wont keep
+# setting to 1 if button is pushed for longer
 #
 #
 #
@@ -61,7 +64,7 @@ j multiplayer
 
 #
 # function that clears registers and loads start screen upon jumping from
-# one screen back to start before actually jumping to start
+# one screen back to start before actually jumping to start loop
 #
 prepstart: nop
 
@@ -69,7 +72,7 @@ j start # return to start screen after clearing registers
 
 #
 # function that clears registers and loads leaderboard screen upon jumping to
-# leaderboard before actually jumping to leaderboard
+# leaderboard before actually jumping to leaderboard loop
 #
 prepleader: nop
 
