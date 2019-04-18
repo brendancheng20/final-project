@@ -70,6 +70,7 @@ module processor(
     data_writeReg,                  // O: Data to write to for regfile
     data_readRegA,                  // I: Data from port A of regfile
     data_readRegB                  // I: Data from port B of regfile
+//	 thispc
 //	 mw_out, fd, dx, xm, mw, A, B, ishazard, thispc, branchPCOut, outputOFALU, jalreg, ALUINA, ALUINB, outA, xout, firstABypass,
 //	 ALU_LT, branchistaken // REMOVE
 );
