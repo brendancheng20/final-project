@@ -2,3 +2,4 @@
 !*.gitignore
 !*.v
 !*.tex
+!vgatest_2.qpf
