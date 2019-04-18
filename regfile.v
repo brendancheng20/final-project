@@ -4,7 +4,7 @@ module regfile (
     ctrl_reset, ctrl_writeReg,
     ctrl_readRegA, ctrl_readRegB, data_writeReg,
     data_readRegA, data_readRegB,
-	 reg1Button, reg2Button, reg3Button, reg4Button
+	 reg1Button, reg2Button, reg3Button, reg4Button, data30
 //	 data_reg3, data_reg4, data_reg1
 );
 
@@ -22,6 +22,9 @@ module regfile (
 	input reg1Button, reg2Button, reg3Button, reg4Button;
 
    output [31:0] data_readRegA, data_readRegB; // data read from regA, data read from regB
+	output[31:0] data30;
+	
+	assign data30 = out30;
 	
 	/* TESTING CODE FOR PROCESSOR - DELETE BEFORE SUBMISSION */
 	

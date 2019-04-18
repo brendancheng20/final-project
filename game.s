@@ -4,11 +4,7 @@
 #
 # At each new screen, need to load screen from memory
 #
-# TODO Implement design such that button push writes to corresponding register @posedge. Also
-# Update software so that upon jumping to new screen, resets register value to 0. That way
-# Register will be nonzero for long enough that a branch will read the value but then it wont keep
-# setting to 1 if button is pushed for longer
-#
+# Reserve $30 for toggling screen mux (aka loading different backgrounds)
 #
 #
 #
@@ -89,5 +85,6 @@ j leaderboard # jump to leaderboard after clearing registers
 #
 prepgamesetting: nop
 bne $1 $0 prepgamesetting
+addi $30 $0 1
 # prep code
 j gamesetting # jump to game setting screen

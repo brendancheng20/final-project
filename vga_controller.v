@@ -5,7 +5,8 @@ module vga_controller(iRST_n,
                       oVS,
                       b_data,
                       g_data,
-                      r_data);
+                      r_data,
+							 mif_toggle);
 
 	
 input iRST_n;
@@ -21,7 +22,7 @@ reg [18:0] ADDR;
 reg [23:0] bgr_data;
 wire VGA_CLK_n;
 wire [7:0] index;
-wire [23:0] bgr_data_raw;
+reg [23:0] bgr_data_raw;
 wire cBLANK_n,cHS,cVS,rst;
 ////
 assign rst = ~iRST_n;
@@ -57,8 +58,31 @@ img_data	img_data_inst (
 img_index	img_index_inst (
 	.address ( index ),
 	.clock ( iVGA_CLK ),
-	.q ( bgr_data_raw)
-	);	
+	.q ( gameboard_bgr)
+	);
+
+/********** Home screen data ********/
+
+input[31:0] mif_toggle; // Data from regfile $30 that toggles which mif file gets outputted
+
+wire[7:0] home_index;
+wire[23:0] gameboard_bgr, home_bgr;
+
+home_data homeData(.address(ADDR), .clock(VGA_CLK_n), .q(home_index));
+
+home_index homeIndex(.address(home_index), .clock(iVGA_CLK), .q(home_bgr));
+
+always @(*) begin
+	if (mif_toggle == 32'd1) begin
+		bgr_data_raw <= gameboard_bgr; 
+	end else begin
+		bgr_data_raw <= home_bgr;
+	end
+end
+
+
+/********** *****************/
+	
 //////
 //////latch valid data at falling edge;
 always@(posedge VGA_CLK_n) bgr_data <= bgr_data_raw;

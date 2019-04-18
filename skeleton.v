@@ -83,7 +83,8 @@ module skeleton(resetn,
 								 .oVS(VGA_VS),
 								 .b_data(VGA_B),
 								 .g_data(VGA_G),
-								 .r_data(VGA_R));
+								 .r_data(VGA_R),
+								 .mif_toggle(data30));
 	// integrating other skeleton
 	input reg1Button, reg2Button, reg3Button, reg4Button;
 
@@ -119,6 +120,7 @@ module skeleton(resetn,
     wire [4:0] ctrl_writeReg, ctrl_readRegA, ctrl_readRegB;
     wire [31:0] data_writeReg;
     wire [31:0] data_readRegA, data_readRegB;
+	 wire[31:0] data30;
 	 
     regfile my_regfile(
         ~clock,
@@ -130,7 +132,7 @@ module skeleton(resetn,
         data_writeReg,
         data_readRegA,
         data_readRegB,
-		  reg1Button, reg2Button, reg3Button, reg4Button
+		  reg1Button, reg2Button, reg3Button, reg4Button, data30
 //		  data_reg3, data_reg4, data_reg1
     );
 
