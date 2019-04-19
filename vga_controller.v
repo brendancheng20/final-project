@@ -62,6 +62,9 @@ assign VGA_CLK_n = ~iVGA_CLK;
 //	);
 
 wire[23:0] yahtzee_name;
+
+logo_data logod(.address(ADDR), .clock( VGA_CLK_n), .q(index));
+logo_index logoi(.address(index), .clock(iVGA_CLK), .q(yahtzee_name));
 	
 	
 /********** Determine row, column of screen that address points to *******/
@@ -90,7 +93,13 @@ input[31:0] mif_toggle; // Toggles to various data when various sprites should a
 								// $30 in processor
 
 always @(*) begin
-	
+	if (mif_toggle == 32'd0) begin
+		if ((x>63) && (x<559) && (y>81) && (y<186)) begin
+			bgr_data_raw <= yahtzee_name;
+		end else begin
+			bgr_data_raw <= 24'h150088;
+		end
+	end
 end
 
 
