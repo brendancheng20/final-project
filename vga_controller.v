@@ -45,39 +45,52 @@ end
 //////////////////////////
 //////INDEX addr.
 assign VGA_CLK_n = ~iVGA_CLK;
-img_data	img_data_inst (
-	.address ( ADDR ),
-	.clock ( VGA_CLK_n ),
-	.q ( index )
-	);
+//img_data	img_data_inst (
+//	.address ( ADDR ),
+//	.clock ( VGA_CLK_n ),
+//	.q ( index )
+//	);
+//	
+///////////////////////////
+////////Add switch-input logic here
+//	
+////////Color table output
+//img_index	img_index_inst (
+//	.address ( index ),
+//	.clock ( iVGA_CLK ),
+//	.q ( yahtzee_name )
+//	);
+
+wire[23:0] yahtzee_name;
 	
-/////////////////////////
-//////Add switch-input logic here
 	
-//////Color table output
-img_index	img_index_inst (
-	.address ( index ),
-	.clock ( iVGA_CLK ),
-	.q ( gameboard_bgr)
-	);
+/********** Determine row, column of screen that address points to *******/
 
-/********** Home screen data ********/
+reg[18:0] x, y;
 
-input[31:0] mif_toggle; // Data from regfile $30 that toggles which mif file gets outputted
-
-wire[7:0] home_index;
-wire[23:0] gameboard_bgr, home_bgr;
-
-home_data homeData(.address(ADDR), .clock(VGA_CLK_n), .q(home_index));
-
-home_index homeIndex(.address(home_index), .clock(iVGA_CLK), .q(home_bgr));
+initial
+begin
+	x <= 19'd0;
+	y <= 19'd0;
+end
 
 always @(*) begin
-	if (mif_toggle == 32'd1) begin
-		bgr_data_raw <= gameboard_bgr; 
-	end else begin
-		bgr_data_raw <= home_bgr;
-	end
+	x <= ADDR % 19'd640;
+	y <= (ADDR - x)/19'd640;
+end
+	
+/******* MIF Data toggle *********/
+// Initialize bgr_data_raw to background color
+initial
+begin
+	bgr_data_raw <= 24'h150088; // default color
+end
+
+input[31:0] mif_toggle; // Toggles to various data when various sprites should appear. Based on
+								// $30 in processor
+
+always @(*) begin
+	
 end
 
 

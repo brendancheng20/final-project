@@ -162,6 +162,8 @@ set_location_assignment PIN_W28 -to seg3[6]
 set_location_assignment PIN_W27 -to seg3[5]
 set_location_assignment PIN_Y26 -to seg3[4]
 set_location_assignment PIN_Y22 -to seg2[1]
+set_global_assignment -name VERILOG_FILE home_index.v
+set_global_assignment -name VERILOG_FILE home_data.v
 set_global_assignment -name MIF_FILE game.mif
 set_global_assignment -name VERILOG_FILE yahtzee.v
 set_global_assignment -name VERILOG_FILE xm_reg.v
