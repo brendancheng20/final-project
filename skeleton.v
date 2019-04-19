@@ -56,7 +56,7 @@ module skeleton(resetn,
 	PS2_Interface myps2(clock, resetn, ps2_clock, ps2_data, ps2_key_data, ps2_key_pressed, ps2_out);
 	
 	// lcd controller
-	lcd mylcd(clock, ~resetn, 1'b1, ps2_out, lcd_data, lcd_rw, lcd_en, lcd_rs, lcd_on, lcd_blon);
+	//lcd mylcd(clock, ~resetn, 1'b1, ps2_out, lcd_data, lcd_rw, lcd_en, lcd_rs, lcd_on, lcd_blon);
 	
 	// example for sending ps2 data to the first two seven segment displays
 	Hexadecimal_To_Seven_Segment hex1(ps2_out[3:0], seg1);

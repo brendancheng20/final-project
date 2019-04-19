@@ -41,6 +41,8 @@ begin
      ADDR<=19'd0;
   else if (cBLANK_n==1'b1)
      ADDR<=ADDR+1;
+	  x <= ADDR % 640;
+	  y <= (ADDR - x)/640;
 end
 //////////////////////////
 //////INDEX addr.
@@ -63,23 +65,19 @@ assign VGA_CLK_n = ~iVGA_CLK;
 
 wire[23:0] yahtzee_name;
 
-logo_data logod(.address(ADDR), .clock( VGA_CLK_n), .q(index));
+logo_data logod(.address(yahtzee_ctr), .clock( VGA_CLK_n), .q(index));
 logo_index logoi(.address(index), .clock(iVGA_CLK), .q(yahtzee_name));
 	
 	
 /********** Determine row, column of screen that address points to *******/
 
 reg[18:0] x, y;
-
+reg[18:0] yahtzee_ctr;
 initial
 begin
 	x <= 19'd0;
 	y <= 19'd0;
-end
-
-always @(*) begin
-	x <= ADDR % 19'd640;
-	y <= (ADDR - x)/19'd640;
+	yahtzee_ctr <= 19'd0;
 end
 	
 /******* MIF Data toggle *********/
@@ -92,22 +90,31 @@ end
 input[31:0] mif_toggle; // Toggles to various data when various sprites should appear. Based on
 								// $30 in processor
 
-always @(*) begin
-	if (mif_toggle == 32'd0) begin
-		if ((x>63) && (x<559) && (y>81) && (y<186)) begin
-			bgr_data_raw <= yahtzee_name;
-		end else begin
-			bgr_data_raw <= 24'h150088;
-		end
-	end
-end
+//always @(*) begin
+//	if (mif_toggle == 32'd0) begin
+		
+//	end
+//end
 
 
 /********** *****************/
 	
 //////
 //////latch valid data at falling edge;
-always@(posedge VGA_CLK_n) bgr_data <= bgr_data_raw;
+always@(posedge VGA_CLK_n) begin 
+if ((x>=63) && (x<559) && (y>=81) && (y<186)) begin
+			yahtzee_ctr = yahtzee_ctr + 1;
+			if (yahtzee_ctr >= 52080) begin
+				yahtzee_ctr = 0;
+			end
+//			bgr_data_raw <= 24'h120d20;
+			bgr_data_raw <= yahtzee_name;
+		end else begin
+			bgr_data_raw <= 24'h150088;
+		end
+bgr_data <= bgr_data_raw;
+end
+
 assign b_data = bgr_data[23:16];
 assign g_data = bgr_data[15:8];
 assign r_data = bgr_data[7:0]; 
