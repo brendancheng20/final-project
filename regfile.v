@@ -4,7 +4,9 @@ module regfile (
     ctrl_reset, ctrl_writeReg,
     ctrl_readRegA, ctrl_readRegB, data_writeReg,
     data_readRegA, data_readRegB,
-	 reg1Button, reg2Button, reg3Button, reg4Button, data30
+	 reg1Button, reg2Button, reg3Button, reg4Button,
+	 reg5Button, reg6Button, reg7Button,
+	 reg8Button, reg9Button, data30
 //	 data_reg3, data_reg4, data_reg1
 );
 
@@ -19,7 +21,8 @@ module regfile (
    input clock, ctrl_writeEnable, ctrl_reset;
    input [4:0] ctrl_writeReg, ctrl_readRegA, ctrl_readRegB; // write destination reg, read regA, read regB
    input [31:0] data_writeReg; // data to be written on write enable
-	input reg1Button, reg2Button, reg3Button, reg4Button;
+	input reg1Button, reg2Button, reg3Button, reg4Button, reg5Button;
+	input reg6Button, reg7Button, reg8Button, reg9Button;
 
    output [31:0] data_readRegA, data_readRegB; // data read from regA, data read from regB
 	output[31:0] data30;
@@ -66,15 +69,20 @@ module regfile (
 	assign out2 = reg2Button ? 32'b1 : 32'b0;
 	assign out3 = reg3Button ? 32'b1 : 32'b0;
 	assign out4 = reg4Button ? 32'b1 : 32'b0;
+	assign out5 = reg5Button ? 32'b1 : 32'b0;
+	assign out6 = reg6Button ? 32'b1 : 32'b0;
+	assign out7 = reg7Button ? 32'b1 : 32'b0;
+	assign out8 = reg8Button ? 32'b1 : 32'b0;
+	assign out9 = reg9Button ? 32'b1 : 32'b0;
 //	register reg1(clock, en1, ctrl_reset, data_writeReg, out1);
 //	register reg2(clock, en2, ctrl_reset, data_writeReg, out2);
 //	register reg3(clock, en3, ctrl_reset, data_writeReg, out3);
 //	register reg4(clock, en4, ctrl_reset, data_writeReg, out4);
-	register reg5(clock, en5, ctrl_reset, data_writeReg, out5);
-	register reg6(clock, en6, ctrl_reset, data_writeReg, out6);
-	register reg7(clock, en7, ctrl_reset, data_writeReg, out7);
-	register reg8(clock, en8, ctrl_reset, data_writeReg, out8);
-	register reg9(clock, en9, ctrl_reset, data_writeReg, out9);
+//	register reg5(clock, en5, ctrl_reset, data_writeReg, out5);
+//	register reg6(clock, en6, ctrl_reset, data_writeReg, out6);
+//	register reg7(clock, en7, ctrl_reset, data_writeReg, out7);
+//	register reg8(clock, en8, ctrl_reset, data_writeReg, out8);
+//	register reg9(clock, en9, ctrl_reset, data_writeReg, out9);
 	register reg10(clock, en10, ctrl_reset, data_writeReg, out10);
 	register reg11(clock, en11, ctrl_reset, data_writeReg, out11);
 	register reg12(clock, en12, ctrl_reset, data_writeReg, out12);
