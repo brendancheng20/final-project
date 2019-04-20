@@ -82,6 +82,34 @@ wire[23:0] playerButtonBGR;
 playerbutton_data pbdata(.address(playerButtonCtr), .clock(VGA_CLK_n), .q(playerButtonIndex));
 playerbutton_index pbindex(.address(playerButtonIndex), .clock(iVGA_CLK), .q(playerButtonBGR));
 	
+wire[7:0] firstrowIndex;
+reg[18:0] firstrowCtr;
+wire[23:0] firstrowBGR;
+
+firstrow_data frdata(.address(firstrowCtr), .clock(VGA_CLK_n), .q(firstrowIndex));
+firstrow_index frindex(.address(firstrowIndex), .clock(iVGA_CLK), .q(firstrowBGR));
+		
+wire[7:0] secondrowIndex;
+reg[18:0] secondrowCtr;
+wire[23:0] secondrowBGR;
+
+secondrow_data srdata(.address(secondrowCtr), .clock(VGA_CLK_n), .q(secondrowIndex));
+secondrow_index srindex(.address(secondrowIndex), .clock(iVGA_CLK), .q(secondrowBGR));
+	
+wire[7:0] thirdrowIndex;
+reg[18:0] thirdrowCtr;
+wire[23:0] thirdrowBGR;
+
+thirdrow_data trdata(.address(thirdrowCtr), .clock(VGA_CLK_n), .q(thirdrowIndex));
+thirdrow_index trindex(.address(thirdrowIndex), .clock(iVGA_CLK), .q(thirdrowBGR));
+	
+wire[7:0] emptydiceIndex;
+reg[18:0] emptydiceCtr;
+wire[23:0] emptydiceBGR;
+
+emptydice_data eddata(.address(emptydiceCtr), .clock(VGA_CLK_n), .q(emptydiceIndex));
+emptydice_index edindex(.address(emptydiceIndex), .clock(iVGA_CLK), .q(emptydiceBGR));
+	
 	
 /********** Determine row, column of screen that address points to *******/
 
@@ -94,6 +122,10 @@ begin
 	yahtzee_ctr <= 19'd0;
 	startButtonCtr <= 19'd0;
 	playerButtonCtr <= 19'd0;
+	firstrowCtr <= 19'd0;
+	secondrowCtr <= 19'd0;
+	thirdrowCtr <= 19'd0;
+	emptydiceCtr <= 19'd0;
 end
 	
 /******* MIF Data toggle *********/
@@ -122,6 +154,10 @@ if (ADDR == 0) begin
 	yahtzee_ctr = 0;
 	startButtonCtr = 0;
 	playerButtonCtr = 0;
+	firstrowCtr = 0;
+	secondrowCtr = 0;
+	thirdrowCtr = 0;
+	emptydiceCtr = 0;
 end
 if (mif_toggle == 32'b0) begin
 if ((x>=63) && (x<559) && (y>=81) && (y<186)) begin
@@ -141,13 +177,26 @@ end
 if (mif_toggle == 32'd1) begin
 	if ((x>=63) && (x<559) && (y>=81) && (y<186)) begin
 			yahtzee_ctr = yahtzee_ctr + 1;
-//			if (yahtzee_ctr >= 52080) begin
-//				yahtzee_ctr = 0;
-//			end
-//			bgr_data_raw <= 24'h120d20;
 			bgr_data_raw <= yahtzee_name;
 		end else if ((x>=230) && (x<399) && (y>=205) && (y<461)) begin
 			playerButtonCtr = playerButtonCtr + 1;
+			bgr_data_raw <= playerButtonBGR;
+	end else begin
+		bgr_data_raw <= 24'h150088;
+	end
+end
+if (mif_toggle == 32'd2) begin
+	if ((x>=18) && (x<617) && (y>=18) && (y<97)) begin
+			firstrowCtr = firstrowCtr + 1;
+			bgr_data_raw <= yahtzee_name;
+		end else if ((x>=31) && (x<615) && (y>=124) && (y<227)) begin
+			secondrowCtr = secondrowCtr + 1;
+			bgr_data_raw <= playerButtonBGR;
+	end else if ((x>=195) && (x<437) && (y>=239) && (y<302)) begin
+			thirdrowCtr = thirdrowCtr + 1;
+			bgr_data_raw <= playerButtonBGR;
+	end else if ((x>=4) && (x<635) && (y>=344) && (y<463)) begin
+			emptydiceCtr = emptydiceCtr + 1;
 			bgr_data_raw <= playerButtonBGR;
 	end else begin
 		bgr_data_raw <= 24'h150088;

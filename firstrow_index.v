@@ -4,7 +4,7 @@
 // MODULE: altsyncram 
 
 // ============================================================
-// File Name: playerbutton_index.v
+// File Name: firstrow_index.v
 // Megafunction Name(s):
 // 			altsyncram
 //
@@ -37,7 +37,7 @@
 // synopsys translate_off
 `timescale 1 ps / 1 ps
 // synopsys translate_on
-module playerbutton_index (
+module firstrow_index (
 	address,
 	clock,
 	q);
@@ -84,16 +84,16 @@ module playerbutton_index (
 		altsyncram_component.address_aclr_a = "NONE",
 		altsyncram_component.clock_enable_input_a = "BYPASS",
 		altsyncram_component.clock_enable_output_a = "BYPASS",
-		altsyncram_component.init_file = "../index_playerbuttons.mif",
+		altsyncram_component.init_file = "../index_firstrow.mif",
 		altsyncram_component.intended_device_family = "Cyclone IV E",
 		altsyncram_component.lpm_hint = "ENABLE_RUNTIME_MOD=NO",
 		altsyncram_component.lpm_type = "altsyncram",
-		altsyncram_component.numwords_a = 16,
+		altsyncram_component.numwords_a = 4,
 		altsyncram_component.operation_mode = "ROM",
 		altsyncram_component.outdata_aclr_a = "NONE",
 		altsyncram_component.outdata_reg_a = "UNREGISTERED",
 		altsyncram_component.ram_block_type = "M9K",
-		altsyncram_component.widthad_a = 4,
+		altsyncram_component.widthad_a = 2,
 		altsyncram_component.width_a = 24,
 		altsyncram_component.width_byteena_a = 1;
 
@@ -120,43 +120,43 @@ endmodule
 // Retrieval info: PRIVATE: JTAG_ENABLED NUMERIC "0"
 // Retrieval info: PRIVATE: JTAG_ID STRING "NONE"
 // Retrieval info: PRIVATE: MAXIMUM_DEPTH NUMERIC "0"
-// Retrieval info: PRIVATE: MIFfilename STRING "../index_playerbuttons.mif"
-// Retrieval info: PRIVATE: NUMWORDS_A NUMERIC "16"
+// Retrieval info: PRIVATE: MIFfilename STRING "../index_firstrow.mif"
+// Retrieval info: PRIVATE: NUMWORDS_A NUMERIC "4"
 // Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "2"
 // Retrieval info: PRIVATE: RegAddr NUMERIC "1"
 // Retrieval info: PRIVATE: RegOutput NUMERIC "0"
 // Retrieval info: PRIVATE: SYNTH_WRAPPER_GEN_POSTFIX STRING "0"
 // Retrieval info: PRIVATE: SingleClock NUMERIC "1"
 // Retrieval info: PRIVATE: UseDQRAM NUMERIC "0"
-// Retrieval info: PRIVATE: WidthAddr NUMERIC "4"
+// Retrieval info: PRIVATE: WidthAddr NUMERIC "2"
 // Retrieval info: PRIVATE: WidthData NUMERIC "24"
 // Retrieval info: PRIVATE: rden NUMERIC "0"
 // Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
 // Retrieval info: CONSTANT: ADDRESS_ACLR_A STRING "NONE"
 // Retrieval info: CONSTANT: CLOCK_ENABLE_INPUT_A STRING "BYPASS"
 // Retrieval info: CONSTANT: CLOCK_ENABLE_OUTPUT_A STRING "BYPASS"
-// Retrieval info: CONSTANT: INIT_FILE STRING "../index_playerbuttons.mif"
+// Retrieval info: CONSTANT: INIT_FILE STRING "../index_firstrow.mif"
 // Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Cyclone IV E"
 // Retrieval info: CONSTANT: LPM_HINT STRING "ENABLE_RUNTIME_MOD=NO"
 // Retrieval info: CONSTANT: LPM_TYPE STRING "altsyncram"
-// Retrieval info: CONSTANT: NUMWORDS_A NUMERIC "16"
+// Retrieval info: CONSTANT: NUMWORDS_A NUMERIC "4"
 // Retrieval info: CONSTANT: OPERATION_MODE STRING "ROM"
 // Retrieval info: CONSTANT: OUTDATA_ACLR_A STRING "NONE"
 // Retrieval info: CONSTANT: OUTDATA_REG_A STRING "UNREGISTERED"
 // Retrieval info: CONSTANT: RAM_BLOCK_TYPE STRING "M9K"
-// Retrieval info: CONSTANT: WIDTHAD_A NUMERIC "4"
+// Retrieval info: CONSTANT: WIDTHAD_A NUMERIC "2"
 // Retrieval info: CONSTANT: WIDTH_A NUMERIC "24"
 // Retrieval info: CONSTANT: WIDTH_BYTEENA_A NUMERIC "1"
-// Retrieval info: USED_PORT: address 0 0 4 0 INPUT NODEFVAL "address[3..0]"
+// Retrieval info: USED_PORT: address 0 0 2 0 INPUT NODEFVAL "address[1..0]"
 // Retrieval info: USED_PORT: clock 0 0 0 0 INPUT VCC "clock"
 // Retrieval info: USED_PORT: q 0 0 24 0 OUTPUT NODEFVAL "q[23..0]"
-// Retrieval info: CONNECT: @address_a 0 0 4 0 address 0 0 4 0
+// Retrieval info: CONNECT: @address_a 0 0 2 0 address 0 0 2 0
 // Retrieval info: CONNECT: @clock0 0 0 0 0 clock 0 0 0 0
 // Retrieval info: CONNECT: q 0 0 24 0 @q_a 0 0 24 0
-// Retrieval info: GEN_FILE: TYPE_NORMAL playerbutton_index.v TRUE
-// Retrieval info: GEN_FILE: TYPE_NORMAL playerbutton_index.inc FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL playerbutton_index.cmp FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL playerbutton_index.bsf FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL playerbutton_index_inst.v FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL playerbutton_index_bb.v FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL firstrow_index.v TRUE
+// Retrieval info: GEN_FILE: TYPE_NORMAL firstrow_index.inc FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL firstrow_index.cmp FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL firstrow_index.bsf FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL firstrow_index_inst.v FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL firstrow_index_bb.v FALSE
 // Retrieval info: LIB_FILE: altera_mf
