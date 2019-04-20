@@ -24,11 +24,10 @@ nop
 # Loop for instructsion at start of program
 #
 start: nop # start of program
-# TODO Figure out how to interface buttons with registers
 bne $1 $0 prepgamesetting # if $1 gets toggled, jump to function for prepping game settings screen
 nop
 bne $2 $0 prepleader # if $2 gets toggled by selecting leaderboard, jump to function for prepping the screen
-
+nop
 j start # return to start of start loop if no branches were taken
 
 
@@ -58,11 +57,11 @@ j gamesetting # If no options are chosen, return to start of loop
 # $2 assigned to hold die 2
 # $3 assigned to hold die 3
 # $4 assigned to hold die 4
-# $5 assigned to hold die 5 TODO make reg 5 asynchronous in regfile
-# $6 assigned to select left TODO make reg 6 asynchronous
-# $7 assigned to select right TODO make reg 7 asynchronous
-# $8 assigned to enter button TODO make reg 8 asynchronous
-# $9 assigned to roll button TODO make reg 9
+# $5 assigned to hold die 5
+# $6 assigned to select left
+# $7 assigned to select right
+# $8 assigned to enter button
+# $9 assigned to roll button
 # --------
 # $11 assigned to die 1 value
 # $12 assigned to die 2 value
@@ -90,11 +89,43 @@ j multiplayer
 
 ####################### GAME FUNCTIONS #########################################
 
+##### Roll functions
 # Roll remaining dice
 doroll: nop
 bne $9 $0 doroll
 nop
+bne $11 $0 roll1 # if die 1 is not set, roll die 1
+nop
+bne $12 $0 roll2
+nop
+bne $13 $0 roll3
+nop
+bne $14 $0 roll4
+nop
+bne $15 $0 roll5
+nop
+nop
 j singlegame
+
+roll1: nop
+# roll die 1. Use mult to get random number
+j doroll
+
+roll2: nop
+
+j doroll
+
+roll3: nop
+
+j doroll
+
+roll4: nop
+
+j doroll
+
+roll5: nop
+
+j doroll
 
 
 ####################### SCREEN PREPARATION FUNCTIONS ############################
@@ -135,7 +166,13 @@ j gamesetting # jump to game setting screen
 ##### Prep single player, multiplayer, and cpu will all be same but with different registers
 prepsingleplayer: nop
 bne $1 $0 prepsingleplayer
+# set screen register, clear dice registers
 addi $30 $0 3
+add $11 $0 $0
+add $12 $0 $0
+add $13 $0 $0
+add $14 $0 $0
+add $15 $0 $0
 nop
 j singlegame
 
