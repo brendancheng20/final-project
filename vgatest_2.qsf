@@ -162,6 +162,10 @@ set_location_assignment PIN_W28 -to seg3[6]
 set_location_assignment PIN_W27 -to seg3[5]
 set_location_assignment PIN_Y26 -to seg3[4]
 set_location_assignment PIN_Y22 -to seg2[1]
+set_global_assignment -name VERILOG_FILE playerbutton_index.v
+set_global_assignment -name VERILOG_FILE playerbutton_data.v
+set_global_assignment -name VERILOG_FILE startbutton_index.v
+set_global_assignment -name VERILOG_FILE startbutton_data.v
 set_global_assignment -name VERILOG_FILE logo_index.v
 set_global_assignment -name VERILOG_FILE logo_data.v
 set_global_assignment -name VERILOG_FILE home_index.v
@@ -249,4 +253,5 @@ set_global_assignment -name VERILOG_FILE dmem.v
 set_global_assignment -name VERILOG_FILE Altera_UP_PS2_Data_In.v
 set_global_assignment -name VERILOG_FILE Altera_UP_PS2_Command_Out.v
 set_global_assignment -name VECTOR_WAVEFORM_FILE newSkelTest.vwf
+set_location_assignment PIN_M21 -to reg1Button
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
