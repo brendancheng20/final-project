@@ -84,10 +84,14 @@ j gamesetting # If no options are chosen, return to start of loop
 # $18 index for array value in memory that stores whether or not the hand has
 #     been selected
 #
+# $29 = random value for die
+#
 # All button toggles have event handlers, which are specified in GAME FUNCTIONS
 #
 singlegame: nop
-bne $9 $0 doroll # Branch if roll is performed
+bne $9 $0 doroll # Branch if roll is to be performed
+nop
+
 j singlegame
 
 cpugame: nop
@@ -119,23 +123,36 @@ nop
 j singlegame
 
 roll1: nop
-# roll die 1. Use mult to get random number
+# roll die 1
+add $11 $0 $29
+nop
+nop
 j doroll
 
 roll2: nop
-
+add $12 $0 $29
+nop
+nop
+nop
 j doroll
 
 roll3: nop
-
+add $13 $0 $29
+nop
+nop
 j doroll
 
 roll4: nop
-
+add $14 $0 $29
+nop
+nop
+nop
+nop
 j doroll
 
 roll5: nop
-
+add $15 $0 $29
+nop
 j doroll
 
 
