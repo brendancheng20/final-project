@@ -6,7 +6,8 @@ module regfile (
     data_readRegA, data_readRegB,
 	 reg1Button, reg2Button, reg3Button, reg4Button,
 	 reg5Button, reg6Button, reg7Button,
-	 reg8Button, reg9Button, data30
+	 reg8Button, reg9Button, data30, die_val,
+	 r11, r12, r13, r14, r15
 //	 data_reg3, data_reg4, data_reg1
 );
 
@@ -28,6 +29,30 @@ module regfile (
 	output[31:0] data30;
 	
 	assign data30 = out30;
+	
+	reg[31:0] ctr; // used for rolling dice
+	reg[31:0] die_val;
+	initial
+	begin
+		ctr <= 0;
+		die_val <= 0;
+	end
+	
+	always @(posedge clock) begin
+		ctr <= ctr + 1;
+		if (ctr == 5000) begin
+			ctr <= 0;
+		end
+		die_val <= (ctr % 6) + 1;
+	end
+	
+	output[31:0] die_val, r11, r12, r13, r14, r15;
+
+	assign r11 = out11;
+	assign r12 = out12;
+	assign r13 = out13;
+	assign r14 = out14;
+	assign r15 = out15;
 	
 	/* TESTING CODE FOR PROCESSOR - DELETE BEFORE SUBMISSION */
 	
@@ -102,7 +127,8 @@ module regfile (
 	register reg26(clock, en26, ctrl_reset, data_writeReg, out26);
 	register reg27(clock, en27, ctrl_reset, data_writeReg, out27);
 	register reg28(clock, en28, ctrl_reset, data_writeReg, out28);
-	register reg29(clock, en29, ctrl_reset, data_writeReg, out29);
+	assign out29 = die_val;
+//	register reg29(clock, en29, ctrl_reset, data_writeReg, out29);
 	register reg30(clock, en30, ctrl_reset, data_writeReg, out30);
 	register reg31(clock, en31, ctrl_reset, data_writeReg, out31);
 	
