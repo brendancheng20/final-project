@@ -112,27 +112,34 @@ j multiplayer
 doroll: nop
 bne $9 $0 doroll
 nop
-bne $11 $0 roll1 # if die 1 is not set, roll die 1
-nop
-bne $12 $0 roll2
-nop
-bne $13 $0 roll3
-nop
-bne $14 $0 roll4
-nop
-bne $15 $0 roll5
+j roll1
+# bne $11 $0 roll1 # if die 1 is not set, roll die 1
+doneroll1: nop
+j roll2
+# bne $12 $0 roll2
+doneroll2: nop
+j roll3
+# bne $13 $0 roll3
+doneroll3: nop
+j roll4
+# bne $14 $0 roll4
+doneroll4: nop
+j roll5
+doneroll5: nop# bne $15 $0 roll5
 nop
 nop
 j singlegame
 
 roll1: nop
 # roll die 1
+bne $11 $0 doneroll1
 add $11 $0 $29
 nop
 nop
 j doroll
 
 roll2: nop
+bne $12 $0 doneroll2
 add $12 $0 $29
 nop
 nop
@@ -140,12 +147,14 @@ nop
 j doroll
 
 roll3: nop
+bne $13 $0 doneroll3
 add $13 $0 $29
 nop
 nop
 j doroll
 
 roll4: nop
+bne $14 $0 doneroll4
 add $14 $0 $29
 nop
 nop
@@ -154,6 +163,7 @@ nop
 j doroll
 
 roll5: nop
+bne $15 $0 doneroll5
 add $15 $0 $29
 nop
 j doroll

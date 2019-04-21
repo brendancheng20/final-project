@@ -13,7 +13,9 @@ module skeleton(resetn,
 	VGA_B,															//	VGA Blue[9:0]
 	CLOCK_50,
 	reg1Button, reg2Button, reg3Button, reg4Button, reg5Button,
-	reg6Button, reg7Button, reg8Button, reg9Button);  													// 50 MHz clock
+	reg6Button, reg7Button, reg8Button, reg9Button
+//	die1Val, currpc
+	);  													// 50 MHz clock
 		
 	////////////////////////	VGA	////////////////////////////
 	output			VGA_CLK;   				//	VGA Clock
@@ -177,6 +179,8 @@ module skeleton(resetn,
 //	 assign screen = data30;
 //	 output[31:0] counter;
 //	 assign counter = ctr;
+//	 output[31:0] die1Val;
+//	 assign die1Val = r11;
 	
 	
 endmodule
