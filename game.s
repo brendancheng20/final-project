@@ -26,6 +26,8 @@ nop
 start: nop # start of program
 bne $1 $0 prepgamesetting # if $1 gets toggled, jump to function for prepping game settings screen
 nop
+nop
+nop
 bne $2 $0 prepleader # if $2 gets toggled by selecting leaderboard, jump to function for prepping the screen
 nop
 j start # return to start of start loop if no branches were taken
@@ -44,8 +46,17 @@ j leaderboard # Jump to start of leaderboard loop if no branches were taken
 #
 gamesetting: nop
 bne $1 $0 prepsingleplayer # $1 toggles single player game
+nop
+nop
+nop
 bne $2 $0 prepmultiplayer # $2 toggle multiplayer game
+nop
+nop
+nop
 bne $3 $0 prepcpu # $3 toggles cpu game
+nop
+nop
+nop
 bne $4 $0 prepstart # $4 is back to start
 nop
 j gamesetting # If no options are chosen, return to start of loop
@@ -138,7 +149,11 @@ j doroll
 #
 prepstart: nop
 bne $1 $0 prepstart
+nop
+nop
+nop
 bne $4 $0 prepstart
+nop
 add $30 $0 $0
 # prep code
 j start # return to start screen after clearing registers
