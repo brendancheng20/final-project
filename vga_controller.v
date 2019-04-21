@@ -110,6 +110,20 @@ wire[23:0] emptydiceBGR;
 emptydice_data eddata(.address(emptydiceCtr), .clock(VGA_CLK_n), .q(emptydiceIndex));
 emptydice_index edindex(.address(emptydiceIndex), .clock(iVGA_CLK), .q(emptydiceBGR));
 	
+wire[7:0] leaderboardIndex;
+reg[18:0] leaderboardCtr;
+wire[23:0] leaderboardBGR;
+
+leaderboard_data lbdata(.address(leaderboardCtr), .clock(VGA_CLK_n), .q(leaderboardIndex));
+leaderboard_index lbindex(.address(leaderboardIndex), .clock(iVGA_CLK), .q(leaderboardBGR));
+	
+wire[7:0] rankingsIndex;
+reg[18:0] rankingsCtr;
+wire[23:0] rankingsBGR;
+	
+rankings_data rankingdata(.address(rankingsCtr), .clock(VGA_CLK_n), .q(rankingsIndex));
+rankings_index rankingindex(.address(rankingsIndex), .clock(iVGA_CLK), .q(rankingsBGR));
+	
 	
 /********** Determine row, column of screen that address points to *******/
 
@@ -126,6 +140,8 @@ begin
 	secondrowCtr <= 19'd0;
 	thirdrowCtr <= 19'd0;
 	emptydiceCtr <= 19'd0;
+	leaderboardCtr <= 19'd0;
+	rankingsCtr <= 19'd0;
 end
 	
 /******* MIF Data toggle *********/
@@ -158,9 +174,12 @@ if (ADDR < 5) begin
 	secondrowCtr = 0;
 	thirdrowCtr = 0;
 	emptydiceCtr = 0;
+	leaderboardCtr = 0;
+	rankingsCtr = 0;
 end
+// Start Screen
 if (mif_toggle == 32'b0) begin
-if ((x>=63) && (x<559) && (y>=81) && (y<186)) begin
+	if ((x>=63) && (x<559) && (y>=81) && (y<186)) begin
 			yahtzee_ctr = yahtzee_ctr + 1;
 //			if (yahtzee_ctr >= 52080) begin
 //				yahtzee_ctr = 0;
@@ -172,8 +191,9 @@ if ((x>=63) && (x<559) && (y>=81) && (y<186)) begin
 			bgr_data_raw <= startButtonBGR;
 		end else begin
 			bgr_data_raw <= 24'h150088;
-		end
+	end
 end
+// Player Select
 if (mif_toggle == 32'd1) begin
 	if ((x>=63) && (x<559) && (y>=81) && (y<186)) begin
 			yahtzee_ctr = yahtzee_ctr + 1;
@@ -181,13 +201,23 @@ if (mif_toggle == 32'd1) begin
 		end else if ((x>=230) && (x<399) && (y>=205) && (y<461)) begin
 			playerButtonCtr = playerButtonCtr + 1;
 			bgr_data_raw <= playerButtonBGR;
-	end else begin
-		bgr_data_raw <= 24'h150088;
+		end else begin
+			bgr_data_raw <= 24'h150088;
 	end
 end
+// Leaderboard
 if (mif_toggle == 32'd2) begin
-	bgr_data_raw <= 24'h946d29;
+	if ((x>=112) && (x<524) && (y>=58) && (y<149)) begin
+			leaderboardCtr = leaderboardCtr + 1;
+			bgr_data_raw <= leaderboardBGR;
+		end else if ((x>=122) && (x<185) && (y>=198) && (y<401)) begin
+			rankingsCtr = rankingsCtr + 1;
+			bgr_data_raw <= rankingsBGR;
+		end else begin
+			bgr_data_raw <= 24'h150088;
+	end
 end
+// GameBoard
 if (mif_toggle == 32'd3) begin
 	if ((x>=18) && (x<617) && (y>=18) && (y<97)) begin
 			firstrowCtr = firstrowCtr + 1;
@@ -195,14 +225,14 @@ if (mif_toggle == 32'd3) begin
 		end else if ((x>=31) && (x<615) && (y>=124) && (y<227)) begin
 			secondrowCtr = secondrowCtr + 1;
 			bgr_data_raw <= secondrowBGR;
-	end else if ((x>=195) && (x<437) && (y>=239) && (y<302)) begin
+		end else if ((x>=195) && (x<437) && (y>=239) && (y<302)) begin
 			thirdrowCtr = thirdrowCtr + 1;
 			bgr_data_raw <= thirdrowBGR;
-	end else if ((x>=4) && (x<635) && (y>=344) && (y<463)) begin
+		end else if ((x>=4) && (x<635) && (y>=344) && (y<463)) begin
 			emptydiceCtr = emptydiceCtr + 1;
 			bgr_data_raw <= emptydiceBGR;
-	end else begin
-		bgr_data_raw <= 24'h150088;
+		end else begin
+			bgr_data_raw <= 24'h150088;
 	end
 end
 bgr_data <= bgr_data_raw;
