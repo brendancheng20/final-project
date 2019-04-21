@@ -90,9 +90,12 @@ j gamesetting # If no options are chosen, return to start of loop
 #
 singlegame: nop
 bne $9 $0 doroll # Branch if roll is to be performed
-nop
-
+nop # jump to
 j singlegame
+
+checkhold: nop
+bne $9 $0 doroll # if roll is pressed
+j checkhold
 
 cpugame: nop
 
