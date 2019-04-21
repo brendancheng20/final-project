@@ -126,6 +126,48 @@ wire[23:0] rankingsBGR;
 	
 rankings_data rankingdata(.address(rankingsCtr), .clock(VGA_CLK_n), .q(rankingsIndex));
 rankings_index rankingindex(.address(rankingsIndex), .clock(iVGA_CLK), .q(rankingsBGR));
+
+wire[7:0] die1Index;
+reg[18:0] die1Ctr;
+wire[23:0] die1BGR;
+	
+die1_data die1data(.address(die1Ctr), .clock(VGA_CLK_n), .q(die1Index));
+die1_index die1index(.address(die1Index), .clock(iVGA_CLK), .q(die1BGR));
+
+wire[7:0] die2Index;
+reg[18:0] die2Ctr;
+wire[23:0] die2BGR;
+	
+die2_data die2data(.address(die2Ctr), .clock(VGA_CLK_n), .q(die2Index));
+die2_index die2index(.address(die2Index), .clock(iVGA_CLK), .q(die2BGR));
+
+wire[7:0] die3Index;
+reg[18:0] die3Ctr;
+wire[23:0] die3BGR;
+	
+die3_data die3data(.address(die3Ctr), .clock(VGA_CLK_n), .q(die3Index));
+die3_index die3index(.address(die3Index), .clock(iVGA_CLK), .q(die3BGR));
+
+wire[7:0] die4Index;
+reg[18:0] die4Ctr;
+wire[23:0] die4BGR;
+	
+die4_data die4data(.address(die4Ctr), .clock(VGA_CLK_n), .q(die4Index));
+die4_index die4index(.address(die4Index), .clock(iVGA_CLK), .q(die4BGR));
+
+wire[7:0] die5Index;
+reg[18:0] die5Ctr;
+wire[23:0] die5BGR;
+	
+die5_data die5data(.address(die5Ctr), .clock(VGA_CLK_n), .q(die5Index));
+die5_index die5index(.address(die5Index), .clock(iVGA_CLK), .q(die5BGR));
+
+wire[7:0] die6Index;
+reg[18:0] die6Ctr;
+wire[23:0] die6BGR;
+	
+die6_data die6data(.address(die6Ctr), .clock(VGA_CLK_n), .q(die6Index));
+die6_index die6index(.address(die6Index), .clock(iVGA_CLK), .q(die6BGR));
 	
 	
 /********** Determine row, column of screen that address points to *******/
@@ -145,6 +187,12 @@ begin
 	emptydiceCtr <= 19'd0;
 	leaderboardCtr <= 19'd0;
 	rankingsCtr <= 19'd0;
+	die1Ctr <= 19'd0;
+	die2Ctr <= 19'd0;
+	die3Ctr <= 19'd0;
+	die4Ctr <= 19'd0;
+	die5Ctr <= 19'd0;
+	die6Ctr <= 19'd0;
 end
 	
 /******* MIF Data toggle *********/
@@ -163,7 +211,9 @@ input[31:0] mif_toggle; // Toggles to various data when various sprites should a
 //	end
 //end
 
-
+reg[18:0] ctr1_1, ctr1_2, ctr1_3, ctr1_4, ctr1_5, ctr1_6, ctr2_1, ctr2_2, ctr2_3, ctr2_4, ctr2_5, ctr2_6,
+	ctr3_1, ctr3_2, ctr3_3, ctr3_4, ctr3_5, ctr3_6, ctr4_1, ctr4_2, ctr4_3, ctr4_4, ctr4_5, ctr4_6,
+	ctr5_1, ctr5_2, ctr5_3, ctr5_4, ctr5_5, ctr5_6;
 /********** *****************/
 	
 //////
@@ -179,6 +229,18 @@ if (ADDR < 5) begin
 	emptydiceCtr = 0;
 	leaderboardCtr = 0;
 	rankingsCtr = 0;
+	ctr1_1 = 0;
+	ctr1_2 = 0;
+	ctr1_3 = 0;
+	ctr1_4 = 0;
+	ctr1_5 = 0;
+	ctr1_6 = 0;
+	die1Ctr = 0;
+	die2Ctr = 0;
+	die3Ctr = 0;
+	die4Ctr = 0;
+	die5Ctr = 0;
+	die6Ctr = 0;
 end
 // Start Screen
 if (mif_toggle == 32'b0) begin
@@ -232,8 +294,77 @@ if (mif_toggle == 32'd3) begin
 			thirdrowCtr = thirdrowCtr + 1;
 			bgr_data_raw <= thirdrowBGR;
 		end else if ((x>=4) && (x<635) && (y>=344) && (y<463)) begin
+			if (die1 == 0) begin
 			emptydiceCtr = emptydiceCtr + 1;
 			bgr_data_raw <= emptydiceBGR;
+			end
+			else begin
+				if (die1 == 1) begin
+					if ((x>=7) && (x<127) && (y>=345) && (y<465)) begin
+					die1Ctr <= ctr1_1;
+					ctr1_1 = ctr1_1 + 1;
+					bgr_data_raw <= die1BGR;
+					end
+				end else if (die1 == 2) begin
+					if ((x>=7) && (x<130) && (y>=345) && (y<465)) begin
+					die2Ctr <= ctr1_2;
+					ctr1_2 = ctr1_2 + 1;
+					bgr_data_raw <= die2BGR;
+					end
+				end else if (die1 == 3) begin
+					if ((x>=7) && (x<132) && (y>=345) && (y<466)) begin
+					die3Ctr <= ctr1_3;
+					ctr1_3 = ctr1_3 + 1;
+					bgr_data_raw <= die3BGR;
+					end
+				end else if (die1 == 4) begin
+					if ((x>=7) && (x<131) && (y>=345) && (y<465)) begin
+					die4Ctr <= ctr1_4;
+					ctr1_4 = ctr1_4 + 1;
+					bgr_data_raw <= die4BGR;
+					end
+				end else if (die1 == 5) begin
+					if ((x>=7) && (x<129) && (y>=345) && (y<465)) begin
+					die5Ctr <= ctr1_5;
+					ctr1_5 = ctr1_5 + 1;
+					bgr_data_raw <= die5BGR;
+					end
+				end else if (die1 == 6) begin
+					if ((x>=7) && (x<130) && (y>=345) && (y<466)) begin
+					die6Ctr <= ctr1_6;
+					ctr1_6 = ctr1_6 + 1;
+					bgr_data_raw <= die6BGR;
+					end
+				end
+				if (die2 == 1) begin
+				end else if (die2 == 2) begin
+				end else if (die2 == 3) begin
+				end else if (die2 == 4) begin
+				end else if (die2 == 5) begin
+				end else if (die2 == 6) begin
+				end
+				if (die3 == 1) begin
+				end else if (die3 == 2) begin
+				end else if (die3 == 3) begin
+				end else if (die3 == 4) begin
+				end else if (die3 == 5) begin
+				end else if (die3 == 6) begin
+				end
+				if (die4 == 1) begin
+				end else if (die4 == 2) begin
+				end else if (die4 == 3) begin
+				end else if (die4 == 4) begin
+				end else if (die4 == 5) begin
+				end else if (die4 == 6) begin
+				end
+				if (die5 == 1) begin
+				end else if (die5 == 2) begin
+				end else if (die5 == 3) begin
+				end else if (die5 == 4) begin
+				end else if (die5 == 5) begin
+				end else if (die5 == 6) begin
+				end
+			end
 		end else begin
 			bgr_data_raw <= 24'h150088;
 	end
