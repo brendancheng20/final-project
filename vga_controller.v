@@ -150,7 +150,7 @@ input[31:0] mif_toggle; // Toggles to various data when various sprites should a
 //////
 //////latch valid data at falling edge;
 always@(posedge VGA_CLK_n) begin 
-if (ADDR == 0) begin
+if (ADDR < 5) begin
 	yahtzee_ctr = 0;
 	startButtonCtr = 0;
 	playerButtonCtr = 0;
@@ -186,18 +186,21 @@ if (mif_toggle == 32'd1) begin
 	end
 end
 if (mif_toggle == 32'd2) begin
+	bgr_data_raw <= 24'h946d29;
+end
+if (mif_toggle == 32'd3) begin
 	if ((x>=18) && (x<617) && (y>=18) && (y<97)) begin
 			firstrowCtr = firstrowCtr + 1;
-			bgr_data_raw <= yahtzee_name;
+			bgr_data_raw <= firstrowBGR;
 		end else if ((x>=31) && (x<615) && (y>=124) && (y<227)) begin
 			secondrowCtr = secondrowCtr + 1;
-			bgr_data_raw <= playerButtonBGR;
+			bgr_data_raw <= secondrowBGR;
 	end else if ((x>=195) && (x<437) && (y>=239) && (y<302)) begin
 			thirdrowCtr = thirdrowCtr + 1;
-			bgr_data_raw <= playerButtonBGR;
+			bgr_data_raw <= thirdrowBGR;
 	end else if ((x>=4) && (x<635) && (y>=344) && (y<463)) begin
 			emptydiceCtr = emptydiceCtr + 1;
-			bgr_data_raw <= playerButtonBGR;
+			bgr_data_raw <= emptydiceBGR;
 	end else begin
 		bgr_data_raw <= 24'h150088;
 	end
