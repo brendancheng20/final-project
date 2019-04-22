@@ -97,8 +97,8 @@ j singlegame
 afterroll: nop
 # Now check for dice to be held - only if still rolls left
 bne $19 $0 checkhold
-
-j singlegame
+bne $8 $0 nextturn
+j afterroll
 
 cpugame: nop
 
@@ -179,6 +179,7 @@ nop
 j doneroll4
 
 roll5: nop
+nop
 bne $15 $0 doneroll5
 add $15 $0 $29
 nop
@@ -306,3 +307,13 @@ bne $3 $0 prepcpu
 addi $30 $0 3
 nop
 j cpugame
+
+nextturn: nop
+bne $8 $0 nextturn
+addi $29 $0 3
+add $11 $0 $0
+add $12 $0 $0
+add $13 $0 $0
+add $14 $0 $0
+add $15 $0 $0
+j nextturn
