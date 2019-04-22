@@ -20,6 +20,7 @@
 #
 ########################### SCREENS #######################################
 nop
+addi $28 $0 12
 #
 # Loop for instructsion at start of program
 #
@@ -84,20 +85,41 @@ j gamesetting # If no options are chosen, return to start of loop
 # $18 index for array value in memory that stores whether or not the hand has
 #     been selected
 # $19 assigned to number of rolls taken this turn
+# $20 assigned to value of selector
+#       - set to -1 if nothing is selected
+#       - if >= 0, at least one hand has been selected
+# $21 assigned to selected value for that iteration
 #
+# $28 stores 12 for selector use
 # $29 = random value for die
 #
 # All button toggles have event handlers, which are specified in GAME FUNCTIONS
 #
 singlegame: nop
 # roll
-# bne $9 $0 doroll # Branch if roll is to be performed
-bne $19 $0 checkhold
+bne $9 $0 doroll # Branch if roll is to be performed
 j singlegame
 afterroll: nop
 # Now check for dice to be held - only if still rolls left
-bne $19 $0 checkhold
-bne $8 $0 nextturn
+nop
+bne $1 $0 hold1
+nop
+bne $2 $0 hold2
+nop
+bne $3 $0 hold3
+nop
+bne $4 $0 hold4
+nop
+bne $5 $0 hold5
+nop
+bne $6 $0 toggleleft
+nop
+bne $7 $0 toggleright
+nop
+bne $8 $0 selecthand
+nop
+bne $9 $0 doroll
+nop
 j afterroll
 
 cpugame: nop
@@ -140,7 +162,7 @@ j roll5
 doneroll5: nop# bne $15 $0 roll5
 nop
 nop
-j checkhold
+j afterroll
 
 roll1: nop
 # roll die 1
@@ -186,61 +208,69 @@ nop
 j doneroll5
 
 ##### Hold functions
-checkhold: nop
-bne $9 $0 doroll # if a roll is to be taken, go for it
-nop
-# Clear registers if hold button is touched
-bne $1 $0 hold1
-nop
-nop
-nop
-bne $2 $0 hold2
-nop
-nop
-nop
-bne $3 $0 hold3
-nop
-nop
-nop
-bne $4 $0 hold4
-nop
-nop
-nop
-bne $5 $0 hold5
-nop
-nop
-nop
-j checkhold
 
 hold1: nop
 bne $1 $0 hold1
 add $11 $0 $0
 nop
-j checkhold
+j afterroll
 
 hold2: nop
 bne $2 $0 hold2
 add $12 $0 $0
 nop
-j checkhold
+j afterroll
 
 hold3: nop
 bne $3 $0 hold3
 add $13 $0 $0
 nop
-j checkhold
+j afterroll
 
 hold4: nop
 bne $4 $0 hold4
 add $14 $0 $0
 nop
-j checkhold
+j afterroll
 
 hold5: nop
 bne $5 $0 hold5
 add $15 $0 $0
 nop
-j checkhold
+j afterroll
+
+#### Selection functions
+
+# Starting point for toggle left
+toggleleft: nop
+bne $6 $0 toggleleft
+nop
+addi $20 $20 -1 # subtract one to move left
+blt $20 $0 wrapleft # if subtraction takes us past 0, take us to right most point
+nop
+j afterroll
+wrapleft: nop
+addi $20 $0 12
+j afterroll
+
+# Starting point for toggle right
+toggleright: nop
+bne $7 $0 toggleright
+nop
+addi $20 $20 1
+blt $28 $20 wrapright # if $20 > 12, reset to position 0
+nop
+j afterroll
+wrapright: nop
+add $20 $0 $0
+j afterroll
+
+# Starting point for select hand
+selecthand: nop
+bne $8 $0 selecthand
+nop
+add $21 $0 $20 # set output register to $21
+j nextturn # TODO Change to score adding function before going to next turn
 
 
 ####################### SCREEN PREPARATION FUNCTIONS ############################
@@ -293,6 +323,7 @@ add $13 $0 $0
 add $14 $0 $0
 add $15 $0 $0
 addi $19 $0 3
+addi $20 $0 -1
 nop
 j singlegame
 
@@ -309,7 +340,6 @@ nop
 j cpugame
 
 nextturn: nop
-bne $8 $0 nextturn
 addi $19 $0 3
 add $11 $0 $0
 add $12 $0 $0
