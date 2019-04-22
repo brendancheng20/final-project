@@ -21,6 +21,7 @@
 ########################### SCREENS #######################################
 nop
 addi $28 $0 12
+addi $31 $0 500000
 #
 # Loop for instructsion at start of program
 #
@@ -80,7 +81,6 @@ j gamesetting # If no options are chosen, return to start of loop
 # $13 assigned to die 3 value
 # $14 assigned to die 4 value
 # $15 assigned to die 5 value
-# $16 assigned to which hand is selected (i.e. 3 of a kind, etc.)
 # $17 assigned to total score
 # $18 index for array value in memory that stores whether or not the hand has
 #     been selected
@@ -135,6 +135,9 @@ j multiplayer
 ##### Roll functions
 # Roll remaining dice
 doroll: nop
+addi $27 $27 1
+bne $27 $31 doroll
+add $27 $0 $0
 bne $9 $0 doroll
 nop
 nop
@@ -210,30 +213,45 @@ j doneroll5
 ##### Hold functions
 
 hold1: nop
+addi $27 $27 1
+bne $27 $31 hold1
+add $27 $0 $0
 bne $1 $0 hold1
 add $11 $0 $0
 nop
 j afterroll
 
 hold2: nop
+addi $27 $27 1
+bne $27 $31 hold2
+add $27 $0 $0
 bne $2 $0 hold2
 add $12 $0 $0
 nop
 j afterroll
 
 hold3: nop
+addi $27 $27 1
+bne $27 $31 hold3
+add $27 $0 $0
 bne $3 $0 hold3
 add $13 $0 $0
 nop
 j afterroll
 
 hold4: nop
+addi $27 $27 1
+bne $27 $31 hold4
+add $27 $0 $0
 bne $4 $0 hold4
 add $14 $0 $0
 nop
 j afterroll
 
 hold5: nop
+addi $27 $27 1
+bne $27 $31 hold5
+add $27 $0 $0
 bne $5 $0 hold5
 add $15 $0 $0
 nop
@@ -243,6 +261,9 @@ j afterroll
 
 # Starting point for toggle left
 toggleleft: nop
+addi $27 $27 1
+bne $27 $31 toggleleft
+add $27 $0 $0
 bne $6 $0 toggleleft
 nop
 addi $20 $20 -1 # subtract one to move left
@@ -255,6 +276,9 @@ j afterroll
 
 # Starting point for toggle right
 toggleright: nop
+addi $27 $27 1
+bne $27 $31 toggleright
+add $27 $0 $0
 bne $7 $0 toggleright
 nop
 addi $20 $20 1
@@ -267,6 +291,9 @@ j afterroll
 
 # Starting point for select hand
 selecthand: nop
+addi $27 $27 1
+bne $27 $31 selecthand
+add $27 $0 $0
 bne $8 $0 selecthand
 nop
 add $21 $0 $20 # set output register to $21
@@ -282,6 +309,9 @@ j nextturn # TODO Change to score adding function before going to next turn
 # one screen back to start before actually jumping to start loop
 #
 prepstart: nop
+addi $27 $27 1
+bne $27 $31 prepstart
+add $27 $0 $0
 bne $1 $0 prepstart
 nop
 nop
@@ -297,6 +327,9 @@ j start # return to start screen after clearing registers
 # leaderboard before actually jumping to leaderboard loop
 #
 prepleader: nop
+addi $27 $27 1
+bne $27 $31 prepleader
+add $27 $0 $0
 bne $2 $0 prepleader
 addi $30 $0 2
 # prep code
@@ -307,6 +340,9 @@ j leaderboard # jump to leaderboard after clearing registers
 # from start but before game
 #
 prepgamesetting: nop
+addi $27 $27 1
+bne $27 $31 prepgamesetting
+add $27 $0 $0
 bne $1 $0 prepgamesetting
 addi $30 $0 1
 # prep code
