@@ -91,7 +91,8 @@ j gamesetting # If no options are chosen, return to start of loop
 #
 singlegame: nop
 # roll
-bne $9 $0 doroll # Branch if roll is to be performed
+# bne $9 $0 doroll # Branch if roll is to be performed
+bne $19 $0 checkhold
 j singlegame
 afterroll: nop
 # Now check for dice to be held - only if still rolls left
@@ -116,10 +117,13 @@ bne $9 $0 doroll
 nop
 nop
 bne $19 $0 validroll
-blt $19 $0 afterroll
+nop
+nop
 j afterroll # if no rolls left, continue with game
 validroll: nop
+nop
 addi $19 $19 -1 # subtract number of rolls
+nop
 j roll1
 # bne $11 $0 roll1 # if die 1 is not set, roll die 1
 doneroll1: nop
