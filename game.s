@@ -83,19 +83,20 @@ j gamesetting # If no options are chosen, return to start of loop
 # $17 assigned to total score
 # $18 index for array value in memory that stores whether or not the hand has
 #     been selected
+# $19 assigned to number of rolls taken this turn
 #
 # $29 = random value for die
 #
 # All button toggles have event handlers, which are specified in GAME FUNCTIONS
 #
 singlegame: nop
+# roll
 bne $9 $0 doroll # Branch if roll is to be performed
-nop # jump to
-j singlegame
+afterroll: nop
+# Now check for dice to be held - only if still rolls left
+bne $19 $0 checkhold
 
-checkhold: nop
-bne $9 $0 doroll # if roll is pressed
-j checkhold
+j singlegame
 
 cpugame: nop
 
@@ -112,6 +113,12 @@ j multiplayer
 doroll: nop
 bne $9 $0 doroll
 nop
+nop
+bne $19 $0 validroll
+blt $19 $0 afterroll
+j afterroll # if no rolls left, continue with game
+validroll: nop
+addi $19 $19 -1 # subtract number of rolls
 j roll1
 # bne $11 $0 roll1 # if die 1 is not set, roll die 1
 doneroll1: nop
@@ -128,7 +135,7 @@ j roll5
 doneroll5: nop# bne $15 $0 roll5
 nop
 nop
-j singlegame
+j afterroll
 
 roll1: nop
 # roll die 1
@@ -136,7 +143,7 @@ bne $11 $0 doneroll1
 add $11 $0 $29
 nop
 nop
-j doroll
+j doneroll1
 
 roll2: nop
 bne $12 $0 doneroll2
@@ -144,14 +151,14 @@ add $12 $0 $29
 nop
 nop
 nop
-j doroll
+j doneroll2
 
 roll3: nop
 bne $13 $0 doneroll3
 add $13 $0 $29
 nop
 nop
-j doroll
+j doneroll3
 
 roll4: nop
 bne $14 $0 doneroll4
@@ -160,13 +167,55 @@ nop
 nop
 nop
 nop
-j doroll
+j doneroll4
 
 roll5: nop
 bne $15 $0 doneroll5
 add $15 $0 $29
 nop
-j doroll
+j doneroll5
+
+##### Hold functions
+checkhold: nop
+bne $9 $0 doroll # if a roll is to be taken, go for it
+nop
+# Clear registers if hold button is touched
+bne $1 $0 hold1
+nop
+bne $2 $0 hold2
+nop
+bne $3 $0 hold3
+nop
+bne $4 $0 hold4
+nop
+bne $5 $0 hold5
+nop
+j checkhold
+
+hold1: nop
+add $11 $0 $0
+nop
+j checkhold
+
+hold2: nop
+add $12 $0 $0
+nop
+j checkhold
+
+hold3: nop
+add $13 $0 $0
+nop
+j checkhold
+
+hold4: nop
+add $14 $0 $0
+nop
+j checkhold
+
+hold5: nop
+add $15 $0 $0
+nop
+j checkhold
 
 
 ####################### SCREEN PREPARATION FUNCTIONS ############################
@@ -218,6 +267,7 @@ add $12 $0 $0
 add $13 $0 $0
 add $14 $0 $0
 add $15 $0 $0
+addi $19 $0 3
 nop
 j singlegame
 
