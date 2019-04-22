@@ -310,7 +310,7 @@ j cpugame
 
 nextturn: nop
 bne $8 $0 nextturn
-addi $29 $0 3
+addi $19 $0 3
 add $11 $0 $0
 add $12 $0 $0
 add $13 $0 $0
