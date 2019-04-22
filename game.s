@@ -92,6 +92,7 @@ j gamesetting # If no options are chosen, return to start of loop
 singlegame: nop
 # roll
 bne $9 $0 doroll # Branch if roll is to be performed
+j singlegame
 afterroll: nop
 # Now check for dice to be held - only if still rolls left
 bne $19 $0 checkhold
@@ -140,6 +141,7 @@ j afterroll
 roll1: nop
 # roll die 1
 bne $11 $0 doneroll1
+nop
 add $11 $0 $29
 nop
 nop
@@ -147,6 +149,7 @@ j doneroll1
 
 roll2: nop
 bne $12 $0 doneroll2
+nop
 add $12 $0 $29
 nop
 nop
@@ -155,6 +158,7 @@ j doneroll2
 
 roll3: nop
 bne $13 $0 doneroll3
+nop
 add $13 $0 $29
 nop
 nop
@@ -162,6 +166,7 @@ j doneroll3
 
 roll4: nop
 bne $14 $0 doneroll4
+nop
 add $14 $0 $29
 nop
 nop
@@ -203,26 +208,31 @@ nop
 j checkhold
 
 hold1: nop
+bne $1 $0 hold1
 add $11 $0 $0
 nop
 j checkhold
 
 hold2: nop
+bne $2 $0 hold2
 add $12 $0 $0
 nop
 j checkhold
 
 hold3: nop
+bne $3 $0 hold3
 add $13 $0 $0
 nop
 j checkhold
 
 hold4: nop
+bne $4 $0 hold4
 add $14 $0 $0
 nop
 j checkhold
 
 hold5: nop
+bne $5 $0 hold5
 add $15 $0 $0
 nop
 j checkhold
