@@ -182,13 +182,23 @@ nop
 # Clear registers if hold button is touched
 bne $1 $0 hold1
 nop
+nop
+nop
 bne $2 $0 hold2
+nop
+nop
 nop
 bne $3 $0 hold3
 nop
+nop
+nop
 bne $4 $0 hold4
 nop
+nop
+nop
 bne $5 $0 hold5
+nop
+nop
 nop
 j checkhold
 
