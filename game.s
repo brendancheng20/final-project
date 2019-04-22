@@ -316,4 +316,4 @@ add $12 $0 $0
 add $13 $0 $0
 add $14 $0 $0
 add $15 $0 $0
-j nextturn
+j singlegame
