@@ -140,7 +140,7 @@ j roll5
 doneroll5: nop# bne $15 $0 roll5
 nop
 nop
-j afterroll
+j checkhold
 
 roll1: nop
 # roll die 1
