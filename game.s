@@ -21,7 +21,10 @@
 ########################### SCREENS #######################################
 nop
 addi $28 $0 12
-addi $31 $0 500000
+addi $31 $0 50000
+add $31 $31 $31 # $31 contains 100000
+add $31 $31 $31 # $31 contains 200000
+add $31 $31 $31 # $31 contains 400000
 #
 # Loop for instructsion at start of program
 #
