@@ -38,7 +38,7 @@ module regfile (
 		die_val <= 0;
 	end
 	
-	always @(posedge clock) begin
+	always @(negedge clock) begin
 		ctr <= ctr + 1;
 		if (ctr == 5000) begin
 			ctr <= 0;

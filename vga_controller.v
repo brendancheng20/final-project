@@ -193,6 +193,36 @@ begin
 	die4Ctr <= 19'd0;
 	die5Ctr <= 19'd0;
 	die6Ctr <= 19'd0;
+	ctr1_1 <= 19'd0;
+	ctr1_2 <= 19'd0;
+	ctr1_3 <= 19'd0;
+	ctr1_4 <= 19'd0;
+	ctr1_5 <= 19'd0;
+	ctr1_6 <= 19'd0;
+	ctr2_1 <= 19'd0;
+	ctr2_2 <= 19'd0;
+	ctr2_3 <= 19'd0;
+	ctr2_4 <= 19'd0;
+	ctr2_5 <= 19'd0;
+	ctr2_6 <= 19'd0;
+	ctr3_1 <= 19'd0;
+	ctr3_2 <= 19'd0;
+	ctr3_3 <= 19'd0;
+	ctr3_4 <= 19'd0;
+	ctr3_5 <= 19'd0;
+	ctr3_6 <= 19'd0;
+	ctr4_1 <= 19'd0;
+	ctr4_2 <= 19'd0;
+	ctr4_3 <= 19'd0;
+	ctr4_4 <= 19'd0;
+	ctr4_5 <= 19'd0;
+	ctr4_6 <= 19'd0;
+	ctr5_1 <= 19'd0;
+	ctr5_2 <= 19'd0;
+	ctr5_3 <= 19'd0;
+	ctr5_4 <= 19'd0;
+	ctr5_5 <= 19'd0;
+	ctr5_6 <= 19'd0;
 end
 	
 /******* MIF Data toggle *********/
@@ -235,6 +265,30 @@ if (ADDR < 5) begin
 	ctr1_4 = 0;
 	ctr1_5 = 0;
 	ctr1_6 = 0;
+	ctr2_1 = 0;
+	ctr2_2 = 0;
+	ctr2_3 = 0;
+	ctr2_4 = 0;
+	ctr2_5 = 0;
+	ctr2_6 = 0;
+	ctr3_1 = 0;
+	ctr3_2 = 0;
+	ctr3_3 = 0;
+	ctr3_4 = 0;
+	ctr3_5 = 0;
+	ctr3_6 = 0;
+	ctr4_1 = 0;
+	ctr4_2 = 0;
+	ctr4_3 = 0;
+	ctr4_4 = 0;
+	ctr4_5 = 0;
+	ctr4_6 = 0;
+	ctr5_1 = 0;
+	ctr5_2 = 0;
+	ctr5_3 = 0;
+	ctr5_4 = 0;
+	ctr5_5 = 0;
+	ctr5_6 = 0;
 	die1Ctr = 0;
 	die2Ctr = 0;
 	die3Ctr = 0;
@@ -294,75 +348,197 @@ if (mif_toggle == 32'd3) begin
 			thirdrowCtr = thirdrowCtr + 1;
 			bgr_data_raw <= thirdrowBGR;
 		end else if ((x>=4) && (x<635) && (y>=344) && (y<463)) begin
-			if (die1 == 0) begin
+			if ((die1 == 0) && (die2 == 0) && (die3 == 0) && (die4 == 0) && (die5 == 0)) begin
 			emptydiceCtr = emptydiceCtr + 1;
 			bgr_data_raw <= emptydiceBGR;
 			end
 			else begin
+				// die 1
 				if (die1 == 1) begin
-					if ((x>=7) && (x<127) && (y>=345) && (y<465)) begin
+					if ((x>=4) && (x<124) && (y>=345) && (y<465)) begin
 					die1Ctr <= ctr1_1;
 					ctr1_1 = ctr1_1 + 1;
 					bgr_data_raw <= die1BGR;
 					end
 				end else if (die1 == 2) begin
-					if ((x>=7) && (x<130) && (y>=345) && (y<465)) begin
+					if ((x>=4) && (x<127) && (y>=345) && (y<465)) begin
 					die2Ctr <= ctr1_2;
 					ctr1_2 = ctr1_2 + 1;
 					bgr_data_raw <= die2BGR;
 					end
 				end else if (die1 == 3) begin
-					if ((x>=7) && (x<132) && (y>=345) && (y<466)) begin
+					if ((x>=4) && (x<129) && (y>=345) && (y<466)) begin
 					die3Ctr <= ctr1_3;
 					ctr1_3 = ctr1_3 + 1;
 					bgr_data_raw <= die3BGR;
 					end
 				end else if (die1 == 4) begin
-					if ((x>=7) && (x<131) && (y>=345) && (y<465)) begin
+					if ((x>=4) && (x<128) && (y>=345) && (y<465)) begin
 					die4Ctr <= ctr1_4;
 					ctr1_4 = ctr1_4 + 1;
 					bgr_data_raw <= die4BGR;
 					end
 				end else if (die1 == 5) begin
-					if ((x>=7) && (x<129) && (y>=345) && (y<465)) begin
+					if ((x>=4) && (x<126) && (y>=345) && (y<465)) begin
 					die5Ctr <= ctr1_5;
 					ctr1_5 = ctr1_5 + 1;
 					bgr_data_raw <= die5BGR;
 					end
 				end else if (die1 == 6) begin
-					if ((x>=7) && (x<130) && (y>=345) && (y<466)) begin
+					if ((x>=4) && (x<127) && (y>=345) && (y<466)) begin
 					die6Ctr <= ctr1_6;
 					ctr1_6 = ctr1_6 + 1;
 					bgr_data_raw <= die6BGR;
 					end
 				end
+				//die 2
 				if (die2 == 1) begin
+					if ((x>=131) && (x<251) && (y>=345) && (y<465)) begin
+					die1Ctr <= ctr2_1;
+					ctr1_2 = ctr1_2 + 1;
+					bgr_data_raw <= die1BGR;
+					end
 				end else if (die2 == 2) begin
+					if ((x>=131) && (x<254) && (y>=345) && (y<465)) begin
+					die2Ctr <= ctr2_2;
+					ctr2_2 = ctr2_2 + 1;
+					bgr_data_raw <= die2BGR;
+					end
 				end else if (die2 == 3) begin
+					if ((x>=131) && (x<256) && (y>=345) && (y<466)) begin
+					die3Ctr <= ctr2_3;
+					ctr2_3 = ctr2_3 + 1;
+					bgr_data_raw <= die3BGR;
+					end
 				end else if (die2 == 4) begin
+					if ((x>=131) && (x<255) && (y>=345) && (y<465)) begin
+					die4Ctr <= ctr2_4;
+					ctr2_4 = ctr2_4 + 1;
+					bgr_data_raw <= die4BGR;
+					end
 				end else if (die2 == 5) begin
+					if ((x>=131) && (x<253) && (y>=345) && (y<465)) begin
+					die5Ctr <= ctr2_5;
+					ctr2_5 = ctr2_5 + 1;
+					bgr_data_raw <= die5BGR;
+					end
 				end else if (die2 == 6) begin
+					if ((x>=131) && (x<254) && (y>=345) && (y<466)) begin
+					die6Ctr <= ctr2_6;
+					ctr2_6 = ctr2_6 + 1;
+					bgr_data_raw <= die6BGR;
+					end
 				end
 				if (die3 == 1) begin
+					if ((x>=256) && (x<376) && (y>=345) && (y<465)) begin
+					die1Ctr <= ctr3_1;
+					ctr3_2 = ctr3_2 + 1;
+					bgr_data_raw <= die1BGR;
+					end
 				end else if (die3 == 2) begin
+					if ((x>=256) && (x<379) && (y>=345) && (y<465)) begin
+					die2Ctr <= ctr3_2;
+					ctr3_2 = ctr3_2 + 1;
+					bgr_data_raw <= die2BGR;
+					end
 				end else if (die3 == 3) begin
+					if ((x>=256) && (x<381) && (y>=345) && (y<466)) begin
+					die3Ctr <= ctr3_3;
+					ctr3_3 = ctr3_3 + 1;
+					bgr_data_raw <= die3BGR;
+					end
 				end else if (die3 == 4) begin
+					if ((x>=256) && (x<380) && (y>=345) && (y<465)) begin
+					die4Ctr <= ctr3_4;
+					ctr3_4 = ctr3_4 + 1;
+					bgr_data_raw <= die4BGR;
+					end
 				end else if (die3 == 5) begin
+					if ((x>=256) && (x<378) && (y>=345) && (y<465)) begin
+					die5Ctr <= ctr3_5;
+					ctr3_5 = ctr3_5 + 1;
+					bgr_data_raw <= die5BGR;
+					end
 				end else if (die3 == 6) begin
+					if ((x>=256) && (x<379) && (y>=345) && (y<466)) begin
+					die6Ctr <= ctr3_6;
+					ctr3_6 = ctr3_6 + 1;
+					bgr_data_raw <= die6BGR;
+					end
 				end
 				if (die4 == 1) begin
+					if ((x>=383) && (x<503) && (y>=345) && (y<465)) begin
+					die1Ctr <= ctr4_1;
+					ctr4_2 = ctr4_2 + 1;
+					bgr_data_raw <= die1BGR;
+					end
 				end else if (die4 == 2) begin
+					if ((x>=383) && (x<506) && (y>=345) && (y<465)) begin
+					die2Ctr <= ctr4_2;
+					ctr4_2 = ctr4_2 + 1;
+					bgr_data_raw <= die2BGR;
+					end
 				end else if (die4 == 3) begin
+					if ((x>=383) && (x<508) && (y>=345) && (y<466)) begin
+					die3Ctr <= ctr4_3;
+					ctr4_3 = ctr4_3 + 1;
+					bgr_data_raw <= die3BGR;
+					end
 				end else if (die4 == 4) begin
+					if ((x>=383) && (x<507) && (y>=345) && (y<465)) begin
+					die4Ctr <= ctr4_4;
+					ctr4_4 = ctr4_4 + 1;
+					bgr_data_raw <= die4BGR;
+					end
 				end else if (die4 == 5) begin
+					if ((x>=383) && (x<505) && (y>=345) && (y<465)) begin
+					die5Ctr <= ctr4_5;
+					ctr4_5 = ctr4_5 + 1;
+					bgr_data_raw <= die5BGR;
+					end
 				end else if (die4 == 6) begin
+					if ((x>=383) && (x<506) && (y>=345) && (y<466)) begin
+					die6Ctr <= ctr4_6;
+					ctr4_6 = ctr4_6 + 1;
+					bgr_data_raw <= die6BGR;
+					end
 				end
 				if (die5 == 1) begin
+					if ((x>=510) && (x<630) && (y>=345) && (y<465)) begin
+					die1Ctr <= ctr5_1;
+					ctr5_1 = ctr5_1 + 1;
+					bgr_data_raw <= die1BGR;
+					end
 				end else if (die5 == 2) begin
+					if ((x>=510) && (x<633) && (y>=345) && (y<465)) begin
+					die2Ctr <= ctr5_2;
+					ctr5_2 = ctr5_2 + 1;
+					bgr_data_raw <= die2BGR;
+					end
 				end else if (die5 == 3) begin
+					if ((x>=510) && (x<635) && (y>=345) && (y<466)) begin
+					die3Ctr <= ctr5_3;
+					ctr5_3 = ctr5_3 + 1;
+					bgr_data_raw <= die3BGR;
+					end
 				end else if (die5 == 4) begin
+					if ((x>=510) && (x<634) && (y>=345) && (y<465)) begin
+					die4Ctr <= ctr5_4;
+					ctr5_4 = ctr5_4 + 1;
+					bgr_data_raw <= die4BGR;
+					end
 				end else if (die5 == 5) begin
+					if ((x>=510) && (x<632) && (y>=345) && (y<465)) begin
+					die5Ctr <= ctr5_5;
+					ctr5_5 = ctr5_5 + 1;
+					bgr_data_raw <= die5BGR;
+					end
 				end else if (die5 == 6) begin
+					if ((x>=510) && (x<633) && (y>=345) && (y<466)) begin
+					die6Ctr <= ctr5_6;
+					ctr5_6 = ctr5_6 + 1;
+					bgr_data_raw <= die6BGR;
+					end
 				end
 			end
 		end else begin
