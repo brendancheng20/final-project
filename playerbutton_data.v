@@ -39,18 +39,15 @@
 // synopsys translate_on
 module playerbutton_data (
 	address,
-//	clken,
 	clock,
 	q);
 
 	input	[15:0]  address;
-//	input	  clken;
 	input	  clock;
 	output	[7:0]  q;
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_off
 `endif
-//	tri1	  clken;
 	tri1	  clock;
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_on
@@ -62,7 +59,6 @@ module playerbutton_data (
 	altsyncram	altsyncram_component (
 				.address_a (address),
 				.clock0 (clock),
-				.clocken0 (1'b1),
 				.q_a (sub_wire0),
 				.aclr0 (1'b0),
 				.aclr1 (1'b0),
@@ -72,6 +68,7 @@ module playerbutton_data (
 				.byteena_a (1'b1),
 				.byteena_b (1'b1),
 				.clock1 (1'b1),
+				.clocken0 (1'b1),
 				.clocken1 (1'b1),
 				.clocken2 (1'b1),
 				.clocken3 (1'b1),
@@ -85,13 +82,13 @@ module playerbutton_data (
 				.wren_b (1'b0));
 	defparam
 		altsyncram_component.address_aclr_a = "NONE",
-		altsyncram_component.clock_enable_input_a = "NORMAL",
+		altsyncram_component.clock_enable_input_a = "BYPASS",
 		altsyncram_component.clock_enable_output_a = "BYPASS",
 		altsyncram_component.init_file = "data_playerbuttons.mif",
 		altsyncram_component.intended_device_family = "Cyclone IV E",
 		altsyncram_component.lpm_hint = "ENABLE_RUNTIME_MOD=NO",
 		altsyncram_component.lpm_type = "altsyncram",
-		altsyncram_component.numwords_a = 43264,
+		altsyncram_component.numwords_a = 45325,
 		altsyncram_component.operation_mode = "ROM",
 		altsyncram_component.outdata_aclr_a = "NONE",
 		altsyncram_component.outdata_reg_a = "UNREGISTERED",
@@ -113,9 +110,9 @@ endmodule
 // Retrieval info: PRIVATE: BYTE_ENABLE NUMERIC "0"
 // Retrieval info: PRIVATE: BYTE_SIZE NUMERIC "8"
 // Retrieval info: PRIVATE: BlankMemory NUMERIC "0"
-// Retrieval info: PRIVATE: CLOCK_ENABLE_INPUT_A NUMERIC "1"
+// Retrieval info: PRIVATE: CLOCK_ENABLE_INPUT_A NUMERIC "0"
 // Retrieval info: PRIVATE: CLOCK_ENABLE_OUTPUT_A NUMERIC "0"
-// Retrieval info: PRIVATE: Clken NUMERIC "1"
+// Retrieval info: PRIVATE: Clken NUMERIC "0"
 // Retrieval info: PRIVATE: IMPLEMENT_IN_LES NUMERIC "0"
 // Retrieval info: PRIVATE: INIT_FILE_LAYOUT STRING "PORT_A"
 // Retrieval info: PRIVATE: INIT_TO_SIM_X NUMERIC "0"
@@ -124,7 +121,7 @@ endmodule
 // Retrieval info: PRIVATE: JTAG_ID STRING "NONE"
 // Retrieval info: PRIVATE: MAXIMUM_DEPTH NUMERIC "0"
 // Retrieval info: PRIVATE: MIFfilename STRING "data_playerbuttons.mif"
-// Retrieval info: PRIVATE: NUMWORDS_A NUMERIC "43264"
+// Retrieval info: PRIVATE: NUMWORDS_A NUMERIC "45325"
 // Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "2"
 // Retrieval info: PRIVATE: RegAddr NUMERIC "1"
 // Retrieval info: PRIVATE: RegOutput NUMERIC "0"
@@ -136,13 +133,13 @@ endmodule
 // Retrieval info: PRIVATE: rden NUMERIC "0"
 // Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
 // Retrieval info: CONSTANT: ADDRESS_ACLR_A STRING "NONE"
-// Retrieval info: CONSTANT: CLOCK_ENABLE_INPUT_A STRING "NORMAL"
+// Retrieval info: CONSTANT: CLOCK_ENABLE_INPUT_A STRING "BYPASS"
 // Retrieval info: CONSTANT: CLOCK_ENABLE_OUTPUT_A STRING "BYPASS"
 // Retrieval info: CONSTANT: INIT_FILE STRING "data_playerbuttons.mif"
 // Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Cyclone IV E"
 // Retrieval info: CONSTANT: LPM_HINT STRING "ENABLE_RUNTIME_MOD=NO"
 // Retrieval info: CONSTANT: LPM_TYPE STRING "altsyncram"
-// Retrieval info: CONSTANT: NUMWORDS_A NUMERIC "43264"
+// Retrieval info: CONSTANT: NUMWORDS_A NUMERIC "45325"
 // Retrieval info: CONSTANT: OPERATION_MODE STRING "ROM"
 // Retrieval info: CONSTANT: OUTDATA_ACLR_A STRING "NONE"
 // Retrieval info: CONSTANT: OUTDATA_REG_A STRING "UNREGISTERED"
@@ -151,12 +148,10 @@ endmodule
 // Retrieval info: CONSTANT: WIDTH_A NUMERIC "8"
 // Retrieval info: CONSTANT: WIDTH_BYTEENA_A NUMERIC "1"
 // Retrieval info: USED_PORT: address 0 0 16 0 INPUT NODEFVAL "address[15..0]"
-// Retrieval info: USED_PORT: clken 0 0 0 0 INPUT VCC "clken"
 // Retrieval info: USED_PORT: clock 0 0 0 0 INPUT VCC "clock"
 // Retrieval info: USED_PORT: q 0 0 8 0 OUTPUT NODEFVAL "q[7..0]"
 // Retrieval info: CONNECT: @address_a 0 0 16 0 address 0 0 16 0
 // Retrieval info: CONNECT: @clock0 0 0 0 0 clock 0 0 0 0
-// Retrieval info: CONNECT: @clocken0 0 0 0 0 clken 0 0 0 0
 // Retrieval info: CONNECT: q 0 0 8 0 @q_a 0 0 8 0
 // Retrieval info: GEN_FILE: TYPE_NORMAL playerbutton_data.v TRUE
 // Retrieval info: GEN_FILE: TYPE_NORMAL playerbutton_data.inc FALSE

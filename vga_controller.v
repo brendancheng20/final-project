@@ -305,7 +305,7 @@ if (mif_toggle == 32'b0) begin
 //			end
 //			bgr_data_raw <= 24'h120d20;
 			bgr_data_raw <= yahtzee_name;
-		end else if ((x>= 228) && (x<400) && (y>=204) && (y<372)) begin
+		end else if ((x>= 228) && (x<400) && (y>=204) && (y<373)) begin
 			startButtonCtr = startButtonCtr + 1;
 			bgr_data_raw <= startButtonBGR;
 		end else begin
@@ -317,7 +317,7 @@ if (mif_toggle == 32'd1) begin
 	if ((x>=63) && (x<559) && (y>=81) && (y<186)) begin
 			yahtzee_ctr = yahtzee_ctr + 1;
 			bgr_data_raw <= yahtzee_name;
-		end else if ((x>=230) && (x<399) && (y>=205) && (y<461)) begin
+		end else if ((x>=230) && (x<405) && (y>=205) && (y<464)) begin
 			playerButtonCtr = playerButtonCtr + 1;
 			bgr_data_raw <= playerButtonBGR;
 		end else begin
