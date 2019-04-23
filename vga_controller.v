@@ -8,8 +8,7 @@ module vga_controller(iRST_n,
                       r_data,
 							 mif_toggle, ctr,
 							 die1, die2, die3, die4, die5, arrow_pos,
-							 selected_hand, text_pack);
-
+							 selected_hand, text_pack, score);
 	
 input iRST_n;
 input iVGA_CLK;
@@ -34,7 +33,7 @@ video_sync_generator LTM_ins (.vga_clk(iVGA_CLK),
                               .HS(cHS),
                               .VS(cVS));
 										
-input[31:0] ctr, die1, die2, die3, die4, die5, arrow_pos, selected_hand;
+input[31:0] ctr, die1, die2, die3, die4, die5, arrow_pos, selected_hand, score;
 input text_pack;
 reg duke;
 
