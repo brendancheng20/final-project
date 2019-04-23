@@ -265,7 +265,7 @@ add $27 $0 $0
 bne $4 $0 hold4
 nop
 nop
-bne $19 $0 dohold1 # If hold is allowed
+bne $19 $0 dohold4 # If hold is allowed
 nop
 j afterroll
 dohold4: add $14 $0 $0
@@ -279,7 +279,7 @@ add $27 $0 $0
 bne $5 $0 hold5
 nop
 nop
-bne $19 $0 dohold1 # If hold is allowed
+bne $19 $0 dohold5 # If hold is allowed
 nop
 j afterroll
 dohold5: add $15 $0 $0
@@ -470,7 +470,7 @@ j nextturn
 # yahtzee
 hand12: nop
 
-j nextturn 
+j nextturn
 
 
 ####################### SCREEN PREPARATION FUNCTIONS ############################
