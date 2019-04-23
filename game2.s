@@ -1060,12 +1060,16 @@ add $12 $0 $0
 add $13 $0 $0
 add $14 $0 $0
 add $15 $0 $0
-blt $0 $10 checkcpu # if is a cpu game
+bne $0 $10 checkcpu # if is a cpu game
 j singlegame
 checkcpu: nop
 addi $25 $0 1
+nop
+nop
+nop
 bne $10 $25 cpugamefromsingle
-addi $10 $0 2 # $10 = 2
+nop
+# addi $10 $0 2 # $10 = 2
 j singlegamefromcpu
 # j singlegame
 
@@ -1073,6 +1077,7 @@ singlegamefromcpu: nop
 sw $17 2($0)
 sw $18 3($0)
 nop
+addi $10 $0 2
 nop
 lw $17 1($0)
 j singlegame
@@ -1080,6 +1085,7 @@ j singlegame
 cpugamefromsingle: nop
 sw $17 1($0)
 nop
+addi $10 $0 1
 nop
 lw $17 2($0)
 lw $18 3($0)
