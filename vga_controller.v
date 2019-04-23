@@ -8,7 +8,7 @@ module vga_controller(iRST_n,
                       r_data,
 							 mif_toggle, ctr,
 							 die1, die2, die3, die4, die5, arrow_pos,
-							 selected_hand);
+							 selected_hand, text_pack);
 
 	
 input iRST_n;
@@ -35,6 +35,17 @@ video_sync_generator LTM_ins (.vga_clk(iVGA_CLK),
                               .VS(cVS));
 										
 input[31:0] ctr, die1, die2, die3, die4, die5, arrow_pos, selected_hand;
+input text_pack;
+reg duke;
+
+initial
+begin
+	duke = 1'b0;
+end
+
+always @(posedge text_pack) begin
+	duke = duke + 1;
+end
 ////
 ////Addresss generator
 always@(posedge iVGA_CLK,negedge iRST_n)
@@ -267,6 +278,48 @@ wire[23:0] die6BGR;
 die6_data die6data(.address(die6Ctr), .clock(VGA_CLK_n), .q(die6Index));
 die6_index die6index(.address(die6Index), .clock(iVGA_CLK), .q(die6BGR));
 
+wire[7:0] duke1Index;
+reg[18:0] duke1Ctr;
+wire[23:0] duke1BGR;
+	
+duke1_data duke1data(.address(duke1Ctr), .clock(VGA_CLK_n), .q(duke1Index));
+duke1_index duke1index(.address(duke1Index), .clock(iVGA_CLK), .q(duke1BGR));
+
+wire[7:0] duke2Index;
+reg[18:0] duke2Ctr;
+wire[23:0] duke2BGR;
+	
+duke2_data duke2data(.address(duke2Ctr), .clock(VGA_CLK_n), .q(duke2Index));
+duke2_index duke2index(.address(duke2Index), .clock(iVGA_CLK), .q(duke2BGR));
+
+wire[7:0] duke3Index;
+reg[18:0] duke3Ctr;
+wire[23:0] duke3BGR;
+	
+duke3_data duke3data(.address(duke3Ctr), .clock(VGA_CLK_n), .q(duke3Index));
+duke3_index duke3index(.address(duke3Index), .clock(iVGA_CLK), .q(duke3BGR));
+
+wire[7:0] duke4Index;
+reg[18:0] duke4Ctr;
+wire[23:0] duke4BGR;
+	
+duke4_data duke4data(.address(duke4Ctr), .clock(VGA_CLK_n), .q(duke4Index));
+duke4_index duke4index(.address(duke4Index), .clock(iVGA_CLK), .q(duke4BGR));
+
+wire[7:0] duke5Index;
+reg[18:0] duke5Ctr;
+wire[23:0] duke5BGR;
+	
+duke5_data duke5data(.address(duke5Ctr), .clock(VGA_CLK_n), .q(duke5Index));
+duke5_index duke5index(.address(duke5Index), .clock(iVGA_CLK), .q(duke5BGR));
+
+wire[7:0] duke6Index;
+reg[18:0] duke6Ctr;
+wire[23:0] duke6BGR;
+	
+duke6_data duke6data(.address(duke6Ctr), .clock(VGA_CLK_n), .q(duke6Index));
+duke6_index duke6index(.address(duke6Index), .clock(iVGA_CLK), .q(duke6BGR));
+
 wire[7:0] arrowIndex;
 reg[18:0] arrowCtr;
 wire[23:0] arrowBGR;
@@ -285,6 +338,7 @@ begin
 	y <= 19'd0;
 	yahtzee_ctr <= 19'd0;
 	startButtonCtr <= 19'd0;
+	arrowCtr <= 19'd0;
 	playerButtonCtr <= 19'd0;
 	firstrowCtr <= 19'd0;
 	secondrowCtr <= 19'd0;
@@ -328,6 +382,36 @@ begin
 	ctr5_4 <= 19'd0;
 	ctr5_5 <= 19'd0;
 	ctr5_6 <= 19'd0;
+	ctr1_1d <= 19'd0;
+	ctr1_2d <= 19'd0;
+	ctr1_3d <= 19'd0;
+	ctr1_4d <= 19'd0;
+	ctr1_5d <= 19'd0;
+	ctr1_6d <= 19'd0;
+	ctr2_1d <= 19'd0;
+	ctr2_2d <= 19'd0;
+	ctr2_3d <= 19'd0;
+	ctr2_4d <= 19'd0;
+	ctr2_5d <= 19'd0;
+	ctr2_6d <= 19'd0;
+	ctr3_1d <= 19'd0;
+	ctr3_2d <= 19'd0;
+	ctr3_3d <= 19'd0;
+	ctr3_4d <= 19'd0;
+	ctr3_5d <= 19'd0;
+	ctr3_6d <= 19'd0;
+	ctr4_1d <= 19'd0;
+	ctr4_2d <= 19'd0;
+	ctr4_3d <= 19'd0;
+	ctr4_4d <= 19'd0;
+	ctr4_5d <= 19'd0;
+	ctr4_6d <= 19'd0;
+	ctr5_1d <= 19'd0;
+	ctr5_2d <= 19'd0;
+	ctr5_3d <= 19'd0;
+	ctr5_4d <= 19'd0;
+	ctr5_5d <= 19'd0;
+	ctr5_6d <= 19'd0;
 	arrow0 <= 19'd0;
 	arrow1 <= 19'd0;
 	arrow2 <= 19'd0;
@@ -361,7 +445,9 @@ input[31:0] mif_toggle; // Toggles to various data when various sprites should a
 
 reg[18:0] ctr1_1, ctr1_2, ctr1_3, ctr1_4, ctr1_5, ctr1_6, ctr2_1, ctr2_2, ctr2_3, ctr2_4, ctr2_5, ctr2_6,
 	ctr3_1, ctr3_2, ctr3_3, ctr3_4, ctr3_5, ctr3_6, ctr4_1, ctr4_2, ctr4_3, ctr4_4, ctr4_5, ctr4_6,
-	ctr5_1, ctr5_2, ctr5_3, ctr5_4, ctr5_5, ctr5_6, arrow0, arrow1, arrow2, arrow3, arrow4,
+	ctr5_1, ctr5_2, ctr5_3, ctr5_4, ctr5_5, ctr5_6, ctr1_1d, ctr1_2d, ctr1_3d, ctr1_4d, ctr1_5d, ctr1_6d, ctr2_1d, ctr2_2d, ctr2_3d, ctr2_4d, ctr2_5d, ctr2_6d,
+	ctr3_1d, ctr3_2d, ctr3_3d, ctr3_4d, ctr3_5d, ctr3_6d, ctr4_1d, ctr4_2d, ctr4_3d, ctr4_4d, ctr4_5d, ctr4_6d,
+	ctr5_1d, ctr5_2d, ctr5_3d, ctr5_4d, ctr5_5d, ctr5_6d, arrow0, arrow1, arrow2, arrow3, arrow4,
 	arrow5, arrow6, arrow7, arrow8, arrow9, arrow10, arrow11, arrow12;
 /********** *****************/
 	
@@ -428,6 +514,7 @@ if (ADDR < 5) begin
 	startButtonCtr = 0;
 	playerButtonCtr = 0;
 	firstrowCtr = 0;
+	arrowCtr = 0;
 	secondrowCtr = 0;
 	thirdrowCtr = 0;
 	emptydiceCtr = 0;
@@ -463,6 +550,36 @@ if (ADDR < 5) begin
 	ctr5_4 = 0;
 	ctr5_5 = 0;
 	ctr5_6 = 0;
+	ctr1_1d = 0;
+	ctr1_2d = 0;
+	ctr1_3d = 0;
+	ctr1_4d = 0;
+	ctr1_5d = 0;
+	ctr1_6d = 0;
+	ctr2_1d = 0;
+	ctr2_2d = 0;
+	ctr2_3d = 0;
+	ctr2_4d = 0;
+	ctr2_5d = 0;
+	ctr2_6d = 0;
+	ctr3_1d = 0;
+	ctr3_2d = 0;
+	ctr3_3d = 0;
+	ctr3_4d = 0;
+	ctr3_5d = 0;
+	ctr3_6d = 0;
+	ctr4_1d = 0;
+	ctr4_2d = 0;
+	ctr4_3d = 0;
+	ctr4_4d = 0;
+	ctr4_5d = 0;
+	ctr4_6d = 0;
+	ctr5_1d = 0;
+	ctr5_2d = 0;
+	ctr5_3d = 0;
+	ctr5_4d = 0;
+	ctr5_5d = 0;
+	ctr5_6d = 0;
 	arrow0 = 0;
 	arrow1 = 0;
 	arrow2 = 0;
@@ -525,304 +642,612 @@ if (mif_toggle == 32'd2) begin
 end
 // GameBoard
 if (mif_toggle == 32'd3) begin
-	if (pos0 == 1 || sel0 == 1) begin
+//	if (pos0 == 1) begin
+//		bgr_data_raw <= 24'h521494;
+//	end
+//	if (pos0 == 1 || sel0 == 1) begin
+//		if ((x>=52) && (x<77) && (y>=102) && (y<121)) begin
+//			arrowCtr <= arrow0;
+//			arrow0 = arrow0 + 1;
+//			bgr_data_raw <= arrowBGR;
+//		end
+//	end
+//	if (pos1 == 1) begin
+//		if ((x>=157) && (x<182) && (y>=102) && (y<121)) begin
+//			arrowCtr <= arrow1;
+//			arrow1 = arrow1 + 1;
+//			bgr_data_raw <= arrowBGR;
+//		end
+//	end
+//	if (pos2 == 1) begin
+//		if ((x>=256) && (x<281) && (y>=102) && (y<121)) begin
+//			arrowCtr <= arrow2;
+//			arrow2 = arrow2 + 1;
+//			bgr_data_raw <= arrowBGR;
+//		end
+//	end
+//	if (pos3 == 1) begin
+//		if ((x>=356) && (x<381) && (y>=102) && (y<121)) begin
+//			arrowCtr <= arrow3;
+//			arrow3 = arrow3 + 1;
+//			bgr_data_raw <= arrowBGR;
+//		end
+//	end
+//	if (pos4 == 1) begin
+//		if ((x>=456) && (x<481) && (y>=102) && (y<121)) begin
+//			arrowCtr <= arrow4;
+//			arrow4 = arrow4 + 1;
+//			bgr_data_raw <= arrowBGR;
+//		end
+//	end
+//	if (pos5 == 1) begin
+//		if ((x>=559) && (x<584) && (y>=102) && (y<121)) begin
+//			arrowCtr <= arrow5;
+//			arrow5 = arrow5 + 1;
+//			bgr_data_raw <= arrowBGR;
+//		end
+//	end
+//	if (pos6 == 1 ) begin
+//		if ((x>=65) && (x<90) && (y>=231) && (y<250)) begin
+//			arrowCtr <= arrow6;
+//			arrow6 = arrow6 + 1;
+//			bgr_data_raw <= arrowBGR;
+//		end
+//	end
+//	if (pos7 == 1) begin
+//		if ((x>=163) && (x<188) && (y>=231) && (y<250)) begin
+//			arrowCtr <= arrow7;
+//			arrow7 = arrow7 + 1;
+//			bgr_data_raw <= arrowBGR;
+//		end
+//	end
+//	if (pos8 == 1) begin
+//		if ((x>=257) && (x<282) && (y>=231) && (y<250)) begin
+//			arrowCtr <= arrow8;
+//			arrow8 = arrow8 + 1;
+//			bgr_data_raw <= arrowBGR;
+//		end
+//	end
+//	if (pos9 == 1) begin
+//		if ((x>=349) && (x<374) && (y>=231) && (y<250)) begin
+//			arrowCtr <= arrow9;
+//			arrow9 = arrow9 + 1;
+//			bgr_data_raw <= arrowBGR;
+//		end
+//	end
+//	if (pos10 == 1) begin
+//		if ((x>=448) && (x<473) && (y>=231) && (y<250)) begin
+//			arrowCtr <= arrow10;
+//			arrow10 = arrow10 + 1;
+//			bgr_data_raw <= arrowBGR;
+//		end
+//	end
+//	if (pos11 == 1) begin
+//		if ((x>=545) && (x<570) && (y>=231) && (y<250)) begin
+//			arrowCtr <= arrow11;
+//			arrow11 = arrow11 + 1;
+//			bgr_data_raw <= arrowBGR;
+//		end
+//	end
+//	if (pos12 == 1) begin
+//		if ((x>=301) && (x<326) && (y>=322) && (y<341)) begin
+//			arrowCtr <= arrow12;
+//			arrow12 = arrow12 + 1;
+//			bgr_data_raw <= arrowBGR;
+//		end
+//	end
+	if ((x>=18) && (x<617) && (y>=18) && (y<97)) begin
+			firstrowCtr = firstrowCtr + 1;
+			bgr_data_raw <= firstrowBGR;
+	end else if ((x>=52) && (x<77) && (y>=102) && (y<121)) begin
+			arrowCtr = arrowCtr + 1;
+			bgr_data_raw <= arrowBGR;
+	end else if ((x>=31) && (x<615) && (y>=124) && (y<227)) begin
+			secondrowCtr = secondrowCtr + 1;
+			bgr_data_raw <= secondrowBGR;
+	end else if ((x>=195) && (x<437) && (y>=257) && (y<320)) begin
+			thirdrowCtr = thirdrowCtr + 1;
+			bgr_data_raw <= thirdrowBGR;
+	end else if ((x>=4) && (x<635) && (y>=344) && (y<463)) begin
+		if ((die1 == 0) && (die2 == 0) && (die3 == 0) && (die4 == 0) && (die5 == 0)) begin
+			emptydiceCtr = emptydiceCtr + 1;
+			bgr_data_raw <= emptydiceBGR;
+		end
+		else begin
+				// die 1
+				if (die1 == 1) begin
+					if ((x>=4) && (x<124) && (y>=345) && (y<465)) begin
+						if (duke == 0) begin
+						die1Ctr <= ctr1_1;
+						ctr1_1 = ctr1_1 + 1;
+						bgr_data_raw <= die1BGR;
+						end
+						else begin
+						duke1Ctr <= ctr1_1d;
+						ctr1_1d = ctr1_1d + 1;
+						bgr_data_raw <= duke1BGR;
+						end
+					end
+				end else if (die1 == 2) begin
+					if ((x>=4) && (x<127) && (y>=345) && (y<465)) begin
+						if (duke == 0) begin
+						die2Ctr <= ctr1_2;
+						ctr1_2 = ctr1_2 + 1;
+						bgr_data_raw <= die2BGR;
+						end
+						else begin
+						duke2Ctr <= ctr1_2d;
+						ctr1_2d = ctr1_2d + 1;
+						bgr_data_raw <= duke2BGR;
+						end
+					end
+				end else if (die1 == 3) begin
+					if ((x>=4) && (x<129) && (y>=345) && (y<466)) begin
+					if (duke == 0) begin
+						die3Ctr <= ctr1_3;
+						ctr1_3 = ctr1_3 + 1;
+						bgr_data_raw <= die3BGR;
+						end
+						else begin
+						duke3Ctr <= ctr1_3d;
+						ctr1_3d = ctr1_3d + 1;
+						bgr_data_raw <= duke3BGR;
+						end
+					end
+				end else if (die1 == 4) begin
+					if ((x>=4) && (x<128) && (y>=345) && (y<465)) begin
+					if (duke == 0) begin
+						die4Ctr <= ctr1_4;
+						ctr1_4 = ctr1_4 + 1;
+						bgr_data_raw <= die4BGR;
+						end
+						else begin
+						duke4Ctr <= ctr1_4d;
+						ctr1_4d = ctr1_4d + 1;
+						bgr_data_raw <= duke4BGR;
+						end
+					end
+				end else if (die1 == 5) begin
+					if ((x>=4) && (x<126) && (y>=345) && (y<465)) begin
+					if (duke == 0) begin
+						die5Ctr <= ctr1_5;
+						ctr1_5 = ctr1_5 + 1;
+						bgr_data_raw <= die5BGR;
+						end
+						else begin
+						duke5Ctr <= ctr1_5d;
+						ctr1_5d = ctr1_5d + 1;
+						bgr_data_raw <= duke5BGR;
+						end
+					end
+				end else if (die1 == 6) begin
+					if ((x>=4) && (x<127) && (y>=345) && (y<466)) begin
+					if (duke == 0) begin
+						die6Ctr <= ctr1_6;
+						ctr1_6 = ctr1_6 + 1;
+						bgr_data_raw <= die6BGR;
+						end
+						else begin
+						duke6Ctr <= ctr1_6d;
+						ctr1_6d = ctr1_6d + 1;
+						bgr_data_raw <= duke6BGR;
+						end
+					end
+				end
+				//die 2
+				if (die2 == 1) begin
+					if ((x>=131) && (x<251) && (y>=345) && (y<465)) begin
+					if (duke == 0) begin
+						die1Ctr <= ctr2_1;
+						ctr2_1 = ctr2_1 + 1;
+						bgr_data_raw <= die1BGR;
+						end
+						else begin
+						duke1Ctr <= ctr2_1d;
+						ctr2_1d = ctr2_1d + 1;
+						bgr_data_raw <= duke1BGR;
+						end
+					end
+				end else if (die2 == 2) begin
+					if ((x>=131) && (x<254) && (y>=345) && (y<465)) begin
+					if (duke == 0) begin
+						die2Ctr <= ctr2_2;
+						ctr2_2 = ctr2_2 + 1;
+						bgr_data_raw <= die2BGR;
+						end
+						else begin
+						duke2Ctr <= ctr2_2d;
+						ctr2_2d = ctr2_2d + 1;
+						bgr_data_raw <= duke2BGR;
+						end
+					end
+				end else if (die2 == 3) begin
+					if ((x>=131) && (x<256) && (y>=345) && (y<466)) begin
+					if (duke == 0) begin
+						die3Ctr <= ctr2_3;
+						ctr2_3 = ctr2_3 + 1;
+						bgr_data_raw <= die3BGR;
+						end
+						else begin
+						duke3Ctr <= ctr2_3d;
+						ctr2_3d = ctr2_3d + 1;
+						bgr_data_raw <= duke3BGR;
+						end
+					end
+				end else if (die2 == 4) begin
+					if ((x>=131) && (x<255) && (y>=345) && (y<465)) begin
+					if (duke == 0) begin
+						die4Ctr <= ctr2_4;
+						ctr2_4 = ctr2_4 + 1;
+						bgr_data_raw <= die4BGR;
+						end
+						else begin
+						duke4Ctr <= ctr2_4d;
+						ctr2_4d = ctr2_4d + 1;
+						bgr_data_raw <= duke4BGR;
+						end
+					end
+				end else if (die2 == 5) begin
+					if ((x>=131) && (x<253) && (y>=345) && (y<465)) begin
+					if (duke == 0) begin
+						die5Ctr <= ctr2_5;
+						ctr2_5 = ctr2_5 + 1;
+						bgr_data_raw <= die5BGR;
+						end
+						else begin
+						duke5Ctr <= ctr2_5d;
+						ctr2_5d = ctr2_5d + 1;
+						bgr_data_raw <= duke5BGR;
+						end
+					end
+				end else if (die2 == 6) begin
+					if ((x>=131) && (x<254) && (y>=345) && (y<466)) begin
+					if (duke == 0) begin
+						die6Ctr <= ctr2_6;
+						ctr2_6 = ctr2_6 + 1;
+						bgr_data_raw <= die6BGR;
+						end
+						else begin
+						duke6Ctr <= ctr2_6d;
+						ctr2_6d = ctr2_6d + 1;
+						bgr_data_raw <= duke6BGR;
+						end
+					end
+				end
+				if (die3 == 1) begin
+					if ((x>=256) && (x<376) && (y>=345) && (y<465)) begin
+					if (duke == 0) begin
+						die1Ctr <= ctr3_1;
+						ctr3_1 = ctr3_1 + 1;
+						bgr_data_raw <= die1BGR;
+						end
+						else begin
+						duke1Ctr <= ctr3_1d;
+						ctr3_1d = ctr3_1d + 1;
+						bgr_data_raw <= duke1BGR;
+						end
+					end
+				end else if (die3 == 2) begin
+					if ((x>=256) && (x<379) && (y>=345) && (y<465)) begin
+					if (duke == 0) begin
+						die2Ctr <= ctr3_2;
+						ctr3_2 = ctr3_2 + 1;
+						bgr_data_raw <= die2BGR;
+						end
+						else begin
+						duke2Ctr <= ctr3_2d;
+						ctr3_2d = ctr3_2d + 1;
+						bgr_data_raw <= duke2BGR;
+						end
+					end
+				end else if (die3 == 3) begin
+					if ((x>=256) && (x<381) && (y>=345) && (y<466)) begin
+					if (duke == 0) begin
+						die3Ctr <= ctr3_3;
+						ctr3_3 = ctr3_3 + 1;
+						bgr_data_raw <= die3BGR;
+						end
+						else begin
+						duke3Ctr <= ctr3_3d;
+						ctr3_3d = ctr3_3d + 1;
+						bgr_data_raw <= duke3BGR;
+						end
+					end
+				end else if (die3 == 4) begin
+					if ((x>=256) && (x<380) && (y>=345) && (y<465)) begin
+					if (duke == 0) begin
+						die4Ctr <= ctr3_4;
+						ctr3_4 = ctr3_4 + 1;
+						bgr_data_raw <= die4BGR;
+						end
+						else begin
+						duke4Ctr <= ctr3_4d;
+						ctr3_4d = ctr3_4d + 1;
+						bgr_data_raw <= duke4BGR;
+						end
+					end
+				end else if (die3 == 5) begin
+					if ((x>=256) && (x<378) && (y>=345) && (y<465)) begin
+					if (duke == 0) begin
+						die5Ctr <= ctr3_5;
+						ctr3_5 = ctr3_5 + 1;
+						bgr_data_raw <= die5BGR;
+						end
+						else begin
+						duke5Ctr <= ctr3_5d;
+						ctr3_5d = ctr3_5d + 1;
+						bgr_data_raw <= duke5BGR;
+						end
+					end
+				end else if (die3 == 6) begin
+					if ((x>=256) && (x<379) && (y>=345) && (y<466)) begin
+					if (duke == 0) begin
+						die6Ctr <= ctr3_6;
+						ctr3_6 = ctr3_6 + 1;
+						bgr_data_raw <= die6BGR;
+						end
+						else begin
+						duke6Ctr <= ctr3_6d;
+						ctr3_6d = ctr3_6d + 1;
+						bgr_data_raw <= duke6BGR;
+						end
+					end
+				end
+				if (die4 == 1) begin
+					if ((x>=383) && (x<503) && (y>=345) && (y<465)) begin
+					if (duke == 0) begin
+						die1Ctr <= ctr4_1;
+						ctr4_1 = ctr4_1 + 1;
+						bgr_data_raw <= die1BGR;
+						end
+						else begin
+						duke1Ctr <= ctr4_1d;
+						ctr4_1d = ctr4_1d + 1;
+						bgr_data_raw <= duke1BGR;
+						end
+					end
+				end else if (die4 == 2) begin
+					if ((x>=383) && (x<506) && (y>=345) && (y<465)) begin
+					if (duke == 0) begin
+						die2Ctr <= ctr4_2;
+						ctr4_2 = ctr4_2 + 1;
+						bgr_data_raw <= die2BGR;
+						end
+						else begin
+						duke2Ctr <= ctr4_2d;
+						ctr4_2d = ctr4_2d + 1;
+						bgr_data_raw <= duke2BGR;
+						end
+					end
+				end else if (die4 == 3) begin
+					if ((x>=383) && (x<508) && (y>=345) && (y<466)) begin
+					if (duke == 0) begin
+						die3Ctr <= ctr4_3;
+						ctr4_3 = ctr4_3 + 1;
+						bgr_data_raw <= die3BGR;
+						end
+						else begin
+						duke3Ctr <= ctr4_3d;
+						ctr4_3d = ctr4_3d + 1;
+						bgr_data_raw <= duke3BGR;
+						end
+					end
+				end else if (die4 == 4) begin
+					if ((x>=383) && (x<507) && (y>=345) && (y<465)) begin
+					if (duke == 0) begin
+						die4Ctr <= ctr4_4;
+						ctr4_4 = ctr4_4 + 1;
+						bgr_data_raw <= die4BGR;
+						end
+						else begin
+						duke4Ctr <= ctr4_4d;
+						ctr4_4d = ctr4_4d + 1;
+						bgr_data_raw <= duke4BGR;
+						end
+					end
+				end else if (die4 == 5) begin
+					if ((x>=383) && (x<505) && (y>=345) && (y<465)) begin
+					if (duke == 0) begin
+						die5Ctr <= ctr4_5;
+						ctr4_5 = ctr4_5 + 1;
+						bgr_data_raw <= die5BGR;
+						end
+						else begin
+						duke5Ctr <= ctr4_5d;
+						ctr4_5d = ctr4_5d + 1;
+						bgr_data_raw <= duke5BGR;
+						end
+					end
+				end else if (die4 == 6) begin
+					if ((x>=383) && (x<506) && (y>=345) && (y<466)) begin
+					if (duke == 0) begin
+						die6Ctr <= ctr4_6;
+						ctr4_6 = ctr4_6 + 1;
+						bgr_data_raw <= die6BGR;
+						end
+						else begin
+						duke6Ctr <= ctr4_6d;
+						ctr4_6d = ctr4_6d + 1;
+						bgr_data_raw <= duke6BGR;
+						end
+					end
+				end
+				if (die5 == 1) begin
+					if ((x>=510) && (x<630) && (y>=345) && (y<465)) begin
+					if (duke == 0) begin
+						die1Ctr <= ctr5_1;
+						ctr5_1 = ctr5_1 + 1;
+						bgr_data_raw <= die1BGR;
+						end
+						else begin
+						duke1Ctr <= ctr5_1d;
+						ctr5_1d = ctr5_1d + 1;
+						bgr_data_raw <= duke1BGR;
+						end
+					end
+				end else if (die5 == 2) begin
+					if ((x>=510) && (x<633) && (y>=345) && (y<465)) begin
+					if (duke == 0) begin
+						die2Ctr <= ctr5_2;
+						ctr5_2 = ctr5_2 + 1;
+						bgr_data_raw <= die2BGR;
+						end
+						else begin
+						duke2Ctr <= ctr5_2d;
+						ctr5_2d = ctr5_2d + 1;
+						bgr_data_raw <= duke2BGR;
+						end
+					end
+				end else if (die5 == 3) begin
+					if ((x>=510) && (x<635) && (y>=345) && (y<466)) begin
+					if (duke == 0) begin
+						die3Ctr <= ctr5_3;
+						ctr5_3 = ctr5_3 + 1;
+						bgr_data_raw <= die3BGR;
+						end
+						else begin
+						duke3Ctr <= ctr5_3d;
+						ctr5_3d = ctr5_3d + 1;
+						bgr_data_raw <= duke3BGR;
+						end
+					end
+				end else if (die5 == 4) begin
+					if ((x>=510) && (x<634) && (y>=345) && (y<465)) begin
+					if (duke == 0) begin
+						die4Ctr <= ctr5_4;
+						ctr5_4 = ctr5_4 + 1;
+						bgr_data_raw <= die4BGR;
+						end
+						else begin
+						duke4Ctr <= ctr5_4d;
+						ctr5_4d = ctr5_4d + 1;
+						bgr_data_raw <= duke4BGR;
+						end
+					end
+				end else if (die5 == 5) begin
+					if ((x>=510) && (x<632) && (y>=345) && (y<465)) begin
+					if (duke == 0) begin
+						die5Ctr <= ctr5_5;
+						ctr5_5 = ctr5_5 + 1;
+						bgr_data_raw <= die5BGR;
+						end
+						else begin
+						duke5Ctr <= ctr5_5d;
+						ctr5_5d = ctr5_5d + 1;
+						bgr_data_raw <= duke5BGR;
+						end
+					end
+				end else if (die5 == 6) begin
+					if ((x>=510) && (x<633) && (y>=345) && (y<466)) begin
+					if (duke == 0) begin
+						die6Ctr <= ctr5_6;
+						ctr5_6 = ctr5_6 + 1;
+						bgr_data_raw <= die6BGR;
+						end
+						else begin
+						duke6Ctr <= ctr5_6d;
+						ctr5_6d = ctr5_6d + 1;
+						bgr_data_raw <= duke6BGR;
+						end
+					end
+				end
+					if (pos0 == 1 || sel0 == 1) begin
 		if ((x>=52) && (x<77) && (y>=102) && (y<121)) begin
 			arrowCtr <= arrow0;
 			arrow0 = arrow0 + 1;
 			bgr_data_raw <= arrowBGR;
 		end
 	end
-	if (pos1 == 1 || sel1 == 1) begin
+	if (pos1 == 1) begin
 		if ((x>=157) && (x<182) && (y>=102) && (y<121)) begin
 			arrowCtr <= arrow1;
 			arrow1 = arrow1 + 1;
 			bgr_data_raw <= arrowBGR;
 		end
 	end
-	if (pos2 == 1 || sel2 == 1) begin
+	if (pos2 == 1) begin
 		if ((x>=256) && (x<281) && (y>=102) && (y<121)) begin
 			arrowCtr <= arrow2;
 			arrow2 = arrow2 + 1;
 			bgr_data_raw <= arrowBGR;
 		end
 	end
-	if (pos3 == 1 || sel3 == 1) begin
+	if (pos3 == 1) begin
 		if ((x>=356) && (x<381) && (y>=102) && (y<121)) begin
 			arrowCtr <= arrow3;
 			arrow3 = arrow3 + 1;
 			bgr_data_raw <= arrowBGR;
 		end
 	end
-	if (pos4 == 1 || sel4 == 1) begin
+	if (pos4 == 1) begin
 		if ((x>=456) && (x<481) && (y>=102) && (y<121)) begin
 			arrowCtr <= arrow4;
 			arrow4 = arrow4 + 1;
 			bgr_data_raw <= arrowBGR;
 		end
 	end
-	if (pos5 == 1 || sel5 == 1) begin
+	if (pos5 == 1) begin
 		if ((x>=559) && (x<584) && (y>=102) && (y<121)) begin
 			arrowCtr <= arrow5;
 			arrow5 = arrow5 + 1;
 			bgr_data_raw <= arrowBGR;
 		end
 	end
-	if (pos6 == 1 || sel6 == 1) begin
+	if (pos6 == 1 ) begin
 		if ((x>=65) && (x<90) && (y>=231) && (y<250)) begin
 			arrowCtr <= arrow6;
 			arrow6 = arrow6 + 1;
 			bgr_data_raw <= arrowBGR;
 		end
 	end
-	if (pos7 == 1 || sel7 == 1) begin
+	if (pos7 == 1) begin
 		if ((x>=163) && (x<188) && (y>=231) && (y<250)) begin
 			arrowCtr <= arrow7;
 			arrow7 = arrow7 + 1;
 			bgr_data_raw <= arrowBGR;
 		end
 	end
-	if (pos8 == 1 || sel8 == 1) begin
+	if (pos8 == 1) begin
 		if ((x>=257) && (x<282) && (y>=231) && (y<250)) begin
 			arrowCtr <= arrow8;
 			arrow8 = arrow8 + 1;
 			bgr_data_raw <= arrowBGR;
 		end
 	end
-	if (pos9 == 1 || sel9 == 1) begin
+	if (pos9 == 1) begin
 		if ((x>=349) && (x<374) && (y>=231) && (y<250)) begin
 			arrowCtr <= arrow9;
 			arrow9 = arrow9 + 1;
 			bgr_data_raw <= arrowBGR;
 		end
 	end
-	if (pos10 == 1 || sel10 == 1) begin
+	if (pos10 == 1) begin
 		if ((x>=448) && (x<473) && (y>=231) && (y<250)) begin
 			arrowCtr <= arrow10;
 			arrow10 = arrow10 + 1;
 			bgr_data_raw <= arrowBGR;
 		end
 	end
-	if (pos11 == 1 || sel11 == 1) begin
+	if (pos11 == 1) begin
 		if ((x>=545) && (x<570) && (y>=231) && (y<250)) begin
 			arrowCtr <= arrow11;
 			arrow11 = arrow11 + 1;
 			bgr_data_raw <= arrowBGR;
 		end
 	end
-	if (pos12 == 1 || sel12 == 1) begin
+	if (pos12 == 1) begin
 		if ((x>=301) && (x<326) && (y>=322) && (y<341)) begin
 			arrowCtr <= arrow12;
 			arrow12 = arrow12 + 1;
 			bgr_data_raw <= arrowBGR;
 		end
 	end
-	if ((x>=18) && (x<617) && (y>=18) && (y<97)) begin
-			firstrowCtr = firstrowCtr + 1;
-			bgr_data_raw <= firstrowBGR;
-		end else if ((x>=31) && (x<615) && (y>=124) && (y<227)) begin
-			secondrowCtr = secondrowCtr + 1;
-			bgr_data_raw <= secondrowBGR;
-		end else if ((x>=195) && (x<437) && (y>=257) && (y<320)) begin
-			thirdrowCtr = thirdrowCtr + 1;
-			bgr_data_raw <= thirdrowBGR;
-		end else if ((x>=4) && (x<635) && (y>=344) && (y<463)) begin
-			if ((die1 == 0) && (die2 == 0) && (die3 == 0) && (die4 == 0) && (die5 == 0)) begin
-			emptydiceCtr = emptydiceCtr + 1;
-			bgr_data_raw <= emptydiceBGR;
-			end
-			else begin
-				// die 1
-				if (die1 == 1) begin
-					if ((x>=4) && (x<124) && (y>=345) && (y<465)) begin
-					die1Ctr <= ctr1_1;
-					ctr1_1 = ctr1_1 + 1;
-					bgr_data_raw <= die1BGR;
-					end
-				end else if (die1 == 2) begin
-					if ((x>=4) && (x<127) && (y>=345) && (y<465)) begin
-					die2Ctr <= ctr1_2;
-					ctr1_2 = ctr1_2 + 1;
-					bgr_data_raw <= die2BGR;
-					end
-				end else if (die1 == 3) begin
-					if ((x>=4) && (x<129) && (y>=345) && (y<466)) begin
-					die3Ctr <= ctr1_3;
-					ctr1_3 = ctr1_3 + 1;
-					bgr_data_raw <= die3BGR;
-					end
-				end else if (die1 == 4) begin
-					if ((x>=4) && (x<128) && (y>=345) && (y<465)) begin
-					die4Ctr <= ctr1_4;
-					ctr1_4 = ctr1_4 + 1;
-					bgr_data_raw <= die4BGR;
-					end
-				end else if (die1 == 5) begin
-					if ((x>=4) && (x<126) && (y>=345) && (y<465)) begin
-					die5Ctr <= ctr1_5;
-					ctr1_5 = ctr1_5 + 1;
-					bgr_data_raw <= die5BGR;
-					end
-				end else if (die1 == 6) begin
-					if ((x>=4) && (x<127) && (y>=345) && (y<466)) begin
-					die6Ctr <= ctr1_6;
-					ctr1_6 = ctr1_6 + 1;
-					bgr_data_raw <= die6BGR;
-					end
-				end
-				//die 2
-				if (die2 == 1) begin
-					if ((x>=131) && (x<251) && (y>=345) && (y<465)) begin
-					die1Ctr <= ctr2_1;
-					ctr1_2 = ctr1_2 + 1;
-					bgr_data_raw <= die1BGR;
-					end
-				end else if (die2 == 2) begin
-					if ((x>=131) && (x<254) && (y>=345) && (y<465)) begin
-					die2Ctr <= ctr2_2;
-					ctr2_2 = ctr2_2 + 1;
-					bgr_data_raw <= die2BGR;
-					end
-				end else if (die2 == 3) begin
-					if ((x>=131) && (x<256) && (y>=345) && (y<466)) begin
-					die3Ctr <= ctr2_3;
-					ctr2_3 = ctr2_3 + 1;
-					bgr_data_raw <= die3BGR;
-					end
-				end else if (die2 == 4) begin
-					if ((x>=131) && (x<255) && (y>=345) && (y<465)) begin
-					die4Ctr <= ctr2_4;
-					ctr2_4 = ctr2_4 + 1;
-					bgr_data_raw <= die4BGR;
-					end
-				end else if (die2 == 5) begin
-					if ((x>=131) && (x<253) && (y>=345) && (y<465)) begin
-					die5Ctr <= ctr2_5;
-					ctr2_5 = ctr2_5 + 1;
-					bgr_data_raw <= die5BGR;
-					end
-				end else if (die2 == 6) begin
-					if ((x>=131) && (x<254) && (y>=345) && (y<466)) begin
-					die6Ctr <= ctr2_6;
-					ctr2_6 = ctr2_6 + 1;
-					bgr_data_raw <= die6BGR;
-					end
-				end
-				if (die3 == 1) begin
-					if ((x>=256) && (x<376) && (y>=345) && (y<465)) begin
-					die1Ctr <= ctr3_1;
-					ctr3_2 = ctr3_2 + 1;
-					bgr_data_raw <= die1BGR;
-					end
-				end else if (die3 == 2) begin
-					if ((x>=256) && (x<379) && (y>=345) && (y<465)) begin
-					die2Ctr <= ctr3_2;
-					ctr3_2 = ctr3_2 + 1;
-					bgr_data_raw <= die2BGR;
-					end
-				end else if (die3 == 3) begin
-					if ((x>=256) && (x<381) && (y>=345) && (y<466)) begin
-					die3Ctr <= ctr3_3;
-					ctr3_3 = ctr3_3 + 1;
-					bgr_data_raw <= die3BGR;
-					end
-				end else if (die3 == 4) begin
-					if ((x>=256) && (x<380) && (y>=345) && (y<465)) begin
-					die4Ctr <= ctr3_4;
-					ctr3_4 = ctr3_4 + 1;
-					bgr_data_raw <= die4BGR;
-					end
-				end else if (die3 == 5) begin
-					if ((x>=256) && (x<378) && (y>=345) && (y<465)) begin
-					die5Ctr <= ctr3_5;
-					ctr3_5 = ctr3_5 + 1;
-					bgr_data_raw <= die5BGR;
-					end
-				end else if (die3 == 6) begin
-					if ((x>=256) && (x<379) && (y>=345) && (y<466)) begin
-					die6Ctr <= ctr3_6;
-					ctr3_6 = ctr3_6 + 1;
-					bgr_data_raw <= die6BGR;
-					end
-				end
-				if (die4 == 1) begin
-					if ((x>=383) && (x<503) && (y>=345) && (y<465)) begin
-					die1Ctr <= ctr4_1;
-					ctr4_2 = ctr4_2 + 1;
-					bgr_data_raw <= die1BGR;
-					end
-				end else if (die4 == 2) begin
-					if ((x>=383) && (x<506) && (y>=345) && (y<465)) begin
-					die2Ctr <= ctr4_2;
-					ctr4_2 = ctr4_2 + 1;
-					bgr_data_raw <= die2BGR;
-					end
-				end else if (die4 == 3) begin
-					if ((x>=383) && (x<508) && (y>=345) && (y<466)) begin
-					die3Ctr <= ctr4_3;
-					ctr4_3 = ctr4_3 + 1;
-					bgr_data_raw <= die3BGR;
-					end
-				end else if (die4 == 4) begin
-					if ((x>=383) && (x<507) && (y>=345) && (y<465)) begin
-					die4Ctr <= ctr4_4;
-					ctr4_4 = ctr4_4 + 1;
-					bgr_data_raw <= die4BGR;
-					end
-				end else if (die4 == 5) begin
-					if ((x>=383) && (x<505) && (y>=345) && (y<465)) begin
-					die5Ctr <= ctr4_5;
-					ctr4_5 = ctr4_5 + 1;
-					bgr_data_raw <= die5BGR;
-					end
-				end else if (die4 == 6) begin
-					if ((x>=383) && (x<506) && (y>=345) && (y<466)) begin
-					die6Ctr <= ctr4_6;
-					ctr4_6 = ctr4_6 + 1;
-					bgr_data_raw <= die6BGR;
-					end
-				end
-				if (die5 == 1) begin
-					if ((x>=510) && (x<630) && (y>=345) && (y<465)) begin
-					die1Ctr <= ctr5_1;
-					ctr5_1 = ctr5_1 + 1;
-					bgr_data_raw <= die1BGR;
-					end
-				end else if (die5 == 2) begin
-					if ((x>=510) && (x<633) && (y>=345) && (y<465)) begin
-					die2Ctr <= ctr5_2;
-					ctr5_2 = ctr5_2 + 1;
-					bgr_data_raw <= die2BGR;
-					end
-				end else if (die5 == 3) begin
-					if ((x>=510) && (x<635) && (y>=345) && (y<466)) begin
-					die3Ctr <= ctr5_3;
-					ctr5_3 = ctr5_3 + 1;
-					bgr_data_raw <= die3BGR;
-					end
-				end else if (die5 == 4) begin
-					if ((x>=510) && (x<634) && (y>=345) && (y<465)) begin
-					die4Ctr <= ctr5_4;
-					ctr5_4 = ctr5_4 + 1;
-					bgr_data_raw <= die4BGR;
-					end
-				end else if (die5 == 5) begin
-					if ((x>=510) && (x<632) && (y>=345) && (y<465)) begin
-					die5Ctr <= ctr5_5;
-					ctr5_5 = ctr5_5 + 1;
-					bgr_data_raw <= die5BGR;
-					end
-				end else if (die5 == 6) begin
-					if ((x>=510) && (x<633) && (y>=345) && (y<466)) begin
-					die6Ctr <= ctr5_6;
-					ctr5_6 = ctr5_6 + 1;
-					bgr_data_raw <= die6BGR;
-					end
-				end
-			end
-		end else begin
-			bgr_data_raw <= 24'h150088;
+	end // end of else
+end else begin // end of if mif_toggle = 3
+	bgr_data_raw <= 24'h123495;
+//	bgr_data_raw <= 24'h150088;
 	end
-end
+	end
 bgr_data <= bgr_data_raw;
 end
 
