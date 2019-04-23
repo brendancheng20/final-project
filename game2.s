@@ -409,47 +409,423 @@ j nextturn # TODO remove this
 
 # Ones hand selected
 hand0: nop
+# reg 11-15 dice 1-5
+# total score in reg 17
+# registers 22-26 free
+
+addi $22, $0, 1		# 22 now represents a 1
+
+bne $11, $22, onenotaone
+addi $17, $17, 1
+onenotaone: nop
+
+bne $12, $22, twonotaone
+addi $17, $17, 1
+twonotaone: nop
+
+bne $13, $22, threenotaone
+addi $17, $17, 1
+threenotaone: nop
+
+bne $14, $22, fournotaone
+addi $17, $17, 1
+fournotaone: nop
+
+bne $15, $22, fivenotaone
+addi $17, $17, 1
+fivenotaone: nop
 
 j nextturn
 
 # Twos hand selected
 hand1: nop
 
+addi $22, $0, 2		# 22 now represents a 2
+
+bne $11, $22, onenotatwo
+addi $17, $17, 2
+onenotatwo: nop
+
+bne $12, $22, twonotatwo
+addi $17, $17, 2
+twonotatwo: nop
+
+bne $13, $22, threenotatwo
+addi $17, $17, 2
+threenotatwo: nop
+
+bne $14, $22, fournotatwo
+addi $17, $17, 2
+fournotatwo: nop
+
+bne $15, $22, fivenotatwo
+addi $17, $17, 2
+fivenotatwo: nop
+
 j nextturn
 
 # Threes hand selected
 hand2: nop
+
+addi $22, $0, 3		# 22 now represents a 3
+
+bne $11, $22, onenotathree
+addi $17, $17, 3
+onenotathree: nop
+
+bne $12, $22, twonotathree
+addi $17, $17, 3
+twonotathree: nop
+
+bne $13, $22, threenotathree
+addi $17, $17, 3
+threenotathree: nop
+
+bne $14, $22, fournotathree
+addi $17, $17, 3
+fournotathree: nop
+
+bne $15, $22, fivenotathree
+addi $17, $17, 3
+fivenotathree: nop
 
 j nextturn
 
 # Fours hand selected
 hand3: nop
 
+addi $22, $0, 4		# 22 now represents a 4
+
+bne $11, $22, onenotafour
+addi $17, $17, 4
+onenotafour: nop
+
+bne $12, $22, twonotafour
+addi $17, $17, 4
+twonotafour: nop
+
+bne $13, $22, threenotafour
+addi $17, $17, 4
+threenotafour: nop
+
+bne $14, $22, fournotafour
+addi $17, $17, 4
+fournotafour: nop
+
+bne $15, $22, fivenotafour
+addi $17, $17, 4
+fivenotafour: nop
+
 j nextturn
 
 # Fives hand selected
 hand4: nop
+
+addi $22, $0, 5		# 22 now represents a 5
+
+bne $11, $22, onenotafive
+addi $17, $17, 5
+onenotafive: nop
+
+bne $12, $22, twonotafive
+addi $17, $17, 5
+twonotafive: nop
+
+bne $13, $22, threenotafive
+addi $17, $17, 5
+threenotafive: nop
+
+bne $14, $22, fournotafive
+addi $17, $17, 5
+fournotafive: nop
+
+bne $15, $22, fivenotafive
+addi $17, $17, 5
+fivenotafive: nop
 
 j nextturn
 
 # Sixes hand selected
 hand5: nop
 
+addi $22, $0, 6		# 22 now represents a 6
+
+bne $11, $22, onenotasix
+addi $17, $17, 6
+onenotasix: nop
+
+bne $12, $22, twonotasix
+addi $17, $17, 6
+twonotasix: nop
+
+bne $13, $22, threenotasix
+addi $17, $17, 6
+threenotasix: nop
+
+bne $14, $22, fournotasix
+addi $17, $17, 6
+fournotasix: nop
+
+bne $15, $22, fivenotasix
+addi $17, $17, 6
+fivenotasix: nop
+
 j nextturn
 
 # 3 of a kind
 hand6: nop
+
+#add $22, $11, $0		# 22 holds value of dice 1
+#add $23, $12, $0		# 23 holds value of dice 2
+#add $24, $13, $0		# 24 holds value of dice 3
+#bne $14, $11, checkdice42
+#bne $15, $11, checkdice
+# 3 of a kind ! dice 1,3,5
+#add $17, $17, $11
+#add $17, $17, $14
+#add $17, $17, $15
+
+add $22, $0, $0		# how many are like me?
+#add $23, $0, $0		# what value is this three of a kind?
+addi $24, $0, 2		# what we're looking for
+
+#check dice 1 and 2
+bne $11, $12, check13
+addi $22, $22, 1	# dice one and two are the same! we have TWO of a kind
+
+check13: nop
+bne $11, $13, check14
+addi $22, $22, 1
+bne $22, $24, check14
+add $17, $17, $11
+add $17, $17, $11
+add $17, $17, $11
+j nextturn
+check14: nop
+bne $11, $14, check15
+addi $22, $22, 1
+bne $22, $24, check15
+add $17, $17, $11
+add $17, $17, $11
+add $17, $17, $11
+j nextturn
+check15: nop
+bne $11, $15, check23
+addi $22, $22, 1
+bne $22, $24, check23
+add $17, $17, $11
+add $17, $17, $11
+add $17, $17, $11
+j nextturn
+
+check23: nop
+add $22, $0, $0
+bne $12, $13, check24
+addi $22, $22, 1
+bne $22, $24, check24
+add $17, $17, $12
+add $17, $17, $12
+add $17, $17, $12
+j nextturn
+check24: nop
+bne $12, $14, check25
+addi $22, $22, 1
+bne $22, $24, check25
+add $17, $17, $12
+add $17, $17, $12
+add $17, $17, $12
+j nextturn
+check25: nop
+bne $12, $15, check34
+addi $22, $22, 1
+bne $22, $24, check34
+add $17, $17, $12
+add $17, $17, $12
+add $17, $17, $12
+j nextturn
+
+check34: nop
+add $22, $0, $0
+bne $13, $14, check35
+addi $22, $22, 1
+bne $22, $24, check35
+add $17, $17, $13
+add $17, $17, $13
+add $17, $17, $13
+j nextturn
+check35: nop
+bne $13, $15, nothreeofakind
+addi $22, $22, 1
+bne $22, $24, nothreeofakind
+add $17, $17, $13
+add $17, $17, $13
+add $17, $17, $13
+nothreeofakind: nop
 
 j nextturn
 
 # 4 of a kind selected
 hand7: nop
 
+add $22, $0, $0		# how many are like me?
+#add $23, $0, $0		# what value is this three of a kind?
+addi $24, $0, 3		# what we're looking for
+
+#check dice 1 and 2
+bne $11, $12, check13
+addi $22, $22, 1	# dice one and two are the same! we have TWO of a kind
+
+check13: nop
+bne $11, $13, check14
+addi $22, $22, 1
+bne $22, $24, check14
+add $17, $17, $11
+add $17, $17, $11
+add $17, $17, $11
+add $17, $17, $11
+j nextturn
+check14: nop
+bne $11, $14, check15
+addi $22, $22, 1
+bne $22, $24, check15
+add $17, $17, $11
+add $17, $17, $11
+add $17, $17, $11
+add $17, $17, $11
+j nextturn
+check15: nop
+bne $11, $15, check23
+addi $22, $22, 1
+bne $22, $24, check23
+add $17, $17, $11
+add $17, $17, $11
+add $17, $17, $11
+add $17, $17, $11
+j nextturn
+
+check23: nop
+add $22, $0, $0
+bne $12, $13, check24
+addi $22, $22, 1
+bne $22, $24, check24
+add $17, $17, $12
+add $17, $17, $12
+add $17, $17, $12
+add $17, $17, $12
+j nextturn
+check24: nop
+bne $12, $14, check25
+addi $22, $22, 1
+bne $22, $24, check25
+add $17, $17, $12
+add $17, $17, $12
+add $17, $17, $12
+add $17, $17, $12
+j nextturn
+check25: nop
+bne $12, $15, nofourofakind
+addi $22, $22, 1
+bne $22, $24, nofourofakind
+add $17, $17, $12
+add $17, $17, $12
+add $17, $17, $12
+add $17, $17, $12
+nofourofakind: nop
+
 j nextturn
 
 # Full house selected
 hand8: nop
+add $22, $0, $0
+add $23, $0, $0
+addi $24, $0, 1
+addi $25, $0, 0
 
+add $22, $11, $0
+j find23
+
+comeback: nop
+bne $22, $12, whytf
+addi $24, $24, 1
+j checkthird
+
+whytf: nop
+add $25, $25, 1
+j checkthird
+
+find23: nop
+bne $22, $12, found1
+bne $22, $13, found2
+bne $22, $14, found3
+bne $22, $15, found4
+j howrude
+
+found1: nop
+add $23, $12, $0
+j comeback
+
+found2: nop
+add $23, $13, $0
+j comeback
+
+found3: nop
+add $23, $14, $0
+j comeback
+
+found4: nop
+add $23, $15, $0
+j comeback
+
+checkthird: nop
+bne $22, $13, doesntmatchfirst1
+addi $24, $24, 1
+j checkfourth
+
+checkfourth: nop
+bne $22, $14, doesntmatchfirst2
+addi $24, $24, 1
+j checkfifth
+
+checkfifth: nop
+bne $22, $15, doesntmatchfirst3
+addi $24, $24, 1
+j endoffullhouse
+
+doesntmatchfirst1: nop
+bne $23, $13, howrude
+addi $25, $25, 1
+j checkfourth
+
+doesntmatchfirst2: nop
+bne $23, $14, howrude
+addi $25, $25, 1
+j checkfifth
+
+doesntmatchfirst3: nop
+bne $23, $15, howrude
+addi $25, $25, 1
+j endoffullhouse
+
+endoffullhouse: nop
+addi $22, $0, 2
+addi $23, $0, 3
+bne $24, $22, is24equalto3		# 24 is not 2
+bne $25, $23, howrude
+j success
+
+is24equalto3: nop
+bne $24, $23, howrude
+j is25equalto2
+
+is25equalto2: nop
+bne $25, $22, howrude
+j success
+
+success: nop
+addi $17, $17, 25
+j nextturn
+
+howrude: nop
 j nextturn
 
 # Small straight selected
