@@ -7,7 +7,8 @@ module vga_controller(iRST_n,
                       g_data,
                       r_data,
 							 mif_toggle, ctr,
-							 die1, die2, die3, die4, die5);
+							 die1, die2, die3, die4, die5, arrow_pos,
+							 selected_hand);
 
 	
 input iRST_n;
@@ -33,7 +34,7 @@ video_sync_generator LTM_ins (.vga_clk(iVGA_CLK),
                               .HS(cHS),
                               .VS(cVS));
 										
-input[31:0] ctr, die1, die2, die3, die4, die5;
+input[31:0] ctr, die1, die2, die3, die4, die5, arrow_pos, selected_hand;
 ////
 ////Addresss generator
 always@(posedge iVGA_CLK,negedge iRST_n)
@@ -65,6 +66,108 @@ assign VGA_CLK_n = ~iVGA_CLK;
 //	.clock ( iVGA_CLK ),
 //	.q ( yahtzee_name )
 //	);
+
+/******************* Arrow selector position toggles ******************/
+reg pos0, pos1, pos2, pos3, pos4, pos5, pos6;
+reg pos7, pos8, pos9, pos10, pos11, pos12; // toggle whether arrow is in this position
+reg sel0, sel1, sel2, sel3, sel4, sel5, sel6;
+reg sel7, sel8, sel9, sel10, sel11, sel12; // toggle whether arrow stays on
+initial
+begin
+	pos0 <= 1'd0;
+	pos1 <= 1'd0;
+	pos2 <= 1'd0;
+	pos3 <= 1'd0;
+	pos4 <= 1'd0;
+	pos5 <= 1'd0;
+	pos6 <= 1'd0;
+	pos7 <= 1'd0;
+	pos8 <= 1'd0;
+	pos9 <= 1'd0;
+	pos10 <= 1'd0;
+	pos11 <= 1'd0;
+	pos12 <= 1'd0;
+	sel0 <= 1'd0;
+	sel1 <= 1'd0;
+	sel2 <= 1'd0;
+	sel3 <= 1'd0;
+	sel4 <= 1'd0;
+	sel5 <= 1'd0;
+	sel6 <= 1'd0;
+	sel7 <= 1'd0;
+	sel8 <= 1'd0;
+	sel9 <= 1'd0;
+	sel10 <= 1'd0;
+	sel11 <= 1'd0;
+	sel12 <= 1'd0;
+end
+
+wire[31:0] curr_selection; // bus of which arrow selection is active right now
+
+decoder5_32 choose_arrow_pos(.select(arrow_pos[4:0]), .onehot(curr_selection));
+
+always @(posedge VGA_CLK_n) begin
+	// Logic for stationary arrow
+	if (selected_hand == 32'd0) begin
+		sel0 <= 1;
+	end
+	if (selected_hand == 32'd1) begin
+		sel1 <= 1;
+	end
+	if (selected_hand == 32'd2) begin
+		sel2 <= 1;
+	end
+	if (selected_hand == 32'd3) begin
+		sel3 <= 1;
+	end
+	if (selected_hand == 32'd4) begin
+		sel4 <= 1;
+	end
+	if (selected_hand == 32'd5) begin
+		sel5 <= 1;
+	end
+	if (selected_hand == 32'd6) begin
+		sel6 <= 1;
+	end
+	if (selected_hand == 32'd7) begin
+		sel7 <= 1;
+	end
+	if (selected_hand == 32'd8) begin
+		sel8 <= 1;
+	end
+	if (selected_hand == 32'd9) begin
+		sel9 <= 1;
+	end
+	if (selected_hand == 32'd10) begin
+		sel10 <= 1;
+	end
+	if (selected_hand == 32'd11) begin
+		sel11 <= 1;
+	end
+	if (selected_hand == 32'd12) begin
+		sel12 <= 1;
+	end
+	pos0 <= curr_selection[0];
+	pos1 <= curr_selection[1];
+	pos2 <= curr_selection[2];
+	pos3 <= curr_selection[3];
+	pos4 <= curr_selection[4];
+	pos5 <= curr_selection[5];
+	pos6 <= curr_selection[6];
+	pos7 <= curr_selection[7];
+	pos8 <= curr_selection[8];
+	pos9 <= curr_selection[9];
+	pos10 <= curr_selection[10];
+	pos11 <= curr_selection[11];
+	pos12 <= curr_selection[12];
+end
+
+always @(*) begin
+	if (pos0 == 1 || sel0 == 1) begin
+	end
+end
+
+/******************* End arrow selector position toggles **************/
 
 wire[23:0] yahtzee_name;
 
