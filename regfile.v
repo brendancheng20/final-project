@@ -7,7 +7,7 @@ module regfile (
 	 reg1Button, reg2Button, reg3Button, reg4Button,
 	 reg5Button, reg6Button, reg7Button,
 	 reg8Button, reg9Button, data30, die_val,
-	 r11, r12, r13, r14, r15, r20, r21
+	 r11, r12, r13, r14, r15, r20, r21, score
 //	 data_reg3, data_reg4, data_reg1
 );
 
@@ -46,7 +46,7 @@ module regfile (
 		die_val <= (ctr % 6) + 1;
 	end
 	
-	output[31:0] die_val, r11, r12, r13, r14, r15, r20, r21;
+	output[31:0] die_val, r11, r12, r13, r14, r15, r20, r21, score;
 
 	assign r11 = out11;
 	assign r12 = out12;
@@ -55,6 +55,7 @@ module regfile (
 	assign r15 = out15;
 	assign r20 = out20;
 	assign r21 = out21;
+	assign score = out17;
 	
 	/* TESTING CODE FOR PROCESSOR - DELETE BEFORE SUBMISSION */
 	

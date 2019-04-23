@@ -8,7 +8,7 @@ module vga_controller(iRST_n,
                       r_data,
 							 mif_toggle, ctr,
 							 die1, die2, die3, die4, die5, arrow_pos,
-							 selected_hand);
+							 selected_hand, score);
 
 	
 input iRST_n;
@@ -34,7 +34,7 @@ video_sync_generator LTM_ins (.vga_clk(iVGA_CLK),
                               .HS(cHS),
                               .VS(cVS));
 										
-input[31:0] ctr, die1, die2, die3, die4, die5, arrow_pos, selected_hand;
+input[31:0] ctr, die1, die2, die3, die4, die5, arrow_pos, selected_hand, score;
 ////
 ////Addresss generator
 always@(posedge iVGA_CLK,negedge iRST_n)
