@@ -130,8 +130,7 @@ nop
 j afterroll
 
 cpugame: nop
-addi $10 $0 1
-bne $18 $0 hand1
+# bne $18 $0 hand1
 j cpuroll
 
 multiplayer: nop
@@ -1047,6 +1046,7 @@ nop
 j multiplayer
 
 prepcpu: nop
+addi $10 $0 1
 bne $3 $0 prepcpu
 addi $30 $0 3
 add $18 $0 $0
