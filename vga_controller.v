@@ -106,66 +106,61 @@ wire[31:0] curr_selection; // bus of which arrow selection is active right now
 
 decoder5_32 choose_arrow_pos(.select(arrow_pos[4:0]), .onehot(curr_selection));
 
-always @(posedge VGA_CLK_n) begin
-	// Logic for stationary arrow
-	if (selected_hand == 32'd0) begin
-		sel0 <= 1;
-	end
-	if (selected_hand == 32'd1) begin
-		sel1 <= 1;
-	end
-	if (selected_hand == 32'd2) begin
-		sel2 <= 1;
-	end
-	if (selected_hand == 32'd3) begin
-		sel3 <= 1;
-	end
-	if (selected_hand == 32'd4) begin
-		sel4 <= 1;
-	end
-	if (selected_hand == 32'd5) begin
-		sel5 <= 1;
-	end
-	if (selected_hand == 32'd6) begin
-		sel6 <= 1;
-	end
-	if (selected_hand == 32'd7) begin
-		sel7 <= 1;
-	end
-	if (selected_hand == 32'd8) begin
-		sel8 <= 1;
-	end
-	if (selected_hand == 32'd9) begin
-		sel9 <= 1;
-	end
-	if (selected_hand == 32'd10) begin
-		sel10 <= 1;
-	end
-	if (selected_hand == 32'd11) begin
-		sel11 <= 1;
-	end
-	if (selected_hand == 32'd12) begin
-		sel12 <= 1;
-	end
-	pos0 <= curr_selection[0];
-	pos1 <= curr_selection[1];
-	pos2 <= curr_selection[2];
-	pos3 <= curr_selection[3];
-	pos4 <= curr_selection[4];
-	pos5 <= curr_selection[5];
-	pos6 <= curr_selection[6];
-	pos7 <= curr_selection[7];
-	pos8 <= curr_selection[8];
-	pos9 <= curr_selection[9];
-	pos10 <= curr_selection[10];
-	pos11 <= curr_selection[11];
-	pos12 <= curr_selection[12];
-end
-
-always @(*) begin
-	if (pos0 == 1 || sel0 == 1) begin
-	end
-end
+//always @(posedge VGA_CLK_n) begin
+//	// Logic for stationary arrow
+//	if (selected_hand == 32'd0) begin
+//		sel0 <= 1;
+//	end
+//	if (selected_hand == 32'd1) begin
+//		sel1 <= 1;
+//	end
+//	if (selected_hand == 32'd2) begin
+//		sel2 <= 1;
+//	end
+//	if (selected_hand == 32'd3) begin
+//		sel3 <= 1;
+//	end
+//	if (selected_hand == 32'd4) begin
+//		sel4 <= 1;
+//	end
+//	if (selected_hand == 32'd5) begin
+//		sel5 <= 1;
+//	end
+//	if (selected_hand == 32'd6) begin
+//		sel6 <= 1;
+//	end
+//	if (selected_hand == 32'd7) begin
+//		sel7 <= 1;
+//	end
+//	if (selected_hand == 32'd8) begin
+//		sel8 <= 1;
+//	end
+//	if (selected_hand == 32'd9) begin
+//		sel9 <= 1;
+//	end
+//	if (selected_hand == 32'd10) begin
+//		sel10 <= 1;
+//	end
+//	if (selected_hand == 32'd11) begin
+//		sel11 <= 1;
+//	end
+//	if (selected_hand == 32'd12) begin
+//		sel12 <= 1;
+//	end
+//	pos0 <= curr_selection[0];
+//	pos1 <= curr_selection[1];
+//	pos2 <= curr_selection[2];
+//	pos3 <= curr_selection[3];
+//	pos4 <= curr_selection[4];
+//	pos5 <= curr_selection[5];
+//	pos6 <= curr_selection[6];
+//	pos7 <= curr_selection[7];
+//	pos8 <= curr_selection[8];
+//	pos9 <= curr_selection[9];
+//	pos10 <= curr_selection[10];
+//	pos11 <= curr_selection[11];
+//	pos12 <= curr_selection[12];
+//end
 
 /******************* End arrow selector position toggles **************/
 
@@ -271,6 +266,13 @@ wire[23:0] die6BGR;
 	
 die6_data die6data(.address(die6Ctr), .clock(VGA_CLK_n), .q(die6Index));
 die6_index die6index(.address(die6Index), .clock(iVGA_CLK), .q(die6BGR));
+
+wire[7:0] arrowIndex;
+reg[18:0] arrowCtr;
+wire[23:0] arrowBGR;
+	
+arrow_data arrowdata(.address(arrowCtr), .clock(VGA_CLK_n), .q(arrowIndex));
+arrow_index arrowindex(.address(arrowIndex), .clock(iVGA_CLK), .q(arrowBGR));
 	
 	
 /********** Determine row, column of screen that address points to *******/
@@ -326,6 +328,19 @@ begin
 	ctr5_4 <= 19'd0;
 	ctr5_5 <= 19'd0;
 	ctr5_6 <= 19'd0;
+	arrow0 <= 19'd0;
+	arrow1 <= 19'd0;
+	arrow2 <= 19'd0;
+	arrow3 <= 19'd0;
+	arrow4 <= 19'd0;
+	arrow5 <= 19'd0;
+	arrow6 <= 19'd0;
+	arrow7 <= 19'd0;
+	arrow8 <= 19'd0;
+	arrow9 <= 19'd0;
+	arrow10 <= 19'd0;
+	arrow11 <= 19'd0;
+	arrow12 <= 19'd0;
 end
 	
 /******* MIF Data toggle *********/
@@ -346,12 +361,68 @@ input[31:0] mif_toggle; // Toggles to various data when various sprites should a
 
 reg[18:0] ctr1_1, ctr1_2, ctr1_3, ctr1_4, ctr1_5, ctr1_6, ctr2_1, ctr2_2, ctr2_3, ctr2_4, ctr2_5, ctr2_6,
 	ctr3_1, ctr3_2, ctr3_3, ctr3_4, ctr3_5, ctr3_6, ctr4_1, ctr4_2, ctr4_3, ctr4_4, ctr4_5, ctr4_6,
-	ctr5_1, ctr5_2, ctr5_3, ctr5_4, ctr5_5, ctr5_6;
+	ctr5_1, ctr5_2, ctr5_3, ctr5_4, ctr5_5, ctr5_6, arrow0, arrow1, arrow2, arrow3, arrow4,
+	arrow5, arrow6, arrow7, arrow8, arrow9, arrow10, arrow11, arrow12;
 /********** *****************/
 	
 //////
 //////latch valid data at falling edge;
 always@(posedge VGA_CLK_n) begin 
+
+// Logic for stationary arrow
+	if (selected_hand == 32'd0) begin
+		sel0 <= 1;
+	end
+	if (selected_hand == 32'd1) begin
+		sel1 <= 1;
+	end
+	if (selected_hand == 32'd2) begin
+		sel2 <= 1;
+	end
+	if (selected_hand == 32'd3) begin
+		sel3 <= 1;
+	end
+	if (selected_hand == 32'd4) begin
+		sel4 <= 1;
+	end
+	if (selected_hand == 32'd5) begin
+		sel5 <= 1;
+	end
+	if (selected_hand == 32'd6) begin
+		sel6 <= 1;
+	end
+	if (selected_hand == 32'd7) begin
+		sel7 <= 1;
+	end
+	if (selected_hand == 32'd8) begin
+		sel8 <= 1;
+	end
+	if (selected_hand == 32'd9) begin
+		sel9 <= 1;
+	end
+	if (selected_hand == 32'd10) begin
+		sel10 <= 1;
+	end
+	if (selected_hand == 32'd11) begin
+		sel11 <= 1;
+	end
+	if (selected_hand == 32'd12) begin
+		sel12 <= 1;
+	end
+	pos0 <= curr_selection[0];
+	pos1 <= curr_selection[1];
+	pos2 <= curr_selection[2];
+	pos3 <= curr_selection[3];
+	pos4 <= curr_selection[4];
+	pos5 <= curr_selection[5];
+	pos6 <= curr_selection[6];
+	pos7 <= curr_selection[7];
+	pos8 <= curr_selection[8];
+	pos9 <= curr_selection[9];
+	pos10 <= curr_selection[10];
+	pos11 <= curr_selection[11];
+	pos12 <= curr_selection[12];
+
 if (ADDR < 5) begin
 	yahtzee_ctr = 0;
 	startButtonCtr = 0;
@@ -392,6 +463,19 @@ if (ADDR < 5) begin
 	ctr5_4 = 0;
 	ctr5_5 = 0;
 	ctr5_6 = 0;
+	arrow0 = 0;
+	arrow1 = 0;
+	arrow2 = 0;
+	arrow3 = 0;
+	arrow4 = 0;
+	arrow5 = 0;
+	arrow6 = 0;
+	arrow7 = 0;
+	arrow8 = 0;
+	arrow9 = 0;
+	arrow10 = 0;
+	arrow11 = 0;
+	arrow12 = 0;
 	die1Ctr = 0;
 	die2Ctr = 0;
 	die3Ctr = 0;
@@ -441,13 +525,104 @@ if (mif_toggle == 32'd2) begin
 end
 // GameBoard
 if (mif_toggle == 32'd3) begin
+	if (pos0 == 1 || sel0 == 1) begin
+		if ((x>=52) && (x<77) && (y>=102) && (y<121)) begin
+			arrowCtr <= arrow0;
+			arrow0 = arrow0 + 1;
+			bgr_data_raw <= arrowBGR;
+		end
+	end
+	if (pos1 == 1 || sel1 == 1) begin
+		if ((x>=157) && (x<182) && (y>=102) && (y<121)) begin
+			arrowCtr <= arrow1;
+			arrow1 = arrow1 + 1;
+			bgr_data_raw <= arrowBGR;
+		end
+	end
+	if (pos2 == 1 || sel2 == 1) begin
+		if ((x>=256) && (x<281) && (y>=102) && (y<121)) begin
+			arrowCtr <= arrow2;
+			arrow2 = arrow2 + 1;
+			bgr_data_raw <= arrowBGR;
+		end
+	end
+	if (pos3 == 1 || sel3 == 1) begin
+		if ((x>=356) && (x<381) && (y>=102) && (y<121)) begin
+			arrowCtr <= arrow3;
+			arrow3 = arrow3 + 1;
+			bgr_data_raw <= arrowBGR;
+		end
+	end
+	if (pos4 == 1 || sel4 == 1) begin
+		if ((x>=456) && (x<481) && (y>=102) && (y<121)) begin
+			arrowCtr <= arrow4;
+			arrow4 = arrow4 + 1;
+			bgr_data_raw <= arrowBGR;
+		end
+	end
+	if (pos5 == 1 || sel5 == 1) begin
+		if ((x>=559) && (x<584) && (y>=102) && (y<121)) begin
+			arrowCtr <= arrow5;
+			arrow5 = arrow5 + 1;
+			bgr_data_raw <= arrowBGR;
+		end
+	end
+	if (pos6 == 1 || sel6 == 1) begin
+		if ((x>=65) && (x<90) && (y>=231) && (y<250)) begin
+			arrowCtr <= arrow6;
+			arrow6 = arrow6 + 1;
+			bgr_data_raw <= arrowBGR;
+		end
+	end
+	if (pos7 == 1 || sel7 == 1) begin
+		if ((x>=163) && (x<188) && (y>=231) && (y<250)) begin
+			arrowCtr <= arrow7;
+			arrow7 = arrow7 + 1;
+			bgr_data_raw <= arrowBGR;
+		end
+	end
+	if (pos8 == 1 || sel8 == 1) begin
+		if ((x>=257) && (x<282) && (y>=231) && (y<250)) begin
+			arrowCtr <= arrow8;
+			arrow8 = arrow8 + 1;
+			bgr_data_raw <= arrowBGR;
+		end
+	end
+	if (pos9 == 1 || sel9 == 1) begin
+		if ((x>=349) && (x<374) && (y>=231) && (y<250)) begin
+			arrowCtr <= arrow9;
+			arrow9 = arrow9 + 1;
+			bgr_data_raw <= arrowBGR;
+		end
+	end
+	if (pos10 == 1 || sel10 == 1) begin
+		if ((x>=448) && (x<473) && (y>=231) && (y<250)) begin
+			arrowCtr <= arrow10;
+			arrow10 = arrow10 + 1;
+			bgr_data_raw <= arrowBGR;
+		end
+	end
+	if (pos11 == 1 || sel11 == 1) begin
+		if ((x>=545) && (x<570) && (y>=231) && (y<250)) begin
+			arrowCtr <= arrow11;
+			arrow11 = arrow11 + 1;
+			bgr_data_raw <= arrowBGR;
+		end
+	end
+	if (pos12 == 1 || sel12 == 1) begin
+		if ((x>=301) && (x<326) && (y>=322) && (y<341)) begin
+			arrowCtr <= arrow12;
+			arrow12 = arrow12 + 1;
+			bgr_data_raw <= arrowBGR;
+		end
+	end
 	if ((x>=18) && (x<617) && (y>=18) && (y<97)) begin
 			firstrowCtr = firstrowCtr + 1;
 			bgr_data_raw <= firstrowBGR;
 		end else if ((x>=31) && (x<615) && (y>=124) && (y<227)) begin
 			secondrowCtr = secondrowCtr + 1;
 			bgr_data_raw <= secondrowBGR;
-		end else if ((x>=195) && (x<437) && (y>=239) && (y<302)) begin
+		end else if ((x>=195) && (x<437) && (y>=257) && (y<320)) begin
 			thirdrowCtr = thirdrowCtr + 1;
 			bgr_data_raw <= thirdrowBGR;
 		end else if ((x>=4) && (x<635) && (y>=344) && (y<463)) begin
