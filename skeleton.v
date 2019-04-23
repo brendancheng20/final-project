@@ -13,7 +13,7 @@ module skeleton(resetn,
 	VGA_B,															//	VGA Blue[9:0]
 	CLOCK_50,
 	reg1Button, reg2Button, reg3Button, reg4Button, reg5Button,
-	reg6Button, reg7Button, reg8Button, reg9Button
+	reg6Button, reg7Button, reg8Button, reg9Button, text_pack
 //	die1Val, currpc
 	);  													// 50 MHz clock
 		
@@ -89,10 +89,11 @@ module skeleton(resetn,
 								 .r_data(VGA_R),
 								 .mif_toggle(data30), .ctr(), .die1(r11),
 								 .die2(r12), .die3(r13), .die4(r14), .die5(r15), .arrow_pos(r20),
-								 .selected_hand(r21), .score(score));
+								 .selected_hand(r21), .text_pack(text_pack), .score(score));
 	// integrating other skeleton
 	input reg1Button, reg2Button, reg3Button, reg4Button, reg5Button;
 	input reg6Button, reg7Button, reg8Button, reg9Button;
+	input text_pack;
 
     /** IMEM **/
     // Figure out how to generate a Quartus syncram component and commit the generated verilog file.

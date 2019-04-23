@@ -1036,7 +1036,7 @@ add $13 $0 $0
 add $14 $0 $0
 add $15 $0 $0
 addi $19 $0 3
-addi $20 $0 -1
+addi $20 $0 0
 nop
 j singlegame
 
