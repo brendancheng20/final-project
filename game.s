@@ -459,17 +459,31 @@ j nextturn
 
 # Large straight
 hand10: nop
+add $23 $0 $0
 
 j nextturn
 
 # chance
 hand11: nop
-
+add $17 $17 $11
+add $17 $17 $12
+add $17 $17 $13
+add $17 $17 $14
+add $17 $17 $15
 j nextturn
 
 # yahtzee
 hand12: nop
-
+bne $11 $12 notequal
+nop
+bne $11 $13 notequal
+nop
+bne $11 $14 notequal
+nop
+bne $11 $15 notequal
+addi $17 $17 50
+j nextturn
+notequal: nop
 j nextturn
 
 
