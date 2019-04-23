@@ -79,6 +79,8 @@ j gamesetting # If no options are chosen, return to start of loop
 # $8 assigned to enter button
 # $9 assigned to roll button
 # --------
+# $10 toggles cpu player
+# --------
 # $11 assigned to die 1 value
 # $12 assigned to die 2 value
 # $13 assigned to die 3 value
@@ -128,8 +130,9 @@ nop
 j afterroll
 
 cpugame: nop
-
-j cpugame
+addi $10 $0 1
+bne $18 $0 hand1
+j cpuroll
 
 multiplayer: nop
 
@@ -1046,6 +1049,7 @@ j multiplayer
 prepcpu: nop
 bne $3 $0 prepcpu
 addi $30 $0 3
+add $18 $0 $0
 nop
 j cpugame
 
@@ -1056,4 +1060,127 @@ add $12 $0 $0
 add $13 $0 $0
 add $14 $0 $0
 add $15 $0 $0
+blt $0 $10 checkcpu # if is a cpu game
 j singlegame
+checkcpu: nop
+addi $25 $0 1
+bne $10 $25 cpugamefromsingle
+addi $10 $0 2 # $10 = 2
+j singlegamefromcpu
+# j singlegame
+
+singlegamefromcpu: nop
+sw $17 2($0)
+sw $18 3($0)
+nop
+nop
+lw $17 1($0)
+j singlegame
+
+cpugamefromsingle: nop
+sw $17 1($0)
+nop
+nop
+lw $17 2($0)
+lw $18 3($0)
+j cpugame
+
+########## CPU FUNCTIONS ###############
+cpuroll: nop
+add $11 $0 $29
+addi $23 $0 462
+addi $24 $0 1
+wait1: addi $24 $24 1
+nop
+bne $24 $23 wait1
+add $12 $0 $29
+addi $23 $0 343
+addi $24 $0 1
+wait2: addi $24 $24 1
+nop
+bne $24 $23 wait2
+add $13 $0 $29
+addi $23 $0 681
+addi $24 $0 1
+wait3: addi $24 $24 1
+nop
+bne $24 $23 wait3
+add $14 $0 $29
+addi $23 $0 82
+addi $24 $0 1
+wait4: addi $24 $24 1
+nop
+bne $24 $23 wait4
+add $15 $0 $29
+addi $24 $0 50000
+add $24 $24 $24
+add $24 $24 $24
+add $24 $24 $24
+add $24 $24 $24
+add $24 $24 $24
+add $24 $24 $24
+addi $23 $0 1
+stallcpu: addi $23 $23 1
+nop
+bne $23 $24 stallcpu
+j cpuafterroll
+
+cpuafterroll: nop
+bne $18 $0 cpuhand1
+addi $18 $18 1
+j hand0
+cpuhand1: nop
+addi $24 $0 1
+bne $18 $24 cpuhand2
+addi $18 $18 1
+j hand1
+cpuhand2: nop
+addi $24 $0 2
+bne $18 $24 cpuhand3
+addi $18 $18 1
+j hand2
+cpuhand3: nop
+addi $24 $0 3
+bne $18 $24 cpuhand4
+addi $18 $18 1
+j hand3
+cpuhand4: nop
+addi $24 $0 4
+bne $18 $24 cpuhand5
+addi $18 $18 1
+j hand4
+cpuhand5: nop
+addi $24 $0 5
+bne $18 $24 cpuhand6
+addi $18 $18 1
+j hand5
+cpuhand6: nop
+addi $24 $0 6
+bne $18 $24 cpuhand7
+addi $18 $18 1
+j hand6
+cpuhand7: nop
+addi $24 $0 7
+bne $18 $24 cpuhand8
+addi $18 $18 1
+j hand7
+cpuhand8: nop
+addi $24 $0 8
+bne $18 $24 cpuhand9
+addi $18 $18 1
+j hand8
+cpuhand9: nop
+addi $24 $0 9
+bne $18 $24 cpuhand10
+addi $18 $18 1
+j hand9
+cpuhand10: nop
+addi $24 $0 10
+bne $18 $24 cpuhand11
+addi $18 $18 1
+j hand10
+cpuhand11: nop
+addi $24 $0 11
+bne $18 $24 hand12
+addi $18 $18 1
+j hand11

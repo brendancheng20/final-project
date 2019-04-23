@@ -459,8 +459,29 @@ j nextturn
 
 # Large straight
 hand10: nop
+# reset 23; store sum(1:5), sum(2:6) in 24, 25
 add $23 $0 $0
-
+addi $24 $0 15
+addi $25 $0 20
+# sum all die and store in 23
+add $23 $0 $11
+add $23 $23 $12
+add $23 $23 $13
+add $23 $23 $14
+add $23 $23 $15
+# check sum(1:5), sum(1:5)
+bne $23 $24 checkothersum
+nop
+addi $17 $17 30
+j clearlargestraight
+checkothersum: nop
+bne $23 $25 clearlargestraight
+nop
+addi $17 $17 40
+clearlargestraight: nop
+add $23 $0 $0
+add $24 $0 $0
+add $25 $0 $0
 j nextturn
 
 # chance
