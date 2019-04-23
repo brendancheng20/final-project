@@ -330,7 +330,7 @@ nop
 add $21 $0 $20 # set output register to $21
 j addhand
 
-##### Adding functions - add score once hand selection has been made
+##### Scorekeeping function selector - add score once hand selection has been made
 addhand: nop # landing point
 add $22 $0 $0 # set $22 to 0 for testing which hand is selected
 # if selection 0
@@ -408,6 +408,9 @@ bne $21 $22 hand12
 nop
 j hand11
 j nextturn # TODO remove this
+
+
+###### Scorekeeping algorithms
 
 # Ones hand selected
 hand0: nop
@@ -975,6 +978,7 @@ j nextturn
 notequal: nop
 j nextturn
 
+###### End score keeping
 
 ####################### SCREEN PREPARATION FUNCTIONS ############################
 
