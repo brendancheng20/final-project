@@ -21,7 +21,10 @@
 ########################### SCREENS #######################################
 nop
 addi $28 $0 12
-addi $31 $0 500000
+addi $31 $0 50000
+add $31 $31 $31 # $31 contains 100000
+add $31 $31 $31 # $31 contains 200000
+add $31 $31 $31 # $31 contains 400000
 #
 # Loop for instructsion at start of program
 #
@@ -90,6 +93,8 @@ j gamesetting # If no options are chosen, return to start of loop
 #       - if >= 0, at least one hand has been selected
 # $21 assigned to selected value for that iteration
 #
+# $27 used for delay counter - prevents button pressing from interfering with
+#     game performance
 # $28 stores 12 for selector use
 # $29 = random value for die
 #
@@ -217,7 +222,11 @@ addi $27 $27 1
 bne $27 $31 hold1
 add $27 $0 $0
 bne $1 $0 hold1
-add $11 $0 $0
+nop
+bne $19 $0 dohold1 # If hold is allowed
+nop
+j afterroll
+dohold1: add $11 $0 $0
 nop
 j afterroll
 
@@ -226,7 +235,12 @@ addi $27 $27 1
 bne $27 $31 hold2
 add $27 $0 $0
 bne $2 $0 hold2
-add $12 $0 $0
+nop
+nop
+bne $19 $0 dohold2 # If hold is allowed
+nop
+j afterroll
+dohold2: add $12 $0 $0
 nop
 j afterroll
 
@@ -235,7 +249,12 @@ addi $27 $27 1
 bne $27 $31 hold3
 add $27 $0 $0
 bne $3 $0 hold3
-add $13 $0 $0
+nop
+nop
+bne $19 $0 dohold3 # If hold is allowed
+nop
+j afterroll
+dohold3: add $13 $0 $0
 nop
 j afterroll
 
@@ -244,7 +263,12 @@ addi $27 $27 1
 bne $27 $31 hold4
 add $27 $0 $0
 bne $4 $0 hold4
-add $14 $0 $0
+nop
+nop
+bne $19 $0 dohold1 # If hold is allowed
+nop
+j afterroll
+dohold4: add $14 $0 $0
 nop
 j afterroll
 
@@ -253,7 +277,12 @@ addi $27 $27 1
 bne $27 $31 hold5
 add $27 $0 $0
 bne $5 $0 hold5
-add $15 $0 $0
+nop
+nop
+bne $19 $0 dohold1 # If hold is allowed
+nop
+j afterroll
+dohold5: add $15 $0 $0
 nop
 j afterroll
 
@@ -297,7 +326,151 @@ add $27 $0 $0
 bne $8 $0 selecthand
 nop
 add $21 $0 $20 # set output register to $21
-j nextturn # TODO Change to score adding function before going to next turn
+j addhand
+
+##### Adding functions - add score once hand selection has been made
+addhand: nop # landing point
+add $22 $0 $0 # set $22 to 0 for testing which hand is selected
+# if selection 0
+nop
+bne $21 $22 check1to12
+nop
+j hand0 # jump to handler for hand 0
+check1to12: nop
+# if selection 1
+addi $22 $0 1
+nop
+bne $21 $22 check2to12
+nop
+j hand1 # jump to handler for hand 1
+check2to12: nop
+# if selection 2
+addi $22 $0 2
+nop
+bne $21 $22 check3to12
+nop
+j hand2 # jump to handler for hand 2
+check3to12: nop
+# if selection 3
+addi $22 $0 3
+nop
+bne $21 $22 check4to12
+nop
+j hand3
+check4to12: nop
+addi $22 $0 4
+nop
+bne $21 $22 check5to12
+nop
+j hand4
+check5to12: nop
+addi $22 $0 5
+nop
+bne $21 $22 check6to12
+nop
+j hand5
+check6to12: nop
+addi $22 $0 6
+nop
+bne $21 $22 check7to12
+nop
+j hand6
+check7to12: nop
+addi $22 $0 7
+nop
+bne $21 $22 check8to12
+nop
+j hand7
+check8to12: nop
+addi $22 $0 8
+nop
+bne $21 $22 check9to12
+nop
+j hand8
+check9to12: nop
+addi $22 $0 9
+nop
+bne $21 $22 check10to12
+nop
+j hand9
+check10to12: nop
+addi $22 $0 10
+nop
+bne $21 $22 check11to12
+nop
+j hand10
+check11to12: nop
+addi $22 $0 11
+nop
+bne $21 $22 hand12
+nop
+j hand11
+j nextturn # TODO remove this
+
+# Ones hand selected
+hand0: nop
+
+j nextturn
+
+# Twos hand selected
+hand1: nop
+
+j nextturn
+
+# Threes hand selected
+hand2: nop
+
+j nextturn
+
+# Fours hand selected
+hand3: nop
+
+j nextturn
+
+# Fives hand selected
+hand4: nop
+
+j nextturn
+
+# Sixes hand selected
+hand5: nop
+
+j nextturn
+
+# 3 of a kind
+hand6: nop
+
+j nextturn
+
+# 4 of a kind selected
+hand7: nop
+
+j nextturn
+
+# Full house selected
+hand8: nop
+
+j nextturn
+
+# Small straight selected
+hand9: nop
+
+j nextturn
+
+# Large straight
+hand10: nop
+
+j nextturn
+
+# chance
+hand11: nop
+
+j nextturn
+
+# yahtzee
+hand12: nop
+
+j nextturn 
 
 
 ####################### SCREEN PREPARATION FUNCTIONS ############################
