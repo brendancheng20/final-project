@@ -578,8 +578,8 @@ hand6: nop
 #add $22, $11, $0		# 22 holds value of dice 1
 #add $23, $12, $0		# 23 holds value of dice 2
 #add $24, $13, $0		# 24 holds value of dice 3
-#bne $14, $11, checkdice42	
-#bne $15, $11, checkdice	
+#bne $14, $11, checkdice42
+#bne $15, $11, checkdice
 # 3 of a kind ! dice 1,3,5
 #add $17, $17, $11
 #add $17, $17, $14
@@ -835,8 +835,119 @@ j nextturn
 
 # Large straight
 hand10: nop
-add $23 $0 $0
+addi $23 $0 1
+add $24 $0 $0
 
+## Find 1
+bne $11 $23 r1not1
+addi $24 $0 1
+j find2
+r1not1: bne $12 $23 r2not1
+addi $24 $24 1
+j find2
+r2not1: bne $13 $23 r3not1
+addi $24 $24 1
+j find2
+r3not1: bne $14 $23 r4not1
+addi $24 $24 1
+j find2
+r4not1: bne $15 $23 find2
+addi $24 $24 1
+j find2
+
+find2: addi $23 $0 2
+bne $11 $23 r1not2
+addi $24 $24 1
+j find3
+r1not2: bne $12 $23 r2not2
+addi $24 $24 1
+j find3
+r2not2: bne $13 $23 r3not2
+addi $24 $24 1
+j find3
+r3not2: bne $14 $23 r4not2
+addi $24 $24 1
+j find3
+r4not2: bne $15 $23 nextturn
+addi $24 $24 1
+j find3
+
+find3: addi $23 $0 3
+bne $11 $23 r1not3
+addi $24 $24 1
+j find4
+r1not3: bne $12 $23 r2not3
+addi $24 $24 1
+j find4
+r2not3: bne $13 $23 r3not3
+addi $24 $24 1
+j find4
+r3not3: bne $14 $23 r4not3
+addi $24 $24 1
+j find4
+r4not3: bne $15 $23 nextturn
+addi $24 $24 1
+j find4
+
+find4: addi $23 $0 4
+bne $11 $23 r1not4
+addi $24 $24 1
+j find5
+r1not4: bne $12 $23 r2not4
+addi $24 $24 1
+j find5
+r2not4: bne $13 $23 r3not4
+addi $24 $24 1
+j find5
+r3not4: bne $14 $23 r4not4
+addi $24 $24 1
+j find5
+r4not4: bne $15 $23 nextturn
+addi $24 $24 1
+j find5
+
+find5: addi $23 $0 5
+bne $11 $23 r1not5
+addi $24 $24 1
+blt $24 $23 find6
+j addscore5
+r1not5: bne $12 $23 r2not5
+addi $24 $24 1
+blt $24 $23 find6
+j addscore5
+r2not5: bne $13 $23 r3not5
+addi $24 $24 1
+blt $24 $23 find6
+j addscore5
+r3not5: bne $14 $23 r4not5
+addi $24 $24 1
+blt $24 $23 find6
+j addscore5
+r4not5: bne $15 $23 nextturn
+addi $24 $24 1
+blt $24 $23 find6
+j addscore5
+
+find6: addi $23 $0 6
+bne $11 $23 r1not6
+addi $24 $24 1
+j addscore6
+r1not6: bne $12 $23 r2not6
+addi $24 $24 1
+j addscore6
+r2not6: bne $13 $23 r3not6
+addi $24 $24 1
+j addscore6
+r3not6: bne $14 $23 r4not6
+addi $24 $24 1
+j addscore6
+r4not6: bne $14 $23 nextturn
+addi $24 $24 1
+j addscore6
+
+addscore5: addi $17 $17 30
+j nextturn
+addscore6: addi $17 $17 40
 j nextturn
 
 # chance
