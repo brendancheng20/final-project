@@ -494,19 +494,33 @@ always@(posedge VGA_CLK_n) begin
 	if (selected_hand == 32'd12) begin
 		sel12 <= 1;
 	end
-	pos0 <= curr_selection[0];
-	pos1 <= curr_selection[1];
-	pos2 <= curr_selection[2];
-	pos3 <= curr_selection[3];
-	pos4 <= curr_selection[4];
-	pos5 <= curr_selection[5];
-	pos6 <= curr_selection[6];
-	pos7 <= curr_selection[7];
-	pos8 <= curr_selection[8];
-	pos9 <= curr_selection[9];
-	pos10 <= curr_selection[10];
-	pos11 <= curr_selection[11];
-	pos12 <= curr_selection[12];
+//	pos0 <= curr_selection[0];
+//	pos1 <= curr_selection[1];
+//	pos2 <= curr_selection[2];
+//	pos3 <= curr_selection[3];
+//	pos4 <= curr_selection[4];
+//	pos5 <= curr_selection[5];
+//	pos6 <= curr_selection[6];
+//	pos7 <= curr_selection[7];
+//	pos8 <= curr_selection[8];
+//	pos9 <= curr_selection[9];
+//	pos10 <= curr_selection[10];
+//	pos11 <= curr_selection[11];
+//	pos12 <= curr_selection[12];
+
+	pos0 <= 1'b1;
+	pos1 <= 1'b1;
+	pos2 <= 1'b1;
+	pos3 <= 1'b1;
+	pos4 <= 1'b1;
+	pos5 <= 1'b1;
+	pos6 <= 1'b1;
+	pos7 <= 1'b1;
+	pos8 <= 1'b1;
+	pos9 <= 1'b1;
+	pos10 <= 1'b1;
+	pos11 <= 1'b1;
+	pos12 <= 1'b1;
 
 if (ADDR < 5) begin
 	yahtzee_ctr = 0;
@@ -644,103 +658,103 @@ if (mif_toggle == 32'd3) begin
 //	if (pos0 == 1) begin
 //		bgr_data_raw <= 24'h521494;
 //	end
-//	if (pos0 == 1 || sel0 == 1) begin
-//		if ((x>=52) && (x<77) && (y>=102) && (y<121)) begin
-//			arrowCtr <= arrow0;
-//			arrow0 = arrow0 + 1;
-//			bgr_data_raw <= arrowBGR;
-//		end
-//	end
-//	if (pos1 == 1) begin
-//		if ((x>=157) && (x<182) && (y>=102) && (y<121)) begin
-//			arrowCtr <= arrow1;
-//			arrow1 = arrow1 + 1;
-//			bgr_data_raw <= arrowBGR;
-//		end
-//	end
-//	if (pos2 == 1) begin
-//		if ((x>=256) && (x<281) && (y>=102) && (y<121)) begin
-//			arrowCtr <= arrow2;
-//			arrow2 = arrow2 + 1;
-//			bgr_data_raw <= arrowBGR;
-//		end
-//	end
-//	if (pos3 == 1) begin
-//		if ((x>=356) && (x<381) && (y>=102) && (y<121)) begin
-//			arrowCtr <= arrow3;
-//			arrow3 = arrow3 + 1;
-//			bgr_data_raw <= arrowBGR;
-//		end
-//	end
-//	if (pos4 == 1) begin
-//		if ((x>=456) && (x<481) && (y>=102) && (y<121)) begin
-//			arrowCtr <= arrow4;
-//			arrow4 = arrow4 + 1;
-//			bgr_data_raw <= arrowBGR;
-//		end
-//	end
-//	if (pos5 == 1) begin
-//		if ((x>=559) && (x<584) && (y>=102) && (y<121)) begin
-//			arrowCtr <= arrow5;
-//			arrow5 = arrow5 + 1;
-//			bgr_data_raw <= arrowBGR;
-//		end
-//	end
-//	if (pos6 == 1 ) begin
-//		if ((x>=65) && (x<90) && (y>=231) && (y<250)) begin
-//			arrowCtr <= arrow6;
-//			arrow6 = arrow6 + 1;
-//			bgr_data_raw <= arrowBGR;
-//		end
-//	end
-//	if (pos7 == 1) begin
-//		if ((x>=163) && (x<188) && (y>=231) && (y<250)) begin
-//			arrowCtr <= arrow7;
-//			arrow7 = arrow7 + 1;
-//			bgr_data_raw <= arrowBGR;
-//		end
-//	end
-//	if (pos8 == 1) begin
-//		if ((x>=257) && (x<282) && (y>=231) && (y<250)) begin
-//			arrowCtr <= arrow8;
-//			arrow8 = arrow8 + 1;
-//			bgr_data_raw <= arrowBGR;
-//		end
-//	end
-//	if (pos9 == 1) begin
-//		if ((x>=349) && (x<374) && (y>=231) && (y<250)) begin
-//			arrowCtr <= arrow9;
-//			arrow9 = arrow9 + 1;
-//			bgr_data_raw <= arrowBGR;
-//		end
-//	end
-//	if (pos10 == 1) begin
-//		if ((x>=448) && (x<473) && (y>=231) && (y<250)) begin
-//			arrowCtr <= arrow10;
-//			arrow10 = arrow10 + 1;
-//			bgr_data_raw <= arrowBGR;
-//		end
-//	end
-//	if (pos11 == 1) begin
-//		if ((x>=545) && (x<570) && (y>=231) && (y<250)) begin
-//			arrowCtr <= arrow11;
-//			arrow11 = arrow11 + 1;
-//			bgr_data_raw <= arrowBGR;
-//		end
-//	end
-//	if (pos12 == 1) begin
-//		if ((x>=301) && (x<326) && (y>=322) && (y<341)) begin
-//			arrowCtr <= arrow12;
-//			arrow12 = arrow12 + 1;
-//			bgr_data_raw <= arrowBGR;
-//		end
-//	end
+	if (pos0 == 1 || sel0 == 1) begin
+		if ((x>=52) && (x<77) && (y>=102) && (y<121)) begin
+			arrowCtr <= arrow0;
+			arrow0 = arrow0 + 1;
+			bgr_data_raw <= arrowBGR;
+		end
+	end
+	if (pos1 == 1) begin
+		if ((x>=157) && (x<182) && (y>=102) && (y<121)) begin
+			arrowCtr <= arrow1;
+			arrow1 = arrow1 + 1;
+			bgr_data_raw <= arrowBGR;
+		end
+	end
+	if (pos2 == 1) begin
+		if ((x>=256) && (x<281) && (y>=102) && (y<121)) begin
+			arrowCtr <= arrow2;
+			arrow2 = arrow2 + 1;
+			bgr_data_raw <= arrowBGR;
+		end
+	end
+	if (pos3 == 1) begin
+		if ((x>=356) && (x<381) && (y>=102) && (y<121)) begin
+			arrowCtr <= arrow3;
+			arrow3 = arrow3 + 1;
+			bgr_data_raw <= arrowBGR;
+		end
+	end
+	if (pos4 == 1) begin
+		if ((x>=456) && (x<481) && (y>=102) && (y<121)) begin
+			arrowCtr <= arrow4;
+			arrow4 = arrow4 + 1;
+			bgr_data_raw <= arrowBGR;
+		end
+	end
+	if (pos5 == 1) begin
+		if ((x>=559) && (x<584) && (y>=102) && (y<121)) begin
+			arrowCtr <= arrow5;
+			arrow5 = arrow5 + 1;
+			bgr_data_raw <= arrowBGR;
+		end
+	end
+	if (pos6 == 1 ) begin
+		if ((x>=65) && (x<90) && (y>=231) && (y<250)) begin
+			arrowCtr <= arrow6;
+			arrow6 = arrow6 + 1;
+			bgr_data_raw <= arrowBGR;
+		end
+	end
+	if (pos7 == 1) begin
+		if ((x>=163) && (x<188) && (y>=231) && (y<250)) begin
+			arrowCtr <= arrow7;
+			arrow7 = arrow7 + 1;
+			bgr_data_raw <= arrowBGR;
+		end
+	end
+	if (pos8 == 1) begin
+		if ((x>=257) && (x<282) && (y>=231) && (y<250)) begin
+			arrowCtr <= arrow8;
+			arrow8 = arrow8 + 1;
+			bgr_data_raw <= arrowBGR;
+		end
+	end
+	if (pos9 == 1) begin
+		if ((x>=349) && (x<374) && (y>=231) && (y<250)) begin
+			arrowCtr <= arrow9;
+			arrow9 = arrow9 + 1;
+			bgr_data_raw <= arrowBGR;
+		end
+	end
+	if (pos10 == 1) begin
+		if ((x>=448) && (x<473) && (y>=231) && (y<250)) begin
+			arrowCtr <= arrow10;
+			arrow10 = arrow10 + 1;
+			bgr_data_raw <= arrowBGR;
+		end
+	end
+	if (pos11 == 1) begin
+		if ((x>=545) && (x<570) && (y>=231) && (y<250)) begin
+			arrowCtr <= arrow11;
+			arrow11 = arrow11 + 1;
+			bgr_data_raw <= arrowBGR;
+		end
+	end
+	if (pos12 == 1) begin
+		if ((x>=301) && (x<326) && (y>=322) && (y<341)) begin
+			arrowCtr <= arrow12;
+			arrow12 = arrow12 + 1;
+			bgr_data_raw <= arrowBGR;
+		end
+	end
 	if ((x>=18) && (x<617) && (y>=18) && (y<97)) begin
 			firstrowCtr = firstrowCtr + 1;
 			bgr_data_raw <= firstrowBGR;
-	end else if ((x>=52) && (x<77) && (y>=102) && (y<121)) begin
-			arrowCtr = arrowCtr + 1;
-			bgr_data_raw <= arrowBGR;
+//	end else if ((x>=52) && (x<77) && (y>=102) && (y<121)) begin
+//			arrowCtr = arrowCtr + 1;
+//			bgr_data_raw <= arrowBGR;
 	end else if ((x>=31) && (x<615) && (y>=124) && (y<227)) begin
 			secondrowCtr = secondrowCtr + 1;
 			bgr_data_raw <= secondrowBGR;
@@ -1205,7 +1219,7 @@ if (mif_toggle == 32'd3) begin
 			arrow7 = arrow7 + 1;
 			bgr_data_raw <= arrowBGR;
 		end
-	end
+	end 
 	if (pos8 == 1) begin
 		if ((x>=257) && (x<282) && (y>=231) && (y<250)) begin
 			arrowCtr <= arrow8;
